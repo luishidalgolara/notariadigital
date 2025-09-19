@@ -1,0 +1,893 @@
+/* ===== RESET Y CONFIGURACIÓN BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f1419 0%, #1a202c 50%, #2d3748 100%);
+    min-height: 100vh;
+    color: #e2e8f0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    background: rgba(26, 32, 44, 0.95);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(74, 85, 104, 0.3);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3182ce, #4299e1, #63b3ed);
+    opacity: 0.8;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border-bottom: 1px solid rgba(74, 85, 104, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(49, 130, 206, 0.1) 0%, transparent 50%);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-icon {
+    font-size: 2.5rem;
+    padding: 16px;
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(49, 130, 206, 0.3);
+}
+
+.logo-text h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.logo-text p {
+    font-size: 1rem;
+    color: #a0aec0;
+    font-weight: 400;
+}
+
+.header-info {
+    text-align: right;
+}
+
+.document-type {
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(49, 130, 206, 0.3);
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+.progress-container {
+    padding: 20px 40px;
+    background: rgba(26, 32, 44, 0.5);
+    border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(74, 85, 104, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3182ce, #4299e1, #63b3ed);
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(49, 130, 206, 0.5);
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-text {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #a0aec0;
+    font-weight: 500;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 900px;
+    gap: 0;
+}
+
+/* ===== SECCIÓN DEL FORMULARIO ===== */
+.form-section {
+    padding: 50px;
+    background: rgba(26, 32, 44, 0.3);
+    border-right: 1px solid rgba(74, 85, 104, 0.2);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.section-card {
+    background: rgba(45, 55, 72, 0.6);
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid rgba(74, 85, 104, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.section-card:hover {
+    border-color: rgba(49, 130, 206, 0.5);
+    box-shadow: 0 8px 32px rgba(49, 130, 206, 0.1);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(49, 130, 206, 0.3);
+}
+
+.section-icon {
+    font-size: 1.5rem;
+    padding: 12px;
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(49, 130, 206, 0.3);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+/* ===== BOTONES FIRMA DIGITAL ===== */
+.digital-signature-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+}
+
+.btn-digital-signature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    border: 2px solid rgba(66, 153, 225, 0.3);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 16px rgba(49, 130, 206, 0.25),
+        0 0 0 0 rgba(66, 153, 225, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-digital-signature::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-digital-signature:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: linear-gradient(135deg, #2c5282, #3182ce);
+    border-color: rgba(66, 153, 225, 0.6);
+    box-shadow: 
+        0 8px 24px rgba(49, 130, 206, 0.35),
+        0 0 20px rgba(66, 153, 225, 0.3);
+}
+
+.btn-digital-signature:hover::before {
+    left: 100%;
+}
+
+.btn-digital-signature:active {
+    transform: translateY(-1px) scale(1.01);
+    transition: all 0.1s ease;
+}
+
+.btn-digital-signature:focus {
+    outline: none;
+    box-shadow: 
+        0 4px 16px rgba(49, 130, 206, 0.25),
+        0 0 0 4px rgba(66, 153, 225, 0.3);
+}
+
+.signature-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.signature-text {
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Estado firmado */
+.btn-digital-signature.signed {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    border-color: rgba(72, 187, 120, 0.3);
+    box-shadow: 
+        0 4px 16px rgba(72, 187, 120, 0.25),
+        0 0 0 0 rgba(72, 187, 120, 0.4);
+}
+
+.btn-digital-signature.signed:hover {
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    border-color: rgba(72, 187, 120, 0.6);
+    box-shadow: 
+        0 8px 24px rgba(72, 187, 120, 0.35),
+        0 0 20px rgba(72, 187, 120, 0.3);
+}
+
+.btn-digital-signature.signed .signature-text::after {
+    content: ' ✓';
+    margin-left: 4px;
+}
+
+/* Animación de pulso sutil */
+@keyframes subtle-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 4px 16px rgba(49, 130, 206, 0.25),
+            0 0 0 0 rgba(66, 153, 225, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 4px 16px rgba(49, 130, 206, 0.25),
+            0 0 0 8px rgba(66, 153, 225, 0.1);
+    }
+}
+
+.btn-digital-signature:not(.signed) {
+    animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.span-2 {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #cbd5e0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 16px;
+    background: rgba(26, 32, 44, 0.8);
+    border: 2px solid rgba(74, 85, 104, 0.4);
+    border-radius: 12px;
+    color: #e2e8f0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.2);
+    background: rgba(26, 32, 44, 0.9);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #718096;
+}
+
+.form-group input:valid,
+.form-group select:valid,
+.form-group textarea:valid {
+    border-color: #48bb78;
+    box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ===== SECCIÓN DE VISTA PREVIA ===== */
+.preview-section {
+    padding: 50px;
+    background: rgba(45, 55, 72, 0.3);
+}
+
+.preview-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(49, 130, 206, 0.3);
+}
+
+.preview-icon {
+    font-size: 1.5rem;
+    padding: 12px;
+    background: linear-gradient(135deg, #805ad5, #9f7aea);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(128, 90, 213, 0.3);
+}
+
+.preview-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.document-preview {
+    flex: 1;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 50px;
+    font-family: 'Times New Roman', serif;
+    color: #2d3748;
+    line-height: 1.7;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow-y: auto;
+    max-height: 800px;
+}
+
+.document-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #3182ce;
+}
+
+.document-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2d3748;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.document-subtitle {
+    font-size: 1rem;
+    color: #4a5568;
+    font-style: italic;
+}
+
+.document-content {
+    font-size: 13px;
+    text-align: justify;
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA CARTA DE NO RENOVACIÓN ===== */
+.fecha-lugar {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.destinatario {
+    margin: 30px 0;
+    line-height: 1.8;
+}
+
+.destinatario p {
+    margin-bottom: 6px;
+}
+
+.titulo-carta {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.titulo-carta h3 {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.contenido-carta {
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+.contenido-carta p {
+    margin-bottom: 16px;
+}
+
+.clause-section {
+    margin-bottom: 24px;
+}
+
+.clause-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #2d3748;
+    font-size: 14px;
+}
+
+.clause-content {
+    background: #edf2f7;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #3182ce;
+    margin-top: 12px;
+}
+
+.highlight {
+    background: linear-gradient(135deg, #fed7d7, #feb2b2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.signature-section {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.signature-box {
+    text-align: center;
+    flex: 1;
+    min-height: 140px;
+    max-width: 300px;
+}
+
+.signature-line {
+    border-bottom: 2px solid #2d3748;
+    min-height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 12px;
+    position: relative;
+    padding: 8px;
+}
+
+.signature-placeholder {
+    font-style: italic;
+    color: #3182ce;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+/* ===== FIRMAS EN VISTA PREVIA MEJORADAS ===== */
+.signature-preview {
+    max-height: 120px !important;
+    height: auto !important;
+    max-width: 200px !important;
+    object-fit: contain !important;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background: white;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signature-info {
+    margin-top: 8px;
+}
+
+.signature-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #2d3748;
+    font-size: 13px;
+}
+
+.signature-rut {
+    font-size: 11px;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.signature-role {
+    font-size: 12px;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== BOTONES DE ACCIÓN ===== */
+.actions {
+    padding: 32px 40px;
+    background: rgba(26, 32, 44, 0.5);
+    border-top: 1px solid rgba(74, 85, 104, 0.2);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    color: white;
+    box-shadow: 0 8px 32px rgba(49, 130, 206, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(49, 130, 206, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #718096, #a0aec0);
+    color: white;
+    box-shadow: 0 8px 32px rgba(113, 128, 150, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(113, 128, 150, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+.btn-text {
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-section {
+        border-right: none;
+        border-bottom: 1px solid rgba(74, 85, 104, 0.2);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        border-radius: 16px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 24px;
+    }
+    
+    .logo {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.875rem;
+    }
+    
+    .form-section,
+    .preview-section {
+        padding: 30px;
+    }
+    
+    .section-card {
+        padding: 24px;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.span-2 {
+        grid-column: span 1;
+    }
+    
+    .actions {
+        flex-direction: column;
+        padding: 24px;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+    
+    .signature-section {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .btn-digital-signature {
+        padding: 12px 24px;
+        font-size: 0.8rem;
+    }
+    
+    .digital-signature-container {
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+    }
+    
+    .signature-box {
+        min-height: 120px;
+    }
+    
+    .signature-line {
+        min-height: 80px;
+    }
+    
+    .signature-preview {
+        max-height: 100px !important;
+        max-width: 150px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .document-preview {
+        padding: 30px;
+    }
+    
+    .document-content {
+        font-size: 12px;
+    }
+    
+    .progress-container {
+        padding: 16px 24px;
+    }
+    
+    .signature-preview {
+        max-height: 80px !important;
+        max-width: 120px !important;
+    }
+}
+
+/* ===== SCROLL PERSONALIZADO ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(74, 85, 104, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3182ce, #4299e1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2c5282, #3182ce);
+}
+
+/* ===== ANIMACIONES ADICIONALES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.section-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.section-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.section-card:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.document-preview {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ===== EFECTOS DE FOCUS MEJORADOS ===== */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
+}
+
+/* ===== ESTADOS DE VALIDACIÓN ===== */
+.form-group input:invalid:not(:placeholder-shown) {
+    border-color: #f56565;
+    box-shadow: 0 0 0 4px rgba(245, 101, 101, 0.2);
+}
+
+.form-group input.rut-valid {
+    border-color: #48bb78;
+    box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.2);
+}
+
+.form-group input.rut-invalid {
+    border-color: #f56565;
+    box-shadow: 0 0 0 2px rgba(245, 101, 101, 0.2);
+}
+
+/* ===== MEJORAS ESPECÍFICAS PARA FIRMAS ===== */
+.signature-preview:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.signature-box:has(.signature-preview[style*="display: block"]) .signature-line {
+    border-bottom-color: #48bb78;
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.05), transparent);
+}
+
+.signature-box:has(.signature-preview[style*="display: block"]) .signature-name {
+    color: #2f855a;
+}

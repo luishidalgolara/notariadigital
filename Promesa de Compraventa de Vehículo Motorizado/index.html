@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Promesa de Compraventa Vehículo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Promesa de Compraventa Vehículo</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL PROMITENTE VENDEDOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚗</div>
+                            <h2 class="section-title">Datos del Promitente Vendedor</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreVendedor" placeholder="Ej: Juan Carlos Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>C.I. (RUT)</label>
+                                <input type="text" id="rutVendedor" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioVendedor" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaVendedor" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaVendedor">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoVendedor">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL PROMITENTE COMPRADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Promitente Comprador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreComprador" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>C.I. (RUT)</label>
+                                <input type="text" id="rutComprador" placeholder="Ej: 23.456.789-0">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioComprador" placeholder="Ej: Las Condes 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaComprador" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaComprador">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoComprador">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VEHÍCULO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚙</div>
+                            <h2 class="section-title">Datos del Vehículo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Vehículo</label>
+                                <select id="tipoVehiculo">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="automóvil">Automóvil</option>
+                                    <option value="camioneta">Camioneta</option>
+                                    <option value="motocicleta">Motocicleta</option>
+                                    <option value="camión">Camión</option>
+                                    <option value="bus">Bus</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <input type="text" id="marcaVehiculo" placeholder="Ej: Toyota">
+                            </div>
+                            <div class="form-group">
+                                <label>Modelo</label>
+                                <input type="text" id="modeloVehiculo" placeholder="Ej: Corolla">
+                            </div>
+                            <div class="form-group">
+                                <label>Año</label>
+                                <input type="number" id="anoVehiculo" placeholder="Ej: 2020" min="1900" max="2025">
+                            </div>
+                            <div class="form-group">
+                                <label>Color</label>
+                                <input type="text" id="colorVehiculo" placeholder="Ej: Blanco">
+                            </div>
+                            <div class="form-group">
+                                <label>Patente</label>
+                                <input type="text" id="patenteVehiculo" placeholder="Ej: ABCD12">
+                            </div>
+                            <div class="form-group">
+                                <label>N° Motor</label>
+                                <input type="text" id="motorVehiculo" placeholder="Ej: 123456789">
+                            </div>
+                            <div class="form-group">
+                                <label>N° Chasis</label>
+                                <input type="text" id="chasisVehiculo" placeholder="Ej: 987654321">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Datos del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Lugar del Contrato</label>
+                                <input type="text" id="lugarContrato" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaContrato">
+                            </div>
+                            <div class="form-group">
+                                <label>Precio (números)</label>
+                                <input type="number" id="precioNumeros" placeholder="Ej: 8500000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Precio (letras)</label>
+                                <input type="text" id="precioLetras" placeholder="Ej: ocho millones quinientos mil pesos">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Forma de Pago</label>
+                                <textarea id="formaPago" rows="3" placeholder="Ej: $2.000.000 al contado y saldo en 12 cuotas mensuales de $541.667"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Entrega</label>
+                                <input type="date" id="fechaEntrega">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha Venta Definitiva</label>
+                                <input type="date" id="fechaVentaDefinitiva">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Condiciones Adicionales</label>
+                                <textarea id="condicionesAdicionales" rows="3" placeholder="Ej: Una vez cancelado el precio total y presentados los documentos requeridos"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto Multa (números)</label>
+                                <input type="number" id="montoMulta" placeholder="Ej: 500000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Domicilio Legal</label>
+                                <input type="text" id="domicilioLegal" placeholder="Ej: Santiago">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">PROMESA DE COMPRAVENTA</div>
+                            <div class="document-subtitle">Vehículo Motorizado</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p>En <span class="highlight" id="prev_lugarContrato">xxx</span>, comuna de <span class="highlight" id="prev_comunaContrato">xxx</span>, a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">20..</span>, entre don(ña) <span class="highlight" id="prev_nombreVendedor">.........................</span>, C.I. N° <span class="highlight" id="prev_rutVendedor">................</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioVendedor">.........................</span>, comuna de <span class="highlight" id="prev_comunaVendedor">...........</span>, en adelante el promitente vendedor(a); y don(ña) <span class="highlight" id="prev_nombreComprador">.........................</span>, C.I. N° <span class="highlight" id="prev_rutComprador">................</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioComprador">.........................</span>, comuna de <span class="highlight" id="prev_comunaComprador">...........</span>, en adelante el promitente comprador(a). Han convenido en el siguiente contrato de Promesa de Compraventa Vehículo Motorizado:</p>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">PRIMERO:</div>
+                                <p>Don(ña) <span class="highlight" id="prev_nombreVendedor2">.........................</span>, declara ser dueño de un vehículo tipo: <span class="highlight" id="prev_tipoVehiculo">............</span>; marca: <span class="highlight" id="prev_marcaVehiculo">................</span>; modelo: <span class="highlight" id="prev_modeloVehiculo">................</span>; N° motor: <span class="highlight" id="prev_motorVehiculo">............</span>, N° chasis: <span class="highlight" id="prev_chasisVehiculo">................</span>; color: <span class="highlight" id="prev_colorVehiculo">................</span>; año: <span class="highlight" id="prev_anoVehiculo">.......</span>, Patente e Inscripción: <span class="highlight" id="prev_patenteVehiculo">.........</span></p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">SEGUNDO:</div>
+                                <p>Por el presente instrumento don(ña) <span class="highlight" id="prev_nombreVendedor3">.........................</span>, promete vender, ceder y transferir a don(ña) <span class="highlight" id="prev_nombreComprador2">.........................</span>, quien promete comprar, aceptar y adquirir para sí, el vehículo antes singularizado.</p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">TERCERO:</div>
+                                <p>El precio de la venta es la suma de $ <span class="highlight" id="prev_precioNumeros">............</span> (<span class="highlight" id="prev_precioLetras">.........................</span>), los que se pagan de la siguiente manera: <span class="highlight" id="prev_formaPago">.........................</span></p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">CUARTO:</div>
+                                <p>El vehículo se promete vender en el estado en que actualmente se encuentra, que es conocido del promitente comprador(a), con todos sus accesorios, con sus derechos, respondiendo el promitente vendedor(a) por el saneamiento conforme a la ley.</p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">QUINTO:</div>
+                                <p>La entrega del vehículo y sus llaves, se hace con fecha <span class="highlight" id="prev_fechaEntrega">... de .......... de 20..</span>, recibiendo el promitente comprador a entera satisfacción del promitente comprador.</p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">SEXTO:</div>
+                                <p>La venta definitiva se efectuará el día <span class="highlight" id="prev_fechaVentaDefinitiva">... de .......... del 20..</span>, una vez <span class="highlight" id="prev_condicionesAdicionales">.........................</span></p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">SÉPTIMO:</div>
+                                <p>El promitente vendedor(a) asume la obligación de no vender, ceder, prendar, permutar, arrendar, dar en pago ni ejecutar acto jurídico de ninguna naturaleza sobre el referido bien, a menos que el promitente comprador(a) lo autorice por escrito; caso contrario, deberá restituir íntegramente con intereses y reajustes lo que hubiere recibido a cuenta del precio, y sin perjuicio del ejercicio de las acciones judiciales que correspondan.</p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">OCTAVO:</div>
+                                <p>Si llegado el plazo señalado y cumplidas las condiciones exigidas para la celebración del contrato de compraventa definitivo, alguna de las partes se negare a suscribirlo, la parte incumplidora deberá indemnizar a la otra parte, dentro de los 5 días siguientes a la fecha de término del contrato, la suma de $ <span class="highlight" id="prev_montoMulta">...........</span>, que se entenderá como multa o cláusula penal. Sin perjuicio del derecho de la parte cumplidora a pedir el cumplimiento forzado del presente contrato.</p>
+                            </div>
+                            
+                            <div class="clause-section">
+                                <div class="clause-title">NOVENO:</div>
+                                <p>Para todos los efectos legales que puedan derivar del presente contrato las partes fijan su domicilio en <span class="highlight" id="prev_domicilioLegal">...........</span> y se someten a la Jurisdicción de sus Tribunales de Justicia.</p>
+                            </div>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderVendedor">Firma Digital</span>
+                                        <img class="signature-preview" id="signaturePreviewVendedor" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Vendedor">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaVendedor">_______________</div>
+                                    <div class="signature-role">PROMITENTE VENDEDOR</div>
+                                </div>
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderComprador">Firma Digital</span>
+                                        <img class="signature-preview" id="signaturePreviewComprador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Comprador">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaComprador">_______________</div>
+                                    <div class="signature-role">PROMITENTE COMPRADOR</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="window.location.href='../tramites-virtuales.html'">
+                <span class="btn-icon">←</span>
+                <span class="btn-text">Volver a Trámites</span>
+            </button>
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="face-verification.js"></script>
+</body>
+</html>

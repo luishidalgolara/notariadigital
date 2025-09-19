@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Cesión de Arrendamiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Cesión de Arrendamiento</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Contrato</label>
+                                <input type="text" id="ciudadCarta" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CEDENTE (VENDEDOR/PROPIETARIO) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Cedente (Vendedor/Propietario)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Cedente</label>
+                                <input type="text" id="nombresInvitante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Cedente</label>
+                                <input type="text" id="runInvitante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitante" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilArrendador">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="ocupacionInvitante" placeholder="Ej: Ingeniero, Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Cedente</label>
+                                <input type="text" id="domicilioInvitante" placeholder="Ej: Av. Providencia 1234, Las Condes, Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaCedente" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionCedente" placeholder="Ej: Metropolitana" value="Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoInvitante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaInvitante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoInvitante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CESIONARIO (COMPRADOR) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos del Cesionario (Comprador)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Cesionario</label>
+                                <input type="text" id="nombresInvitado" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Cesionario</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitado" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilRepresentante">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="profesionCesionario" placeholder="Ej: Abogada, Médico">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Cesionario</label>
+                                <input type="text" id="domicilioCesionario" placeholder="Ej: Av. Libertador 567, Ñuñoa, Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaCesionario" placeholder="Ej: Ñuñoa">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionCesionario" placeholder="Ej: Metropolitana" value="Metropolitana">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL INMUEBLE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Inmueble</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Descripción del Inmueble</label>
+                                <input type="text" id="descripcionInmueble" placeholder="Ej: Departamento de 3 dormitorios, 2 baños">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Dirección Exacta del Inmueble</label>
+                                <input type="text" id="direccionInmueble" placeholder="Ej: Av. Las Condes 1234, Departamento 501">
+                            </div>
+                            <div class="form-group">
+                                <label>Acceso Principal</label>
+                                <input type="text" id="accesoPrincipal" placeholder="Ej: Av. Las Condes 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Condominio/Edificio</label>
+                                <input type="text" id="nombreCondominio" placeholder="Ej: Torre del Sol">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna del Inmueble</label>
+                                <input type="text" id="comunaInmueble" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionInmueble" placeholder="Ej: Metropolitana" value="Metropolitana">
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin: 30px 0 20px 0; color: var(--text-accent); font-size: 1.2rem;">Datos Registrales</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Número de Fojas</label>
+                                <input type="text" id="numeroFojas" placeholder="Ej: 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Registro</label>
+                                <input type="number" id="anioRegistro" placeholder="Ej: 2020" min="1900" max="2025">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Conservador de Bienes Raíces</label>
+                                <input type="text" id="conservadorBienes" placeholder="Ej: Santiago">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CONTRATO ORIGINAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📄</div>
+                            <h2 class="section-title">Contrato de Arrendamiento Original</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha del Contrato Original</label>
+                                <input type="date" id="fechaContratoOriginal">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Documento</label>
+                                <select id="tipoDocumentoOriginal">
+                                    <option value="">Seleccionar</option>
+                                    <option value="escritura pública">Escritura Pública</option>
+                                    <option value="escritura privada">Escritura Privada</option>
+                                    <option value="contrato simple">Contrato Simple</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES ECONÓMICAS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones Económicas</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monto Garantía (en pesos)</label>
+                                <input type="number" id="montoGarantia" placeholder="Ej: 500000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Garantía en Palabras</label>
+                                <input type="text" id="garantiaPalabras" placeholder="Ej: Quinientos mil pesos" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Renta Mensual Actual (pesos)</label>
+                                <input type="number" id="rentaMensual" placeholder="Ej: 750000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Renta Mensual (UF)</label>
+                                <input type="text" id="rentaUF" placeholder="Ej: 25,5">
+                            </div>
+                            <div class="form-group">
+                                <label>Cheques Pendientes</label>
+                                <input type="number" id="chequesPendientes" placeholder="Ej: 5" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Monto por Cheque</label>
+                                <input type="number" id="montoCheque" placeholder="Ej: 750000" min="0">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Número de Cuenta Corriente</label>
+                                <input type="text" id="cuentaCorriente" placeholder="Ej: 12345678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Banco</label>
+                                <input type="text" id="nombreBanco" placeholder="Ej: Banco de Chile">
+                            </div>
+                            <div class="form-group">
+                                <label>Email para Comprobantes</label>
+                                <input type="email" id="emailComprobantes" placeholder="Ej: pagos@ejemplo.com">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ARRENDATARIO ACTUAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos del Arrendatario Actual</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Arrendatario</label>
+                                <input type="text" id="nombreArrendatario" placeholder="Ej: Juan Carlos Silva Morales">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Arrendatario</label>
+                                <input type="text" id="rutArrendatario" placeholder="Ej: 18.765.432-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadArrendatario" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilArrendatario">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="profesionArrendatario" placeholder="Ej: Contador, Empresario">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Arrendatario</label>
+                                <input type="text" id="domicilioArrendatario" placeholder="Ej: Av. Apoquindo 789, Las Condes, Santiago">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL AVAL (OPCIONAL) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🤝</div>
+                            <h2 class="section-title">Datos del Aval (Opcional)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Aval</label>
+                                <input type="text" id="nombreAval" placeholder="Ej: Patricia Andrea Rojas Valdés (Opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Aval</label>
+                                <input type="text" id="rutAval" placeholder="Ej: 14.567.890-2 (Opcional)">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OBSERVACIONES ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Observaciones Adicionales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Condiciones Especiales o Observaciones</label>
+                                <textarea id="observacionesAdicionales" rows="4" placeholder="Incluya cualquier condición especial del contrato de cesión..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Contrato</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CESIÓN DE ARRENDAMIENTO</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: center; margin-bottom: 30px; line-height: 1.8; font-weight: bold;">
+                                <span class="highlight" id="prev_nombresInvitante">CEDENTE</span><br>
+                                A<br>
+                                <span class="highlight" id="prev_nombresInvitado">CESIONARIO</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>EN <span class="highlight" id="prev_ciudadCarta2">SANTIAGO</span> DE CHILE</strong>, a <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> del <span class="highlight" id="prev_anio">20__</span>, comparecen: Don <span class="highlight" id="prev_nombresInvitante2">_________________________</span>, <span class="highlight" id="prev_nacionalidadInvitante">________</span>, <span class="highlight" id="prev_estadoCivilArrendador">________</span>, <span class="highlight" id="prev_ocupacionInvitante">________</span>, Cédula de Identidad número <span class="highlight" id="prev_runInvitante">___________</span>, con domicilio en <span class="highlight" id="prev_domicilioInvitante">_________________________</span>, Comuna de <span class="highlight" id="prev_comunaCedente">________</span>, Región <span class="highlight" id="prev_regionCedente">________</span>, en adelante también denominado indistintamente como el <strong>"Cedente" o "Propietario"</strong>; y por la otra parte, en adelante también denominado indistintamente como el <strong>"Cesionario"</strong> y <strong>"Compradora"</strong>, doña <span class="highlight" id="prev_nombresInvitado2">_________________________</span>, <span class="highlight" id="prev_nacionalidadInvitado">________</span>, <span class="highlight" id="prev_estadoCivilRepresentante">________</span>, <span class="highlight" id="prev_profesionCesionario">________</span>, Cédula de Identidad número <span class="highlight" id="prev_rutRepresentante">___________</span>, con domicilio en <span class="highlight" id="prev_domicilioCesionario">_________________________</span>, Comuna de <span class="highlight" id="prev_comunaCesionario">________</span>, Región <span class="highlight" id="prev_regionCesionario">________</span>, todos los comparecientes mayores de edad, quienes acreditan su respectiva identidad con la cédulas antes citadas y las partes exponen que han convenido libre y voluntariamente, en pleno uso de sus facultades, en celebrar el siguiente Contrato de Cesión de arrendamiento:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>PRIMERO:</strong> Don <span class="highlight" id="prev_nombresInvitante3">_________________________</span>, suscribió con fecha <span class="highlight" id="prev_fechaContratoOriginal">________</span>, por <span class="highlight" id="prev_tipoDocumentoOriginal">________</span>, un contrato de arrendamiento de <span class="highlight" id="prev_descripcionInmueble">________</span>, <span class="highlight" id="prev_direccionInmueble">________</span>, con acceso principal por <span class="highlight" id="prev_accesoPrincipal">________</span>, que corresponde a <span class="highlight" id="prev_nombreCondominio">________</span>, Comuna de <span class="highlight" id="prev_comunaInmueble">________</span>, Región <span class="highlight" id="prev_regionInmueble">________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>SEGUNDO:</strong> Don <span class="highlight" id="prev_nombresInvitante4">_________________________</span>, quien como promitente vendedor, es titular del dominio del inmueble singularizado en la cláusula precedente, conforme a inscripción de fojas <span class="highlight" id="prev_numeroFojas">________</span> del Registro de Propiedad del año <span class="highlight" id="prev_anioRegistro">________</span> del Conservador de Bienes Raíces de <span class="highlight" id="prev_conservadorBienes">________</span>, y doña <span class="highlight" id="prev_nombresInvitado3">_________________________</span>, quien con su calidad de promitente compradora, y ambos contratantes, con esta fecha, suscribieron contrato de compraventa referente a la unidad antes singularizada, encontrándose actualmente el título de dominio en proceso de registro a favor de la compradora, doña <span class="highlight" id="prev_nombresInvitado4">_________________________</span>, en el respectivo Conservador de Bienes Raíces de <span class="highlight" id="prev_conservadorBienes2">________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>CUARTO:</strong> Don <span class="highlight" id="prev_nombresInvitante5">_________________________</span> viene en este acto en hacer entrega de la suma de <strong>$<span class="highlight" id="prev_montoGarantia">________</span> (<span class="highlight" id="prev_garantiaPalabras">________</span>) pesos,</strong> suma que corresponde a la garantía de fiel cumplimiento del arrendamiento, y que debe ser restituida con los reajustes establecidos en el contrato por la parte arrendadora a la arrendataria, deducidos los cargos que correspondan, luego de terminado el contrato de arrendamiento respectivo. Doña <span class="highlight" id="prev_nombresInvitado5">_________________________</span> declara recibir íntegramente dicha suma, al contado y en efectivo, que nada se adeuda por tal concepto y por tanto, sin haber montos pendientes por recibir.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>QUINTO:</strong> Doña <span class="highlight" id="prev_nombresInvitado6">_________________________</span> declara además que la renta de arrendamiento a partir del mes siguiente de la firma de este contrato asciende a la suma de <strong>$<span class="highlight" id="prev_rentaMensual">________</span> pesos, equivalentes a <span class="highlight" id="prev_rentaUF">________</span> UF</strong>, mas gastos comunes de todo tipo, reajustable en la forma establecida en el contrato de arrendamiento, y que dicha renta se ha pagado con <span class="highlight" id="prev_chequesPendientes">________</span> cheques, cada uno por la suma de <strong>$<span class="highlight" id="prev_montoCheque">________</span></strong>. Los siguientes pagos por rentas de arrendamiento deberán realizarse en la cuenta corriente número <span class="highlight" id="prev_cuentaCorriente">________</span> del banco <span class="highlight" id="prev_nombreBanco">________</span>, cuya titular es doña <span class="highlight" id="prev_nombresInvitado7">_________________________</span>, enviándose un correo electrónico junto a cada depósito al siguiente correo: <span class="highlight" id="prev_emailComprobantes">________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>SEXTO:</strong> Presente en este acto, don <span class="highlight" id="prev_nombreArrendatario">_________________________</span>, <span class="highlight" id="prev_nacionalidadArrendatario">________</span>, <span class="highlight" id="prev_estadoCivilArrendatario">________</span>, <span class="highlight" id="prev_profesionArrendatario">________</span>, Cédula de Identidad número <span class="highlight" id="prev_rutArrendatario">___________</span>, con domicilio en <span class="highlight" id="prev_domicilioArrendatario">_________________________</span>, en su calidad de arrendatario del inmueble antes singularizado, viene en declarar que conoce y acepta la presente cesión, especialmente lo dispuesto en la cláusula quinta precedente en cuanto a la renta, cuenta donde depositar y donde enviar comprobante de depósito mensual.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderInvitante">Firma Cedente</span>
+                                            <img class="signature-preview" id="signaturePreviewInvitante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Cedente">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaInvitante">_______________</div>
+                                        <div class="signature-role">CEDENTE - VENDEDOR</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            C.I. <span class="highlight" id="prev_runInvitante2">___________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este contrato debe ser firmado por todas las partes involucradas y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

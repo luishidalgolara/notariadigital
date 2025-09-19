@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada de Convivencia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada de Convivencia</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de la Declaración</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadAutorizacion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de la Declaración</label>
+                                <input type="date" id="fechaAutorizacion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA PRIMERA PERSONA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos de la Primera Persona</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Información personal del primer declarante</p>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreAutorizante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadMenor">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / RUT</label>
+                                <input type="text" id="rutAutorizante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="viajaConPasaporte">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero/a">Soltero(a)</option>
+                                    <option value="casado/a">Casado(a)</option>
+                                    <option value="viudo/a">Viudo(a)</option>
+                                    <option value="divorciado/a">Divorciado(a)</option>
+                                    <option value="separado/a">Separado(a)</option>
+                                    <option value="conviviente civil">Conviviente Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="relacionMenor" placeholder="Ej: Ingeniero, Comerciante, Empleado">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioAutorizante" placeholder="Ej: Av. Providencia 1234, Depto. 56, Block A">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaAutorizante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="telefonoAcompanante">
+                                    <option value="">Seleccionar región</option>
+                                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                                    <option value="Región de Tarapacá">Región de Tarapacá</option>
+                                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                                    <option value="Región de Atacama">Región de Atacama</option>
+                                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                                    <option value="Región de Valparaíso">Región de Valparaíso</option>
+                                    <option value="Región Metropolitana">Región Metropolitana</option>
+                                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                                    <option value="Región del Maule">Región del Maule</option>
+                                    <option value="Región de Ñuble">Región de Ñuble</option>
+                                    <option value="Región del Biobío">Región del Biobío</option>
+                                    <option value="Región de La Araucanía">Región de La Araucanía</option>
+                                    <option value="Región de Los Ríos">Región de Los Ríos</option>
+                                    <option value="Región de Los Lagos">Región de Los Lagos</option>
+                                    <option value="Región de Aysén del General Carlos Ibáñez del Campo">Región de Aysén del General Carlos Ibáñez del Campo</option>
+                                    <option value="Región de Magallanes y de la Antártica Chilena">Región de Magallanes y de la Antártica Chilena</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA SEGUNDA PERSONA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos de la Segunda Persona</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Información personal del segundo declarante</p>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreMenor" placeholder="Ej: María Elena González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="paisDestino">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / RUT</label>
+                                <input type="text" id="rutMenor" placeholder="Ej: 98.765.432-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="motivoViaje">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero/a">Soltero(a)</option>
+                                    <option value="casado/a">Casado(a)</option>
+                                    <option value="viudo/a">Viudo(a)</option>
+                                    <option value="divorciado/a">Divorciado(a)</option>
+                                    <option value="separado/a">Separado(a)</option>
+                                    <option value="conviviente civil">Conviviente Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="duracionViaje" placeholder="Ej: Abogado, Contador, Profesor">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio (debe ser el mismo que la primera persona)</label>
+                                <input type="text" id="domicilioMenor" placeholder="Ej: Av. Providencia 1234, Depto. 56, Block A">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMenor" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="edadMenor">
+                                    <option value="">Seleccionar región</option>
+                                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                                    <option value="Región de Tarapacá">Región de Tarapacá</option>
+                                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                                    <option value="Región de Atacama">Región de Atacama</option>
+                                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                                    <option value="Región de Valparaíso">Región de Valparaíso</option>
+                                    <option value="Región Metropolitana">Región Metropolitana</option>
+                                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                                    <option value="Región del Maule">Región del Maule</option>
+                                    <option value="Región de Ñuble">Región de Ñuble</option>
+                                    <option value="Región del Biobío">Región del Biobío</option>
+                                    <option value="Región de La Araucanía">Región de La Araucanía</option>
+                                    <option value="Región de Los Ríos">Región de Los Ríos</option>
+                                    <option value="Región de Los Lagos">Región de Los Lagos</option>
+                                    <option value="Región de Aysén del General Carlos Ibáñez del Campo">Región de Aysén del General Carlos Ibáñez del Campo</option>
+                                    <option value="Región de Magallanes y de la Antártica Chilena">Región de Magallanes y de la Antártica Chilena</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET SEGUNDA PERSONA</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE LA CONVIVENCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos de la Convivencia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tiempo de Convivencia</label>
+                                <input type="number" id="nombreAcompanante" min="1" placeholder="Ej: 24">
+                            </div>
+                            <div class="form-group">
+                                <label>Unidad de Tiempo</label>
+                                <select id="ciudadDestino">
+                                    <option value="">Seleccionar</option>
+                                    <option value="meses">Meses</option>
+                                    <option value="años">Años</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Propósito de la Declaración</label>
+                                <select id="rutAcompanante">
+                                    <option value="">Seleccionar propósito</option>
+                                    <option value="Trámites bancarios">Trámites bancarios</option>
+                                    <option value="Solicitud de crédito">Solicitud de crédito</option>
+                                    <option value="Seguros de salud">Seguros de salud</option>
+                                    <option value="Trámites previsionales">Trámites previsionales</option>
+                                    <option value="Subsidio habitacional">Subsidio habitacional</option>
+                                    <option value="Trámites migratorios">Trámites migratorios</option>
+                                    <option value="Registro civil">Registro civil</option>
+                                    <option value="Notariales">Trámites notariales</option>
+                                    <option value="Otros fines legales">Otros fines legales</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales (opcional)</label>
+                                <textarea id="relacionAcompanante" rows="3" placeholder="Agregue cualquier información adicional relevante sobre la convivencia..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN LEGAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Información Legal</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <div style="padding: 20px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; border-radius: 8px;">
+                                    <p style="margin: 0; font-weight: 600; color: var(--text-primary); line-height: 1.6;">
+                                        <strong>Artículo 210 del Código Penal:</strong> Esta declaración se realiza bajo fe de juramento, con pleno conocimiento de que el falso testimonio constituye delito penado por la ley. Los declarantes son conscientes de las consecuencias legales de proporcionar información falsa.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="fechaNacimientoMenor" style="width: auto;">
+                                    <span>Declaro bajo fe de juramento que la información proporcionada es veraz y completa</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA DE CONVIVENCIA</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadAutorizacion">Santiago</span>, a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">2024</span>, por el presente instrumento yo <span class="highlight" id="prev_nombreAutorizante">.........................</span>, Nacionalidad <span class="highlight" id="prev_nacionalidadMenor">.........................</span>, Estado civil <span class="highlight" id="prev_viajaConPasaporte">.........................</span>, Profesión u oficio <span class="highlight" id="prev_relacionMenor">.........................</span>, cédula de identidad número <span class="highlight" id="prev_rutAutorizante">................</span>, yo <span class="highlight" id="prev_nombreMenor">.........................</span>, Nacionalidad <span class="highlight" id="prev_paisDestino">.........................</span>, Estado civil <span class="highlight" id="prev_motivoViaje">.........................</span>, Profesión u oficio <span class="highlight" id="prev_duracionViaje">.........................</span>, cédula de identidad número <span class="highlight" id="prev_rutMenor">................</span>, ambos domiciliados en <span class="highlight" id="prev_domicilioAutorizante">.........................</span>, comuna de <span class="highlight" id="prev_comunaAutorizante">...........</span>, <span class="highlight" id="prev_telefonoAcompanante">Región Metropolitana</span>;
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8; font-weight: 600;">
+                                <strong>DECLARAMOS</strong> bajo fe de juramento y con pleno conocimiento de lo dispuesto en el Artículo 210 del Código Penal, que desde hace <span class="highlight" id="prev_nombreAcompanante">.........................</span> <span class="highlight" id="prev_ciudadDestino">meses/años</span> convivimos como pareja de forma continua y sin interrupción.
+                            </p>
+
+                            <div style="margin: 30px 0; padding: 20px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #10b981; text-align: left; font-size: 0.95rem;">
+                                    <strong>PROPÓSITO DE LA DECLARACIÓN:</strong><br>
+                                    Formulamos la presente declaración para ser presentada ante <span class="highlight" id="prev_rutAcompanante">.........................</span>, a los fines que estime convenientes.
+                                </p>
+                            </div>
+
+                            <div style="margin: 30px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #3b82f6; font-size: 0.9rem;">
+                                    <strong>Observaciones adicionales:</strong> <span class="highlight" id="prev_relacionAcompanante">.........................</span>
+                                </p>
+                            </div>
+                            
+                            <div class="signature-section" style="margin-top: 60px;">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAutorizante">Firma Primera Persona</span>
+                                        <img class="signature-preview" id="signaturePreviewAutorizante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Primera Persona">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAutorizante">_______________</div>
+                                    <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                        <span class="highlight" id="prev_nombreAutorizante2">.........................</span><br>
+                                        Rut <span class="highlight" id="prev_rutAutorizante2">................</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder">Firma Segunda Persona</span>
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaMandatario">_______________</div>
+                                    <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                        <span class="highlight" id="prev_nombreMenor2">.........................</span><br>
+                                        Rut <span class="highlight" id="prev_rutMenor2">................</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; font-size: 0.85rem; color: #ef4444; line-height: 1.4;">
+                                <strong>Advertencia Legal:</strong> Esta declaración se realiza bajo fe de juramento. El falso testimonio constituye delito tipificado en el Artículo 210 del Código Penal, sancionado con presidio menor en sus grados medio a máximo. Los declarantes asumen plena responsabilidad por la veracidad de la información proporcionada.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF de la Declaración</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

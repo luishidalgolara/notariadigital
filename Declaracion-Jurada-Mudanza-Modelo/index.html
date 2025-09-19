@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada Salvoconducto Mudanza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada / Salvoconducto Mudanza</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL DOCUMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Documento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Documento</label>
+                                <input type="text" id="ciudadDocumento" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Documento</label>
+                                <input type="date" id="fechaDocumento">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL DECLARANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Declarante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Declarante</label>
+                                <input type="text" id="nombreDeclarante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaDeclarante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de Residencia</label>
+                                <input type="text" id="comunaDeclarante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Declarante</label>
+                                <input type="text" id="domicilioDeclarante" placeholder="Ej: Av. Providencia 567">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaDeclarante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoDeclarante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALLES DE LA MUDANZA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Detalles de la Mudanza</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de la Mudanza</label>
+                                <input type="date" id="fechaMudanza">
+                            </div>
+                            <div class="form-group">
+                                <label>Hora de la Mudanza</label>
+                                <input type="time" id="horaMudanza" placeholder="Ej: 09:00">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Dirección de Origen (Desde)</label>
+                                <input type="text" id="direccionOrigen" placeholder="Ej: Av. Las Condes 1234, Dpto. 501">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de Origen</label>
+                                <input type="text" id="comunaOrigen" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región de Origen</label>
+                                <input type="text" id="regionOrigen" placeholder="Ej: Metropolitana" value="Región Metropolitana">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Dirección de Destino (Hacia)</label>
+                                <input type="text" id="direccionDestino" placeholder="Ej: Av. Providencia 890, Casa 15">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de Destino</label>
+                                <input type="text" id="comunaDestino" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Región de Destino</label>
+                                <input type="text" id="regionDestino" placeholder="Ej: Metropolitana" value="Región Metropolitana">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VEHÍCULO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚚</div>
+                            <h2 class="section-title">Datos del Vehículo de Mudanza</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Patente del Vehículo</label>
+                                <input type="text" id="patenteVehiculo" placeholder="Ej: ABCD-12" style="text-transform: uppercase;">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Vehículo</label>
+                                <select id="tipoVehiculo">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="camion">Camión</option>
+                                    <option value="camioneta">Camioneta</option>
+                                    <option value="furgon">Furgón</option>
+                                    <option value="auto">Automóvil</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción del Vehículo (Marca, Modelo, Color)</label>
+                                <input type="text" id="descripcionVehiculo" placeholder="Ej: Ford Transit Blanco, Modelo 2018">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PERSONAS ACOMPAÑANTES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Personas Acompañantes en la Mudanza</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Acompañante 1 - Nombre Completo</label>
+                                <input type="text" id="nombreAcompanante1" placeholder="Ej: Juan Carlos Pérez Morales">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT Acompañante 1</label>
+                                <input type="text" id="rutAcompanante1" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono Acompañante 1</label>
+                                <input type="tel" id="telefonoAcompanante1" placeholder="Ej: +56 9 8765 4321">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Acompañante 2 - Nombre Completo</label>
+                                <input type="text" id="nombreAcompanante2" placeholder="Ej: Ana María Silva Rojas">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT Acompañante 2</label>
+                                <input type="text" id="rutAcompanante2" placeholder="Ej: 18.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono Acompañante 2</label>
+                                <input type="tel" id="telefonoAcompanante2" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAcompanante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA ACOMPAÑANTES</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DECLARACIÓN ADICIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Declaración Adicional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Motivo de la Mudanza</label>
+                                <select id="motivoMudanza">
+                                    <option value="">Seleccionar motivo</option>
+                                    <option value="cambio_residencia">Cambio de residencia</option>
+                                    <option value="trabajo">Motivos laborales</option>
+                                    <option value="estudio">Motivos de estudio</option>
+                                    <option value="familiar">Motivos familiares</option>
+                                    <option value="salud">Motivos de salud</option>
+                                    <option value="otro">Otro motivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción de los Enseres a Transportar</label>
+                                <textarea id="descripcionEnseres" rows="3" placeholder="Describa brevemente los enseres y objetos que transportará (muebles, electrodomésticos, cajas, etc.)"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Especiales</label>
+                                <textarea id="observacionesEspeciales" rows="3" placeholder="Incluya cualquier observación adicional relevante para el salvoconducto"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN DE CONTACTO DE EMERGENCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📞</div>
+                            <h2 class="section-title">Contacto de Emergencia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Contacto de Emergencia</label>
+                                <input type="text" id="nombreContactoEmergencia" placeholder="Ej: Luis Fernando González López">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Emergencia</label>
+                                <input type="tel" id="telefonoEmergencia" placeholder="Ej: +56 9 9876 5432">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con el Declarante</label>
+                                <input type="text" id="relacionEmergencia" placeholder="Ej: Hermano, Padre, Amigo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA / SALVOCONDUCTO</div>
+                            <div class="document-subtitle">Mudanza de Enseres</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadDocumento">Santiago</span>, Chile <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Yo, <strong><span class="highlight" id="prev_nombreDeclarante">________________</span></strong>, CÉDULA DE IDENTIDAD N° <strong><span class="highlight" id="prev_cedulaDeclarante">___________</span></strong>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Domiciliado en <span class="highlight" id="prev_domicilioDeclarante">________________</span> comuna de <span class="highlight" id="prev_comunaDeclarante">________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>Expongo</strong>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>DECLARO BAJO JURAMENTO QUE:</strong>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                El día <strong><span class="highlight" id="prev_fechaMudanzaFormateada">__ de ________ de 20__</span></strong> a las <strong><span class="highlight" id="prev_horaMudanza">_____</span> horas</strong> realizaré la mudanza de mis enseres, desde el domicilio ubicado en <span class="highlight" id="prev_direccionOrigen">________________</span> comuna de <span class="highlight" id="prev_comunaOrigen">________</span>, <span class="highlight" id="prev_regionOrigen">Región Metropolitana</span> hasta <span class="highlight" id="prev_direccionDestino">________________</span> comuna de <span class="highlight" id="prev_comunaDestino">________</span>, <span class="highlight" id="prev_regionDestino">Región Metropolitana</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Declaro además que no tengo impedimento legal, judicial ni contractual, para efectuar dicha mudanza.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>Motivo de la mudanza:</strong> <span class="highlight" id="prev_motivoMudanza">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>Descripción de enseres a transportar:</strong><br>
+                                <span class="highlight" id="prev_descripcionEnseres">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>Además, entrego información de las personas que me acompañarán a efectuar la mudanza:</strong>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                <strong>Acompañante 1:</strong> <span class="highlight" id="prev_nombreAcompanante1">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>RUT:</strong> <span class="highlight" id="prev_rutAcompanante1">___________</span> - <strong>Teléfono:</strong> <span class="highlight" id="prev_telefonoAcompanante1">___________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                <strong>Acompañante 2:</strong> <span class="highlight" id="prev_nombreAcompanante2">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>RUT:</strong> <span class="highlight" id="prev_rutAcompanante2">___________</span> - <strong>Teléfono:</strong> <span class="highlight" id="prev_telefonoAcompanante2">___________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>Vehículo utilizado para la mudanza:</strong>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                <strong>Patente:</strong> <span class="highlight" id="prev_patenteVehiculo">________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>Tipo:</strong> <span class="highlight" id="prev_tipoVehiculo">________</span> - <span class="highlight" id="prev_descripcionVehiculo">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>Contacto de emergencia:</strong> <span class="highlight" id="prev_nombreContactoEmergencia">________________</span> (<span class="highlight" id="prev_relacionEmergencia">________</span>) - Tel: <span class="highlight" id="prev_telefonoEmergencia">___________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;" id="observacionesContainer" style="display: none;">
+                                <strong>Observaciones especiales:</strong><br>
+                                <span class="highlight" id="prev_observacionesEspeciales">________________</span>
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto;">
+                                        <!-- Firma Declarante -->
+                                        <div class="signature-box" style="flex: 1; margin-right: 40px;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderDeclarante">Firma Declarante</span>
+                                                <img class="signature-preview" id="signaturePreviewDeclarante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Declarante">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaDeclarante">_______________</div>
+                                            <div class="signature-role">DECLARANTE</div>
+                                            <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                                C.I.: <span class="highlight" id="prev_cedulaDeclarante2">___________</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Firma Acompañantes -->
+                                        <div class="signature-box" style="flex: 1;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderAcompanante">Firma Acompañantes</span>
+                                                <img class="signature-preview" id="signaturePreviewAcompanante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Acompañantes">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaAcompanante">_______________</div>
+                                            <div class="signature-role">ACOMPAÑANTES</div>
+                                            <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                                Representante del grupo
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este salvoconducto debe ser presentado junto con la cédula de identidad del declarante y de los acompañantes. Es responsabilidad del declarante verificar que todos los datos sean correctos y veraces.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Contrato de Arriendo de Vehículo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Contrato de Arriendo de Vehículo</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Contrato</label>
+                                <input type="text" id="ciudadCarta" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ARRENDADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Arrendador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Arrendador</label>
+                                <input type="text" id="nombresInvitante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Arrendador</label>
+                                <input type="text" id="runInvitante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitante" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilArrendador">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="ocupacionInvitante" placeholder="Ej: Ingeniero, Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Arrendador</label>
+                                <input type="text" id="domicilioInvitante" placeholder="Ej: Av. Providencia 1234, Las Condes, Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoInvitante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaInvitante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoInvitante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ARRENDATARIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Arrendatario (Empresa)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social de la Empresa</label>
+                                <input type="text" id="razonSocialEmpresa" placeholder="Ej: Transportes del Sur SpA">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Giro de la Empresa</label>
+                                <input type="text" id="giroEmpresa" placeholder="Ej: Transporte de carga">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresa" placeholder="Ej: Av. Industrial 567, Oficina 12, Pudahuel, Santiago">
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin: 30px 0 20px 0; color: var(--text-accent); font-size: 1.2rem;">Representante Legal</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Representante Legal</label>
+                                <input type="text" id="nombresInvitado" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitado" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Estado Civil del Representante</label>
+                                <select id="estadoCivilRepresentante">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VEHÍCULO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚗</div>
+                            <h2 class="section-title">Datos del Vehículo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Vehículo</label>
+                                <select id="tipoVehiculo">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="Automóvil">Automóvil</option>
+                                    <option value="Camioneta">Camioneta</option>
+                                    <option value="Camión">Camión</option>
+                                    <option value="Furgón">Furgón</option>
+                                    <option value="Bus">Bus</option>
+                                    <option value="Motocicleta">Motocicleta</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Año del Vehículo</label>
+                                <input type="number" id="anioVehiculo" placeholder="Ej: 2020" min="1980" max="2025">
+                            </div>
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <input type="text" id="marcaVehiculo" placeholder="Ej: Toyota, Chevrolet">
+                            </div>
+                            <div class="form-group">
+                                <label>Modelo</label>
+                                <input type="text" id="modeloVehiculo" placeholder="Ej: Corolla, Spark">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Motor</label>
+                                <input type="text" id="numeroMotor" placeholder="Ej: 4A-FE-1234567">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Chasis</label>
+                                <input type="text" id="numeroChasis" placeholder="Ej: JT2AE91A8M0123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Color del Vehículo</label>
+                                <input type="text" id="colorVehiculo" placeholder="Ej: Blanco, Negro, Gris">
+                            </div>
+                            <div class="form-group">
+                                <label>Patente</label>
+                                <input type="text" id="patenteVehiculo" placeholder="Ej: ABCD-12">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES ECONÓMICAS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones Económicas</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Renta Mensual (en pesos)</label>
+                                <input type="number" id="rentaMensual" placeholder="Ej: 350000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Renta en Palabras</label>
+                                <input type="text" id="rentaPalabras" placeholder="Ej: Trescientos cincuenta mil pesos" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de Pago</label>
+                                <select id="formaPago">
+                                    <option value="">Seleccionar</option>
+                                    <option value="dinero en efectivo">Dinero en efectivo</option>
+                                    <option value="depósito bancario">Depósito bancario</option>
+                                    <option value="transferencia bancaria">Transferencia bancaria</option>
+                                    <option value="cheque">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Mes de Reajuste Anual</label>
+                                <select id="mesReajuste">
+                                    <option value="">Seleccionar mes</option>
+                                    <option value="enero">Enero</option>
+                                    <option value="febrero">Febrero</option>
+                                    <option value="marzo">Marzo</option>
+                                    <option value="abril">Abril</option>
+                                    <option value="mayo">Mayo</option>
+                                    <option value="junio">Junio</option>
+                                    <option value="julio">Julio</option>
+                                    <option value="agosto">Agosto</option>
+                                    <option value="septiembre">Septiembre</option>
+                                    <option value="octubre">Octubre</option>
+                                    <option value="noviembre">Noviembre</option>
+                                    <option value="diciembre">Diciembre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto de Garantía</label>
+                                <select id="montoGarantia">
+                                    <option value="">Seleccionar</option>
+                                    <option value="un mes de arriendo">Un mes de arriendo</option>
+                                    <option value="dos meses de arriendo">Dos meses de arriendo</option>
+                                    <option value="tres meses de arriendo">Tres meses de arriendo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- VIGENCIA DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📆</div>
+                            <h2 class="section-title">Vigencia del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Inicio del Arriendo</label>
+                                <input type="date" id="fechaInicioArriendo">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración del Contrato</label>
+                                <select id="duracionEstancia">
+                                    <option value="">Seleccionar duración</option>
+                                    <option value="6 meses">6 meses</option>
+                                    <option value="un año">1 año</option>
+                                    <option value="dos años">2 años</option>
+                                    <option value="tres años">3 años</option>
+                                    <option value="indefinido">Indefinido</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier condición especial del contrato..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Contrato</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CONTRATO DE ARRENDAMIENTO DE VEHÍCULO</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: center; margin-bottom: 30px; line-height: 1.8; font-weight: bold;">
+                                <span class="highlight" id="prev_razonSocialEmpresa">EMPRESA</span><br>
+                                y<br>
+                                <span class="highlight" id="prev_nombresInvitante">ARRENDADOR</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Con fecha <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>, por una parte, <span class="highlight" id="prev_nombresInvitante2">_________________________</span>, RUT <span class="highlight" id="prev_runInvitante">___________</span>, nacionalidad <span class="highlight" id="prev_nacionalidadInvitante">________</span>, estado civil <span class="highlight" id="prev_estadoCivilArrendador">________</span>, <span class="highlight" id="prev_ocupacionInvitante">________</span>, domiciliado en <span class="highlight" id="prev_domicilioInvitante">_________________________</span>, en adelante "El arrendador" y, por otra parte, la Sociedad <span class="highlight" id="prev_razonSocialEmpresa2">EMPRESA SpA</span>, RUT: <span class="highlight" id="prev_rutEmpresa">___________</span>, sociedad del giro <span class="highlight" id="prev_giroEmpresa">________</span>, representada por don <span class="highlight" id="prev_nombresInvitado">_________________________</span>, nacionalidad <span class="highlight" id="prev_nacionalidadInvitado">________</span>, estado civil <span class="highlight" id="prev_estadoCivilRepresentante">________</span>, cédula de identidad Nº <span class="highlight" id="prev_rutRepresentante">___________</span>, ambos domiciliados en <span class="highlight" id="prev_domicilioEmpresa">_________________________</span>, en adelante, "El arrendatario". Ambas partes han convenido en el contrato de arrendamiento a que se refieren las cláusulas siguientes:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>PRIMERO: ARRENDAMIENTO.</strong> En este acto y por el presente instrumento, <span class="highlight" id="prev_nombresInvitante3">_________________________</span>, da en arrendamiento a <span class="highlight" id="prev_razonSocialEmpresa3">EMPRESA SpA</span>, quien acepta en arrendamiento vehículo que se individualiza como sigue: Tipo Vehículo: <span class="highlight" id="prev_tipoVehiculo">________</span>, Año: <span class="highlight" id="prev_anioVehiculo">________</span>, Marca: <span class="highlight" id="prev_marcaVehiculo">________</span>, Modelo: <span class="highlight" id="prev_modeloVehiculo">________</span>, Nro. Motor: <span class="highlight" id="prev_numeroMotor">________</span>, Nro. Chasis: <span class="highlight" id="prev_numeroChasis">________</span>, Color: <span class="highlight" id="prev_colorVehiculo">________</span>, Patente: <span class="highlight" id="prev_patenteVehiculo">________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>SEGUNDO: RENTA.</strong> La renta de arrendamiento será la suma de <strong>$<span class="highlight" id="prev_rentaMensual">________</span> (<span class="highlight" id="prev_rentaPalabras">________</span> pesos)</strong> mensuales. La renta de arrendamiento deberá pagarse dentro de los primeros cinco días de cada mes mediante <span class="highlight" id="prev_formaPago">________</span>. Dicha renta se reajustará en el mes de <span class="highlight" id="prev_mesReajuste">________</span> de cada año de acuerdo a la variación que experimente el Índice Precios al Consumidor (IPC).
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>TERCERO: DESTINO.</strong> El arrendatario destinará el vehículo para fines relacionados con el giro de la empresa, así como el uso que naturalmente le corresponde.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>CUARTO: VIGENCIA.</strong> El presente contrato empezó a regir el día <span class="highlight" id="prev_fechaInicioArriendo">________</span>, por el período de <span class="highlight" id="prev_duracionEstancia">________</span>, renovable automática y sucesivamente por iguales períodos, salvo que alguna de las partes contratantes manifieste su voluntad de no renovarlo.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>NOVENO: GARANTÍA.</strong> A fin de garantizar la conservación del vehículo y su restitución en el mismo estado en que se recibe, el arrendatario entrega en garantía en este acto al arrendador <strong><span class="highlight" id="prev_montoGarantia">la suma equivalente a un mes de arriendo</span></strong>, que éste se obliga a restituirle en igual equivalencia, dentro de los treinta días siguientes a la entrega.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderInvitante">Firma Arrendador</span>
+                                            <img class="signature-preview" id="signaturePreviewInvitante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Arrendador">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaInvitante">_______________</div>
+                                        <div class="signature-role">ARRENDADOR</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            RUT: <span class="highlight" id="prev_runInvitante2">___________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este contrato debe ser firmado por ambas partes y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Contrato de Trabajo Indefinido</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Contrato de Trabajo Indefinido</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Contrato</label>
+                                <input type="text" id="ciudadContrato" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaContrato">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL EMPLEADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Empleador (Empresa)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social de la Empresa</label>
+                                <input type="text" id="razonSocialEmpresa" placeholder="Ej: Tecnología Digital SpA">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpresa" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresa" placeholder="Ej: Av. Apoquindo 1234, Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionEmpresa" placeholder="Ej: Metropolitana de Santiago" value="Metropolitana de Santiago">
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin: 30px 0 20px 0; color: var(--text-accent); font-size: 1.2rem;">Representante Legal</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Representante Legal</label>
+                                <input type="text" id="nombreRepresentante" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadRepresentante" placeholder="Ej: Chilena" value="chilena">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaEmpleador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoEmpleador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL TRABAJADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Trabajador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Trabajador</label>
+                                <input type="text" id="nombreTrabajador" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Trabajador</label>
+                                <input type="text" id="rutTrabajador" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadTrabajador" placeholder="Ej: Chilena" value="chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Edad</label>
+                                <input type="number" id="edadTrabajador" placeholder="Ej: 28" min="18" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaTrabajador" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Trabajador</label>
+                                <input type="text" id="domicilioTrabajador" placeholder="Ej: Av. Providencia 567, Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionTrabajador" placeholder="Ej: Metropolitana de Santiago" value="Metropolitana de Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaTrabajador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoTrabajador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALLES DEL TRABAJO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💼</div>
+                            <h2 class="section-title">Detalles del Trabajo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Cargo o Función</label>
+                                <input type="text" id="cargoFuncion" placeholder="Ej: Desarrollador de Software, Contador">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio del Trabajo</label>
+                                <input type="date" id="fechaInicioTrabajo">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción del Cargo y Actividades</label>
+                                <textarea id="descripcionCargo" rows="3" placeholder="Describa las funciones y responsabilidades del trabajador..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Lugar de Trabajo (Dirección donde se realizará el trabajo)</label>
+                                <input type="text" id="lugarTrabajo" placeholder="Ej: Av. Providencia 1234, Las Condes, Santiago">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- JORNADA LABORAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⏰</div>
+                            <h2 class="section-title">Jornada Laboral</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Horas Semanales</label>
+                                <input type="number" id="horasSemanales" placeholder="Ej: 45" min="1" max="48">
+                            </div>
+                            <div class="form-group">
+                                <label>Días de Trabajo por Semana</label>
+                                <input type="number" id="diasSemana" placeholder="Ej: 5" min="1" max="6">
+                            </div>
+                            <div class="form-group">
+                                <label>Día Inicio de Semana Laboral</label>
+                                <select id="diaInicioSemana">
+                                    <option value="">Seleccionar día</option>
+                                    <option value="lunes" selected>Lunes</option>
+                                    <option value="martes">Martes</option>
+                                    <option value="miércoles">Miércoles</option>
+                                    <option value="jueves">Jueves</option>
+                                    <option value="viernes">Viernes</option>
+                                    <option value="sábado">Sábado</option>
+                                    <option value="domingo">Domingo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Día Fin de Semana Laboral</label>
+                                <select id="diaFinSemana">
+                                    <option value="">Seleccionar día</option>
+                                    <option value="lunes">Lunes</option>
+                                    <option value="martes">Martes</option>
+                                    <option value="miércoles">Miércoles</option>
+                                    <option value="jueves">Jueves</option>
+                                    <option value="viernes" selected>Viernes</option>
+                                    <option value="sábado">Sábado</option>
+                                    <option value="domingo">Domingo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Hora de Inicio</label>
+                                <input type="time" id="horaInicio" placeholder="Ej: 09:00" value="09:00">
+                            </div>
+                            <div class="form-group">
+                                <label>Hora de Término</label>
+                                <input type="time" id="horaTermino" placeholder="Ej: 18:00" value="18:00">
+                            </div>
+                            <div class="form-group">
+                                <label>Descanso Diario (minutos)</label>
+                                <input type="number" id="descansoMinutos" placeholder="Ej: 60" min="30" max="120" value="60">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Autorizado para Horas Extraordinarias?</label>
+                                <select id="horasExtraordinarias">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí, autorizado</option>
+                                    <option value="no" selected>No autorizado sin permiso expreso</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- REMUNERACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Remuneración</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Sueldo Líquido Mensual (en pesos)</label>
+                                <input type="number" id="sueldoMensual" placeholder="Ej: 850000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Sueldo en Palabras</label>
+                                <input type="text" id="sueldoPalabras" placeholder="Ej: Ochocientos cincuenta mil pesos" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Día de Pago</label>
+                                <select id="diaPago">
+                                    <option value="">Seleccionar</option>
+                                    <option value="los primeros tres días hábiles del mes siguiente" selected>Los primeros 3 días hábiles del mes siguiente</option>
+                                    <option value="el último día hábil del mes">El último día hábil del mes</option>
+                                    <option value="el día 30 de cada mes">El día 30 de cada mes</option>
+                                    <option value="el día 15 y último día del mes">Quincenalmente (15 y último día)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Incluye Gratificación Legal</label>
+                                <select id="incluyeGratificacion">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si" selected>Sí, incluida en la remuneración</option>
+                                    <option value="no">No, se pagará por separado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OBSERVACIONES ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Información Adicional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Observaciones o Cláusulas Especiales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier condición especial del contrato..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Contrato</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CONTRATO DE TRABAJO</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadContrato">Santiago</span>, a <span class="highlight" id="prev_dia">__</span> días del mes de <span class="highlight" id="prev_mes">________</span> del año <span class="highlight" id="prev_anio">20__</span>; entre <strong><span class="highlight" id="prev_razonSocialEmpresa">EMPRESA SpA</span></strong>, Rol Único Tributario Nº <span class="highlight" id="prev_rutEmpresa">___________</span>, representada por don <strong><span class="highlight" id="prev_nombreRepresentante">_________________________</span></strong>, <span class="highlight" id="prev_nacionalidadRepresentante">chilena</span>, cédula de identidad Nº <span class="highlight" id="prev_rutRepresentante">___________</span>, ambos domiciliados en calle <span class="highlight" id="prev_domicilioEmpresa">_________________________</span>, comuna de <span class="highlight" id="prev_comunaEmpresa">________</span>, Región <span class="highlight" id="prev_regionEmpresa">Metropolitana</span>, en adelante, "el empleador"; y don <strong><span class="highlight" id="prev_nombreTrabajador">_________________________</span></strong>, <span class="highlight" id="prev_nacionalidadTrabajador">chilena</span>, mayor de edad, <span class="highlight" id="prev_edadTrabajador">__ años</span>, cédula de identidad N° <span class="highlight" id="prev_rutTrabajador">___________</span>, domiciliado en <span class="highlight" id="prev_domicilioTrabajador">_________________________</span>, comuna de <span class="highlight" id="prev_comunaTrabajador">________</span>, Región <span class="highlight" id="prev_regionTrabajador">Metropolitana</span>, se ha convenido el siguiente contrato de trabajo:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>PRIMERO:</strong> El trabajador se compromete a realizar el trabajo y funciones de <span class="highlight" id="prev_cargoFuncion">________</span> <span class="highlight" id="prev_descripcionCargo">________________________</span> y toda actividad afín a la profesión. El trabajo se desarrollará las dependencias de <span class="highlight" id="prev_razonSocialEmpresa2">EMPRESA SpA</span>, en <span class="highlight" id="prev_lugarTrabajo">_________________________</span>. Sin perjuicio que tendrá que realizar actividades fuera de la oficina en instituciones públicas o privadas asociadas a las gestiones antes señaladas, en virtud del ejercicio del cargo, cuando sea requerido por el empleador.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SEGUNDO:</strong> La jornada de trabajo será de <span class="highlight" id="prev_horasSemanales">__</span> horas semanales, distribuida en <span class="highlight" id="prev_diasSemana">__</span> días y en las horas que a continuación se señalan:<br><br>
+                                - <span class="highlight" id="prev_diaInicioSemana">Lunes</span> a <span class="highlight" id="prev_diaFinSemana">Viernes</span> de <span class="highlight" id="prev_horaInicio">09:00</span> horas a <span class="highlight" id="prev_horaTermino">18:00</span> horas.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                El trabajador tendrá un descanso diario de <span class="highlight" id="prev_descansoMinutos">60</span> minutos, de acuerdo a lo señalado en el artículo 34 del Código del Trabajo.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>TERCERO:</strong> <span class="highlight" id="prev_horasExtraClause">El trabajar no se encontrará autorizado para trabajar horas extraordinarias, sin autorización expresa del empleador.</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>CUARTO:</strong> La remuneración del trabajador será la suma líquida mensual de <strong>$<span class="highlight" id="prev_sueldoMensual">________</span> (<span class="highlight" id="prev_sueldoPalabras">________ pesos</span>)</strong>, pagados por mes calendario, que será liquidada y pagada por períodos vencidos, en el domicilio del empleador, <span class="highlight" id="prev_diaPago">los primeros tres días hábiles del mes siguiente</span>. <span class="highlight" id="prev_gratificacionClause">Ambas partes acuerdan que la remuneración incluye el concepto de gratificación señalado en el artículo 50 del Código del Trabajo.</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                De la remuneración se deducirán los impuestos; las cotizaciones de previsión o seguridad social, de salud, de seguro de cesantía; y todas aquellas deducciones, con los topes legales señalados en el artículo 54 y siguientes del Código del Trabajo, que el trabajador haya autorizado de manera expresa mediante carta autorización firmada.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>QUINTO:</strong> Son obligaciones esenciales del trabajador, cuya infracción las partes entienden como causa justificada de terminación del presente contrato, las siguientes: mantener confidencialidad absoluta, cumplir con diligencia sus funciones, mantener presentación personal adecuada, cuidar los bienes de la empresa, cumplir instrucciones superiores, justificar inasistencias con certificado médico dentro de 24 horas, colaborar activamente en las tareas asignadas, e informar cualquier anomalía que pudiere afectar al empleador.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SEXTO:</strong> El presente contrato tendrá el carácter de contrato <strong>indefinido</strong>. Las partes pueden ponerle término de común acuerdo, y una sola de ellas podrá hacerlo en la forma, las condiciones y por las causales que señalan los artículos 159, 160 y 161 del Código del Trabajo.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div style="display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto;">
+                                        <!-- Firma Empleador -->
+                                        <div class="signature-box" style="flex: 1; margin-right: 40px;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderEmpleador">Firma Empleador</span>
+                                                <img class="signature-preview" id="signaturePreviewEmpleador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Empleador">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaEmpleador">_______________</div>
+                                            <div class="signature-role">EMPLEADOR</div>
+                                            <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                                RUT: <span class="highlight" id="prev_rutRepresentante2">___________</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Firma Trabajador -->
+                                        <div class="signature-box" style="flex: 1;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderTrabajador">Firma Trabajador</span>
+                                                <img class="signature-preview" id="signaturePreviewTrabajador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Trabajador">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaTrabajador">_______________</div>
+                                            <div class="signature-role">TRABAJADOR</div>
+                                            <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                                RUT: <span class="highlight" id="prev_rutTrabajador2">___________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este contrato debe ser firmado por ambas partes y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

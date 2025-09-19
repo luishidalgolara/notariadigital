@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Formato Orden de Compra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Formato Orden de Compra</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- NÚMERO DE ORDEN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Número de Orden de Compra</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Número de Orden de Compra</label>
+                                <input type="text" id="numeroOrden" placeholder="Ej: OC-2024-001">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL CLIENTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Cliente y de la Factura</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Razón Social</label>
+                                <input type="text" id="razonSocialCliente" placeholder="Ej: Empresa ABC Ltda.">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadCliente" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Contacto</label>
+                                <input type="text" id="contactoCliente" placeholder="Ej: Juan Pérez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutCliente" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input type="text" id="direccionCliente" placeholder="Ej: Av. Principal 123">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="telefonoCliente" placeholder="Ej: +56 9 8765 4321">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaCliente" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoCliente" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL PROVEEDOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Proveedor</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Razón Social</label>
+                                <input type="text" id="razonSocialProveedor" placeholder="Ej: Proveedor XYZ S.A.">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadProveedor" placeholder="Ej: Valparaíso">
+                            </div>
+                            <div class="form-group">
+                                <label>Contacto</label>
+                                <input type="text" id="contactoProveedor" placeholder="Ej: María González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutProveedor" placeholder="Ej: 96.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input type="text" id="direccionProveedor" placeholder="Ej: Calle Comercial 456">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="telefonoProveedor" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaProveedor" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoProveedor" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL PRODUCTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📦</div>
+                            <h2 class="section-title">Datos del Producto a Adquirir</h2>
+                        </div>
+                        
+                        <!-- Productos Dinámicos -->
+                        <div id="productosContainer">
+                            <!-- Producto 1 -->
+                            <div class="producto-item" data-producto="1">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>No. Parte / Tipo Modelo</label>
+                                        <input type="text" id="numeroParte1" placeholder="Ej: ABC-123">
+                                    </div>
+                                    <div class="form-group span-2">
+                                        <label>Descripción del Producto</label>
+                                        <input type="text" id="descripcionProducto1" placeholder="Ej: Computador portátil HP Pavilion">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Precio Unitario ($)</label>
+                                        <input type="number" id="precioUnitario1" placeholder="0" step="0.01" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <input type="number" id="cantidad1" placeholder="1" min="1" value="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Precio Total ($)</label>
+                                        <input type="number" id="precioTotal1" placeholder="0" step="0.01" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón Agregar Producto -->
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button type="button" id="agregarProducto" class="btn btn-secondary">
+                                <span class="btn-icon">➕</span>
+                                <span class="btn-text">Agregar Producto</span>
+                            </button>
+                        </div>
+
+                        <!-- Totales -->
+                        <div class="form-grid" style="margin-top: 30px; border-top: 2px solid var(--border-primary); padding-top: 20px;">
+                            <div class="form-group">
+                                <label>Subtotal Neto ($)</label>
+                                <input type="number" id="subtotalNeto" placeholder="0" step="0.01" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>IVA 19% ($)</label>
+                                <input type="number" id="iva" placeholder="0" step="0.01" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 700; color: var(--accent-primary);">TOTAL ($)</label>
+                                <input type="number" id="total" placeholder="0" step="0.01" readonly style="font-weight: 700; font-size: 1.1rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACEPTACIÓN DEL CLIENTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✅</div>
+                            <h2 class="section-title">Aceptación del Cliente</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre del Responsable</label>
+                                <input type="text" id="nombreResponsable" placeholder="Ej: Juan Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo</label>
+                                <input type="text" id="cargoResponsable" placeholder="Ej: Gerente de Compras">
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                    <input type="checkbox" id="aceptacionOrden" style="transform: scale(1.2);">
+                                    <span>Acepto los términos y condiciones de esta orden de compra</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Orden de Compra</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">ORDEN DE COMPRA N° <span id="prev_numeroOrden">.....</span></div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <!-- Datos del Cliente -->
+                            <div style="margin-bottom: 30px;">
+                                <h3 style="background: var(--accent-primary); color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">DATOS DEL CLIENTE Y DE LA FACTURA</h3>
+                                <div class="info-table">
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Razón Social:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_razonSocialCliente">________________</span></div>
+                                        <div class="info-cell"><strong>Ciudad:</strong></div>
+                                        <div class="info-cell"><span id="prev_ciudadCliente">________________</span></div>
+                                    </div>
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Contacto:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_contactoCliente">________________</span></div>
+                                        <div class="info-cell"><strong>RUT:</strong></div>
+                                        <div class="info-cell"><span id="prev_rutCliente">________________</span></div>
+                                    </div>
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Dirección:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_direccionCliente">________________</span></div>
+                                        <div class="info-cell"><strong>Teléfono:</strong></div>
+                                        <div class="info-cell"><span id="prev_telefonoCliente">________________</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Datos del Proveedor -->
+                            <div style="margin-bottom: 30px;">
+                                <h3 style="background: var(--accent-secondary); color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">DATOS DEL PROVEEDOR</h3>
+                                <div class="info-table">
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Razón Social:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_razonSocialProveedor">________________</span></div>
+                                        <div class="info-cell"><strong>Ciudad:</strong></div>
+                                        <div class="info-cell"><span id="prev_ciudadProveedor">________________</span></div>
+                                    </div>
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Contacto:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_contactoProveedor">________________</span></div>
+                                        <div class="info-cell"><strong>RUT:</strong></div>
+                                        <div class="info-cell"><span id="prev_rutProveedor">________________</span></div>
+                                    </div>
+                                    <div class="info-row">
+                                        <div class="info-cell"><strong>Dirección:</strong></div>
+                                        <div class="info-cell wide"><span id="prev_direccionProveedor">________________</span></div>
+                                        <div class="info-cell"><strong>Teléfono:</strong></div>
+                                        <div class="info-cell"><span id="prev_telefonoProveedor">________________</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Datos del Producto -->
+                            <div style="margin-bottom: 30px;">
+                                <h3 style="background: var(--accent-tertiary); color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">DATOS DEL PRODUCTO A ADQUIRIR</h3>
+                                <div class="productos-table">
+                                    <div class="table-header">
+                                        <div class="table-cell header"><strong>No. Parte / Tipo Modelo</strong></div>
+                                        <div class="table-cell header wide"><strong>Descripción del Producto</strong></div>
+                                        <div class="table-cell header"><strong>Precio Unitario</strong></div>
+                                        <div class="table-cell header"><strong>Cant</strong></div>
+                                        <div class="table-cell header"><strong>Precio Total</strong></div>
+                                    </div>
+                                    <div id="productosPreview">
+                                        <!-- Productos se llenarán dinámicamente -->
+                                    </div>
+                                    <div class="table-totals">
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"><strong>NETO:</strong></div>
+                                        <div class="table-cell"><strong>$<span id="prev_subtotalNeto">0</span></strong></div>
+                                    </div>
+                                    <div class="table-totals">
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"><strong>IVA:</strong></div>
+                                        <div class="table-cell"><strong>$<span id="prev_iva">0</span></strong></div>
+                                    </div>
+                                    <div class="table-totals total-final">
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"></div>
+                                        <div class="table-cell"><strong>TOTAL:</strong></div>
+                                        <div class="table-cell"><strong>$<span id="prev_total">0</span></strong></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Aceptación del Cliente -->
+                            <div style="margin-top: 60px;">
+                                <h3 style="background: var(--success); color: white; padding: 10px; border-radius: 8px; margin-bottom: 30px; text-align: center;">ACEPTACIÓN DEL CLIENTE</h3>
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center; margin-right: 5%;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderCliente">Firma del Cliente</span>
+                                            <img class="signature-preview" id="signaturePreviewCliente" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Cliente">
+                                        </div>
+                                        <div class="signature-name" id="prev_nombreResponsable">_______________</div>
+                                        <div class="signature-role" id="prev_cargoResponsable">_______________</div>
+                                    </div>
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderProveedor">Firma del Proveedor</span>
+                                            <img class="signature-preview" id="signaturePreviewProveedor" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Proveedor">
+                                        </div>
+                                        <div class="signature-name" id="prev_contactoProveedor2">_______________</div>
+                                        <div class="signature-role">PROVEEDOR</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

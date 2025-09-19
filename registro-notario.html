@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Notarías - Plataforma Digital</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="registro-notario.css">
+</head>
+<body>
+    <div class="progress-indicator" id="progressIndicator"></div>
+    
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+
+    <div class="container">
+        <div class="header animate-in">
+            <i class="fas fa-balance-scale header-icon"></i>
+            <h1>Registro de Notarías</h1>
+            <p>Complete el formulario para registrar su notaría en nuestra plataforma digital</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle message-icon"></i>
+            <div>
+                <strong>¡Registro exitoso!</strong><br>
+                Su solicitud ha sido enviada y será procesada en breve. Le contactaremos pronto.
+            </div>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle message-icon"></i>
+            <div id="errorMessageText">
+                <strong>Error en el formulario</strong><br>
+                Por favor, complete todos los campos obligatorios correctamente.
+            </div>
+        </div>
+
+        <div class="form-container animate-in">
+            <div class="stepper">
+                <div class="stepper-progress" id="stepperProgress"></div>
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Identificación</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Datos Notaría</div>
+                </div>
+            </div>
+
+            <form id="notaryForm">
+                <!-- Sección 1: Identificación del Notario -->
+                <div class="section active" data-section="1">
+                    <h2 class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        Identificación y Acreditación del Notario/a
+                    </h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombreNotario" class="required">Nombre Completo del Notario/a</label>
+                            <div class="input-container">
+                                <input type="text" id="nombreNotario" name="nombreNotario" required autocomplete="name">
+                                <div class="field-error" id="errorNombreNotario">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Este campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rutNotario" class="required">RUT del Notario
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="tooltip-content">Formato: 12.345.678-9</div>
+                                </span>
+                            </label>
+                            <div class="input-container">
+                                <input type="text" id="rutNotario" name="rutNotario" placeholder="12.345.678-9" required>
+                                <div class="field-error" id="errorRutNotario">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Ingrese un RUT válido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cedulaFile" class="required">Copia de Cédula de Identidad (ambos lados)</label>
+                        <div class="file-upload">
+                            <input type="file" id="cedulaFile" name="cedulaFile" class="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple required>
+                            <label for="cedulaFile" class="file-label">
+                                <i class="fas fa-cloud-upload-alt file-icon"></i>
+                                <div class="file-text">Arrastre archivos aquí o haga clic para seleccionar</div>
+                                <div class="file-subtext">PDF, JPG, PNG - Máximo 10MB por archivo</div>
+                            </label>
+                            <div class="file-name" id="cedulaFileName">
+                                <i class="fas fa-file"></i>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="field-error" id="errorCedulaFile">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Debe subir la cédula de identidad
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombramientoFile" class="required">Nombramiento Oficial del Notario</label>
+                            <div class="file-upload">
+                                <input type="file" id="nombramientoFile" name="nombramientoFile" class="file-input" accept=".pdf" required>
+                                <label for="nombramientoFile" class="file-label">
+                                    <i class="fas fa-certificate file-icon"></i>
+                                    <div class="file-text">Documento oficial en PDF</div>
+                                    <div class="file-subtext">Emitido por el Ministerio de Justicia</div>
+                                </label>
+                                <div class="file-name" id="nombramientoFileName">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="field-error" id="errorNombramientoFile">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Debe subir el nombramiento oficial
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="certificadoVigencia" class="required">Certificado de Vigencia del Cargo</label>
+                            <div class="file-upload">
+                                <input type="file" id="certificadoVigencia" name="certificadoVigencia" class="file-input" accept=".pdf" required>
+                                <label for="certificadoVigencia" class="file-label">
+                                    <i class="fas fa-award file-icon"></i>
+                                    <div class="file-text">Certificado vigente en PDF</div>
+                                    <div class="file-subtext">Emitido por la Corte de Apelaciones</div>
+                                </label>
+                                <div class="file-name" id="certificadoVigenciaName">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="field-error" id="errorCertificadoVigencia">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Debe subir el certificado de vigencia
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Datos de la Notaría -->
+                <div class="section" data-section="2">
+                    <h2 class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        Datos de la Notaría
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label for="nombreNotaria" class="required">Nombre Completo de la Notaría</label>
+                        <div class="input-container">
+                            <input type="text" id="nombreNotaria" name="nombreNotaria" required>
+                            <div class="field-error" id="errorNombreNotaria">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Este campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion" class="required">Dirección Física</label>
+                            <div class="input-container">
+                                <input type="text" id="direccion" name="direccion" placeholder="Calle, número, departamento/oficina" required>
+                                <div class="field-error" id="errorDireccion">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Ingrese una dirección válida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="comuna" class="required">Comuna</label>
+                            <div class="input-container">
+                                <input type="text" id="comuna" name="comuna" required>
+                                <div class="field-error" id="errorComuna">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Este campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="region" class="required">Región</label>
+                            <div class="input-container">
+                                <select id="region" name="region" required>
+                                    <option value="">Seleccione región</option>
+                                    <option value="XV">XV - Arica y Parinacota</option>
+                                    <option value="I">I - Tarapacá</option>
+                                    <option value="II">II - Antofagasta</option>
+                                    <option value="III">III - Atacama</option>
+                                    <option value="IV">IV - Coquimbo</option>
+                                    <option value="V">V - Valparaíso</option>
+                                    <option value="RM">RM - Metropolitana</option>
+                                    <option value="VI">VI - O'Higgins</option>
+                                    <option value="VII">VII - Maule</option>
+                                    <option value="XVI">XVI - Ñuble</option>
+                                    <option value="VIII">VIII - Biobío</option>
+                                    <option value="IX">IX - La Araucanía</option>
+                                    <option value="XIV">XIV - Los Ríos</option>
+                                    <option value="X">X - Los Lagos</option>
+                                    <option value="XI">XI - Aysén</option>
+                                    <option value="XII">XII - Magallanes</option>
+                                </select>
+                                <div class="field-error" id="errorRegion">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Seleccione una región
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" class="required">Teléfono Fijo
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="tooltip-content">Formato: +56 2 2XXX XXXX</div>
+                                </span>
+                            </label>
+                            <div class="input-container">
+                                <input type="tel" id="telefono" name="telefono" placeholder="+56 2 2XXX XXXX" required>
+                                <div class="field-error" id="errorTelefono">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Ingrese un teléfono válido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="required">Correo Institucional</label>
+                            <div class="input-container">
+                                <input type="email" id="email" name="email" placeholder="contacto@notaria.cl" required>
+                                <div class="field-error" id="errorEmail">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Ingrese un email válido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rutNotaria">RUT de la Notaría
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="tooltip-content">Solo si factura como persona jurídica</div>
+                                </span>
+                            </label>
+                            <div class="input-container">
+                                <input type="text" id="rutNotaria" name="rutNotaria" placeholder="76.XXX.XXX-X">
+                                <div class="field-error" id="errorRutNotaria">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    RUT inválido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horarios" class="required">Horarios de Atención</label>
+                        <div class="input-container">
+                            <textarea id="horarios" name="horarios" placeholder="Ejemplo:&#10;Lunes a Viernes: 9:00 - 18:00&#10;Sábados: 9:00 - 13:00&#10;Domingos: Cerrado" required rows="4"></textarea>
+                            <div class="field-error" id="errorHorarios">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Ingrese los horarios de atención
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sitioWeb">Sitio Web (opcional)</label>
+                        <div class="input-container">
+                            <input type="url" id="sitioWeb" name="sitioWeb" placeholder="https://www.notaria.cl">
+                            <div class="field-error" id="errorSitioWeb">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Ingrese una URL válida
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkmark"></span>
+                    </div>
+                    <label for="terms">
+                        <strong>Acepto los términos y condiciones</strong> y autorizo la verificación de toda la información proporcionada. 
+                        Declaro bajo juramento que todos los documentos son auténticos y la información es veraz. *
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <span class="checkmark"></span>
+                    </div>
+                    <label for="privacy">
+                        <strong>Autorizo el tratamiento de mis datos personales</strong> conforme a la Ley de Protección de Datos Personales 
+                        para fines de verificación y registro en la plataforma. *
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <span class="checkmark"></span>
+                    </div>
+                    <label for="newsletter">
+                        Deseo recibir información sobre actualizaciones, nuevas funcionalidades y noticias relevantes del sector notarial.
+                    </label>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Enviar Solicitud de Registro</span>
+                        <div class="loading-spinner" id="loadingSpinner"></div>
+                    </button>
+                    
+                    <div style="margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem; text-align: center;">
+                        <i class="fas fa-info-circle"></i>
+                        Su solicitud será revisada en un plazo máximo de 3 días hábiles
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="registro-notario.js"></script>
+</body>
+</html>

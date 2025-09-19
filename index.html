@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notarías Región del Bío Bío</title>
+    <link rel="stylesheet" href="buscador-styles.css">
+    <style>
+        /* Estilos adicionales para botones duales */
+        .header-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .register-notary-btn {
+            background: transparent;
+            border: 2px solid #8b5cf6;
+            color: #8b5cf6;
+            padding: 12px 24px;
+            border-radius: 32px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-notary-btn:hover {
+            background: #8b5cf6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .register-notary-btn:active {
+            transform: translateY(0);
+        }
+
+        .register-notary-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .register-notary-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Estilos para el botón de asistente */
+        .floating-instructions-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #0f172a;
+            padding: 16px 20px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            backdrop-filter: blur(10px);
+            max-width: 200px;
+        }
+
+        .floating-instructions-btn:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+        }
+
+        .floating-instructions-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-text {
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        /* Estilos para la nota importante */
+        .important-note {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .note-title {
+            color: #f59e0b;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-text {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Responsive para los botones */
+        @media (max-width: 768px) {
+            .header-buttons {
+                gap: 12px;
+            }
+            
+            .register-btn, .register-notary-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .floating-instructions-btn {
+                bottom: 20px;
+                left: 20px;
+                padding: 12px 16px;
+                font-size: 0.8rem;
+                max-width: 160px;
+            }
+            
+            .btn-icon {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-buttons {
+                flex-direction: column;
+                gap: 8px;
+                align-items: stretch;
+            }
+            
+            .register-btn, .register-notary-btn {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+                text-align: center;
+            }
+            
+            .floating-instructions-btn {
+                bottom: 15px;
+                left: 15px;
+                padding: 10px 14px;
+                font-size: 0.75rem;
+                max-width: 140px;
+                gap: 8px;
+            }
+            
+            .btn-text {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Estilos del modal del asistente */
+        .assistant-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .assistant-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            animation: slideInUp 0.4s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: #4dff00;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #cbd5e1;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .step-item {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4dff00;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover {
+            background: rgba(30, 41, 59, 0.6);
+            transform: translateX(8px);
+        }
+
+        .step-number {
+            background: #4dff00;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 1rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .payment-methods {
+            list-style: none;
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
+        .payment-methods li {
+            color: #94a3b8;
+            margin: 4px 0;
+            position: relative;
+        }
+
+        .payment-methods li::before {
+            content: "•";
+            color: #4dff00;
+            font-weight: bold;
+            position: absolute;
+            left: -12px;
+        }
+
+        .highlight {
+            background: rgba(77, 255, 0, 0.1);
+            color: #4dff00;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsive del modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 24px;
+                margin: 10px;
+                max-height: 95vh;
+            }
+
+            .step-item {
+                padding: 16px;
+            }
+
+            .step-title {
+                font-size: 1.1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.9rem;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="header-buttons">
+            <button class="register-btn" onclick="window.location.href='registro.html'">Registrarse</button>
+            <button class="register-notary-btn" onclick="window.location.href='registro-notario.html'">Registrar Notaría</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="logo" onclick="window.history.back()">
+            <img src="logo2.png" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        
+        <div class="header">
+            <h1>Busca tu notaría más cercana y...¡sáltate la fila!</h1>
+            <p>Haz tu trámite más rápido online 24/7, Porque tu tiempo vale.</p>
+        </div>
+
+        <div class="breadcrumb" id="breadcrumb">
+            <span class="breadcrumb-item" onclick="resetToRegion()">Inicio</span>
+        </div>
+
+        <!-- Selección de Región -->
+        <div class="navigation" id="regionSelection">
+            <div class="nav-level">
+                <div class="nav-title">Selecciona una Región de Chile</div>
+                <div class="regions-grid">
+                    <div class="option-card disabled">
+                        <div class="region-number">XV</div>
+                        <div class="option-title">Arica y Parinacota</div>
+                        <div class="option-subtitle">Arica • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">I</div>
+                        <div class="option-title">Tarapacá</div>
+                        <div class="option-subtitle">Iquique • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">II</div>
+                        <div class="option-title">Antofagasta</div>
+                        <div class="option-subtitle">Antofagasta • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">III</div>
+                        <div class="option-title">Atacama</div>
+                        <div class="option-subtitle">Copiapó • Próximamente</div>
+                    </div>
+                    
+                    <div class="option-card disabled">
+                        <div class="region-number">IV</div>
+                        <div class="option-title">Coquimbo</div>
+                        <div class="option-subtitle">La Serena • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">V</div>
+                        <div class="option-title">Valparaíso</div>
+                        <div class="option-subtitle">Valparaíso • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">RM</div>
+                        <div class="option-title">Metropolitana</div>
+                        <div class="option-subtitle">Santiago • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">VI</div>
+                        <div class="option-title">O'Higgins</div>
+                        <div class="option-subtitle">Rancagua • Próximamente</div>
+                    </div>
+                    
+                    <div class="option-card disabled">
+                        <div class="region-number">VII</div>
+                        <div class="option-title">Maule</div>
+                        <div class="option-subtitle">Talca • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">XVI</div>
+                        <div class="option-title">Ñuble</div>
+                        <div class="option-subtitle">Chillán • Próximamente</div>
+                    </div>
+                    <div class="option-card" onclick="selectRegion('biobio')">
+                        <div class="region-number available">VIII</div>
+                        <div class="option-title">Bío Bío</div>
+                        <div class="option-subtitle">Concepción • Disponible</div>
+                        <div class="available-badge">DISPONIBLE</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">IX</div>
+                        <div class="option-title">La Araucanía</div>
+                        <div class="option-subtitle">Temuco • Próximamente</div>
+                    </div>
+                    
+                    <div class="option-card disabled">
+                        <div class="region-number">XIV</div>
+                        <div class="option-title">Los Ríos</div>
+                        <div class="option-subtitle">Valdivia • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">X</div>
+                        <div class="option-title">Los Lagos</div>
+                        <div class="option-subtitle">Puerto Montt • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">XI</div>
+                        <div class="option-title">Aysén</div>
+                        <div class="option-subtitle">Coyhaique • Próximamente</div>
+                    </div>
+                    <div class="option-card disabled">
+                        <div class="region-number">XII</div>
+                        <div class="option-title">Magallanes</div>
+                        <div class="option-subtitle">Punta Arenas • Próximamente</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selección de Comuna -->
+        <div class="navigation hidden" id="comunaSelection">
+            <div class="nav-level">
+                <div class="nav-title">Selecciona una Comuna - Región del Bío Bío</div>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectComuna('concepcion')">
+                        <div class="option-title">Concepción</div>
+                        <div class="option-subtitle">9 notarías disponibles</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('sanpedro')">
+                        <div class="option-title">San Pedro de la Paz</div>
+                        <div class="option-subtitle">1 notaría disponible</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('talcahuano')">
+                        <div class="option-title">Talcahuano</div>
+                        <div class="option-subtitle">3 notarías disponibles</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('coronel')">
+                        <div class="option-title">Coronel</div>
+                        <div class="option-subtitle">2 notarías disponibles</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('chiguayante')">
+                        <div class="option-title">Chiguayante</div>
+                        <div class="option-subtitle">1 notaría disponible</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('hualpen')">
+                        <div class="option-title">Hualpén</div>
+                        <div class="option-subtitle">1 notaría disponible</div>
+                    </div>
+                    <div class="option-card" onclick="selectComuna('tome')">
+                        <div class="option-title">Tomé</div>
+                        <div class="option-subtitle">1 notaría disponible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Flotante de Instrucciones -->
+    <button class="floating-instructions-btn" onclick="openAssistant()">
+        Ver instrucciones
+    </button>
+
+    <!-- Modal del Asistente -->
+    <div class="assistant-modal" id="assistantModal" onclick="closeAssistant(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">INSTRUCCIONES</h2>
+                <button class="close-btn" onclick="closeAssistant()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: #cbd5e1; margin-bottom: 30px; font-size: 1.1rem; text-align: center;">
+                    Sigue estos pasos para realizar tu trámite notarial en línea de forma rápida y segura
+                </p>
+                
+                <ol class="steps-list">
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">1</span>
+                            Escoge tu notaría más cercana
+                        </h3>
+                        <p class="step-description">
+                            Esto es importante en caso de que surja algún inconveniente: podrás resolverlo directamente en esa notaría.
+                        </p>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">2</span>
+                            Selecciona tu región y comuna
+                        </h3>
+                        <p class="step-description">
+                            Así el sistema te mostrará las notarías disponibles en tu zona.
+                        </p>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">3</span>
+                            Elige tu notaría vecina
+                        </h3>
+                        <p class="step-description">
+                            Ingresa al portal a través del botón <span class="highlight">"Trámites Virtuales"</span>.
+                        </p>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">4</span>
+                            Busca tu documento
+                        </h3>
+                        <p class="step-description">
+                            Dentro de "Trámites Virtuales", selecciona el Documento <span class="highlight">"Crear Documento"</span>.
+                        </p>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">5</span>
+                            Selecciona tu método de pago
+                        </h3>
+                        <p class="step-description">
+                            Puedes pagar de tres formas:
+                        </p>
+                        <ul class="payment-methods">
+                            <li>Pago en línea (tarjeta de débito/crédito)</li>
+                            <li>Transferencia electrónica</li>
+                            <li>Pago presencial en la caja de tu notaría más cercana</li>
+                        </ul>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">6</span>
+                            Completa la información del formulario
+                        </h3>
+                        <p class="step-description">
+                            Responde todas las preguntas solicitadas para tu documento.<br>
+                            Adjunta tu <span class="highlight">firma digital</span>, <span class="highlight">foto de carnet</span> y realiza el <span class="highlight">video de verificación anti-robot</span>.
+                        </p>
+                    </li>
+                    
+                    <li class="step-item">
+                        <h3 class="step-title">
+                            <span class="step-number">7</span>
+                            Finaliza tu trámite
+                        </h3>
+                        <p class="step-description">
+                            Una vez validada la información, la notaría emitirá el documento y lo enviará a tu <span class="highlight">correo electrónico</span>.<br>
+                            Si lo prefieres, también puedes <span class="highlight">retirar el documento directamente en la notaría</span>.
+                        </p>
+                    </li>
+                </ol>
+                
+                <div class="important-note">
+                    <h4 class="note-title">📌 Importante:</h4>
+                    <p class="note-text">
+                        Los documentos generados por la web tendrán <span class="highlight">validez legal después de 48 horas</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="buscador-script.js"></script>
+</body>
+</html>

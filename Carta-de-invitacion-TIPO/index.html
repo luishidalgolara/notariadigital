@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Carta de Invitación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Carta de Invitación</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- LUGAR Y FECHA DE LA CARTA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de la Carta</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadCarta" placeholder="Ej: Santiago de Chile" value="Santiago de Chile">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de la Carta</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL INVITANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Invitante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombres y Apellidos Completos</label>
+                                <input type="text" id="nombresInvitante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitante" placeholder="Ej: Chilena, Peruana, Venezolana">
+                            </div>
+                            <div class="form-group">
+                                <label>RUN (Cédula de Identidad)</label>
+                                <input type="text" id="runInvitante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio Completo</label>
+                                <input type="text" id="domicilioInvitante" placeholder="Ej: Av. Providencia 1234, Depto. 56, Las Condes, Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Documento/Pasaporte</label>
+                                <input type="text" id="documentoInvitante" placeholder="Ej: CH1234567">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoInvitante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaInvitante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoInvitante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL INVITADO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🤝</div>
+                            <h2 class="section-title">Datos del Invitado</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombres y Apellidos Completos del Invitado</label>
+                                <input type="text" id="nombresInvitado" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad N°</label>
+                                <input type="text" id="cedulaInvitado" placeholder="Ej: 23.456.789">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad del Invitado</label>
+                                <input type="text" id="nacionalidadInvitado" placeholder="Ej: Argentina, Venezolana, Peruana">
+                            </div>
+                            <div class="form-group">
+                                <label>N° Expediente (Certificado Residencia)</label>
+                                <input type="text" id="expedienteInvitado" placeholder="Ej: EXP-2024-001234">
+                            </div>
+                            <div class="form-group">
+                                <label>N° Documento (Certificado Residencia)</label>
+                                <input type="text" id="documentoInvitado" placeholder="Ej: DOC-2024-005678">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>País de Procedencia</label>
+                                <input type="text" id="paisProcedencia" placeholder="Ej: Argentina" value="Argentina">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Relación con el Invitado</label>
+                                <select id="relacionInvitado">
+                                    <option value="">Seleccionar relación</option>
+                                    <option value="amiga">Amiga</option>
+                                    <option value="amigo">Amigo</option>
+                                    <option value="familiar">Familiar</option>
+                                    <option value="pareja">Pareja</option>
+                                    <option value="colega">Colega</option>
+                                    <option value="conocida">Conocida</option>
+                                    <option value="conocido">Conocido</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- RESPONSABILIDAD ECONÓMICA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Compromiso de Responsabilidad Económica</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Tipo de Gastos a Cubrir</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoAlojamiento" checked>
+                                        <span>Alojamiento</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoManutencion" checked>
+                                        <span>Manutención</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoSanitario" checked>
+                                        <span>Asistencia Sanitaria</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoMedico" checked>
+                                        <span>Gastos Médicos</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoRepatriacion" checked>
+                                        <span>Repatriación</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="gastoRegreso" checked>
+                                        <span>Gastos de Regreso</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Duración Estimada de la Estancia</label>
+                                <select id="duracionEstancia">
+                                    <option value="">Seleccionar duración</option>
+                                    <option value="1-3 meses">1-3 meses</option>
+                                    <option value="3-6 meses">3-6 meses</option>
+                                    <option value="6-12 meses">6-12 meses</option>
+                                    <option value="más de 1 año">Más de 1 año</option>
+                                    <option value="indefinida">Indefinida</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MEDIOS ECONÓMICOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📊</div>
+                            <h2 class="section-title">Declaración de Medios Económicos</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ingresos Mensuales Aproximados</label>
+                                <select id="ingresosMensuales">
+                                    <option value="">Seleccionar rango</option>
+                                    <option value="menos de $500.000">Menos de $500.000</option>
+                                    <option value="$500.000 - $1.000.000">$500.000 - $1.000.000</option>
+                                    <option value="$1.000.000 - $2.000.000">$1.000.000 - $2.000.000</option>
+                                    <option value="$2.000.000 - $3.000.000">$2.000.000 - $3.000.000</option>
+                                    <option value="más de $3.000.000">Más de $3.000.000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ocupación/Trabajo Actual</label>
+                                <input type="text" id="ocupacionInvitante" placeholder="Ej: Empleado, Independiente, Empresario">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>¿Ha formalizado invitaciones en los últimos 6 meses?</label>
+                                <select id="invitacionesPrevias">
+                                    <option value="">Seleccionar</option>
+                                    <option value="no">No</option>
+                                    <option value="si">Sí</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2" id="detalleInvitacionesPrevias" style="display: none;">
+                                <label>Detalle de Invitaciones Previas</label>
+                                <textarea id="detalleInvitaciones" rows="3" placeholder="Describa las invitaciones previas realizadas en los últimos 6 meses..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier información adicional relevante..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CARTA DE INVITACIÓN</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: right; margin-bottom: 30px; line-height: 1.8;">
+                                <span class="highlight" id="prev_ciudadCarta">Santiago de Chile</span>, <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Ante mí se presenta la ciudadana: <span class="highlight" id="prev_nombresInvitante">_________________________</span>, de nacionalidad <span class="highlight" id="prev_nacionalidadInvitante">________</span>, Cédula de Identidad para extranjeros RUN N° <span class="highlight" id="prev_runInvitante">___________</span>, con domicilio en <span class="highlight" id="prev_domicilioInvitante">_________________________</span>, mayor de edad, y en pleno uso de sus facultades, quien expone:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Que, por a través de este acto viene en extender carta de invitación para la residencia en Chile, a contar de la fecha de aceptación por parte de las autoridades,
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                a mi <span class="highlight" id="prev_relacionInvitado">amiga</span>, <span class="highlight" id="prev_nombresInvitado">_________________________</span>, cédula de identidad N° <span class="highlight" id="prev_cedulaInvitado">________</span> y Certificado de Residencia Precaria en Argentina N° Expediente <span class="highlight" id="prev_expedienteInvitado">_______</span>, N° Documento <span class="highlight" id="prev_documentoInvitado">_______</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Que por este acto declaro que, asumiré el compromiso total, es decir, que estaré obligada a costear todos los gastos de la estancia en Chile, que mi invitada pudiera ocasionar; responsabilizándome por todos los gastos que genere su alojamiento, manutención y asistencia o control sanitario, a su vez los gastos médicos y de repatriación que pudiesen estar asociados a un accidente o a una enfermedad repentina, y, en su caso, los de regreso al país de procedencia o tránsito hacia un Estado tercero en el que su admisión esté garantizada, de forma que en ningún caso pueda representar una carga pública.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Manifiesta la presente que, para poder hacerse cargo de los gastos derivados del compromiso que asume, cuenta con los medios económicos suficientes y que en los últimos 6 meses <span class="highlight" id="prev_estadoInvitacionesPrevias">no ha formalizado ningún compromiso</span> de invitación o cualquier otro documento con finalidad igual o semejante al que suscribe, y con independencia a la persona que afecta.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderInvitante">Firma Invitante</span>
+                                            <img class="signature-preview" id="signaturePreviewInvitante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Invitante">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaInvitante">_______________</div>
+                                        <div class="signature-role">INVITANTE</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            <span class="highlight" id="prev_nombresInvitante2">_________________________</span><br>
+                                            RUN N° <span class="highlight" id="prev_runInvitante2">___________</span><br>
+                                            Documento N° <span class="highlight" id="prev_documentoInvitante2">_______</span><br>
+                                            Pasaporte <span class="highlight" id="prev_documentoInvitante3">__________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; text-align: center;">
+                                <div style="border-top: 2px solid #3b82f6; width: 200px; margin: 0 auto;"></div>
+                                <div style="margin-top: 10px; font-weight: bold; color: var(--text-accent);">
+                                    NOTARIO
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta carta de invitación debe ser presentada ante las autoridades migratorias correspondientes. Se recomienda adjuntar documentación que respalde la solvencia económica del invitante y los documentos de identidad de ambas partes. Para procesos migratorios, verificar los requisitos específicos según el país de origen del invitado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

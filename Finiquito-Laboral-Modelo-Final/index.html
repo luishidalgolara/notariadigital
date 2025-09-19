@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Finiquito Laboral Modelo Final 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Finiquito Laboral Modelo Final 2</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DE LA EMPRESA/EMPLEADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Empresa/Empleador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social o Nombre de la Empresa</label>
+                                <input type="text" id="nombreEmpresa" placeholder="Ej: Comercial Los Andes Limitada">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Representante Legal</label>
+                                <input type="text" id="nombreRepresentante" placeholder="Ej: Juan Carlos Pérez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Calle y Número</label>
+                                <input type="text" id="calleEmpresa" placeholder="Ej: Av. Libertador Bernardo O'Higgins 1449">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpresa" placeholder="Ej: Santiago Centro">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadEmpresa" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaOtorgante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoOtorgante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL TRABAJADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Trabajador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Trabajador</label>
+                                <input type="text" id="nombreTrabajador" placeholder="Ej: María Elena González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Trabajador</label>
+                                <input type="text" id="rutTrabajador" placeholder="Ej: 11.222.333-4">
+                            </div>
+                            <div class="form-group">
+                                <label>Calle y Número</label>
+                                <input type="text" id="calleTrabajador" placeholder="Ej: Los Aromos 2156">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaTrabajador" placeholder="Ej: Las Condes">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL CONTRATO DE TRABAJO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Datos del Contrato de Trabajo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Inicio del Contrato</label>
+                                <input type="date" id="fechaInicio">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Término del Contrato</label>
+                                <input type="date" id="fechaTermino">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Causal de Terminación del Contrato</label>
+                                <select id="causalTerminacion">
+                                    <option value="">Seleccione la causal de terminación</option>
+                                    <option value="mutuo_acuerdo">Mutuo acuerdo de las partes</option>
+                                    <option value="renuncia_voluntaria">Renuncia voluntaria del trabajador</option>
+                                    <option value="vencimiento_plazo">Vencimiento del plazo convenido</option>
+                                    <option value="conclusion_trabajo">Conclusión del trabajo o servicio que dio origen al contrato</option>
+                                    <option value="caso_fortuito">Caso fortuito o fuerza mayor</option>
+                                    <option value="falta_probidad">Falta de probidad del trabajador</option>
+                                    <option value="conducta_inmoral">Conducta inmoral del trabajador</option>
+                                    <option value="negociaciones_prohibidas">Negociaciones que ejecute el trabajador prohibidas por contrato</option>
+                                    <option value="no_concurrencia">No concurrencia del trabajador a sus labores sin causa justificada</option>
+                                    <option value="abandono_trabajo">Abandono del trabajo por parte del trabajador</option>
+                                    <option value="actos_violencia">Actos, omisiones o imprudencias temerarias</option>
+                                    <option value="daño_material">Daño material causado intencionalmente</option>
+                                    <option value="incumplimiento_grave">Incumplimiento grave de las obligaciones del contrato</option>
+                                    <option value="necesidades_empresa">Necesidades de la empresa, establecimiento o servicio</option>
+                                    <option value="desahucio_empleador">Desahucio escrito del empleador</option>
+                                    <option value="otras">Otras causales (especificar en observaciones)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Artículo(s) del Código del Trabajo</label>
+                                <input type="text" id="articulosCodigo" placeholder="Ej: 159, 160, 161, etc.">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales (Opcional)</label>
+                                <textarea id="observacionesContrato" rows="3" placeholder="Especifique cualquier detalle adicional sobre la terminación del contrato..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LIQUIDACIÓN FINAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Liquidación Final</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monto Total a Pagar ($)</label>
+                                <input type="number" id="montoTotal" placeholder="Ej: 850000" step="1000">
+                            </div>
+                            <div class="form-group">
+                                <label>Monto en Palabras</label>
+                                <input type="text" id="montoEnPalabras" placeholder="Ej: ochocientos cincuenta mil pesos">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Detalle de la Liquidación</label>
+                                <textarea id="detalleLiquidacion" rows="6" placeholder="Detalle todos los conceptos incluidos en la liquidación:
+
+• Sueldo proporcional: $______
+• Vacaciones proporcionales: $______
+• Gratificación legal: $______
+• Indemnización por años de servicio: $______
+• Indemnización sustitutiva del aviso previo: $______
+• Otros conceptos: $______
+
+TOTAL: $______"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORMA DE PAGO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💳</div>
+                            <h2 class="section-title">Forma de Pago</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>¿Cómo se realizará el pago?</label>
+                                <select id="formaPago">
+                                    <option value="">Seleccione la forma de pago</option>
+                                    <option value="efectivo">Dinero efectivo</option>
+                                    <option value="cheque">Cheque nominativo</option>
+                                    <option value="transferencia">Transferencia bancaria</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campos adicionales para cheque -->
+                            <div class="form-group" id="serieChequeGroup" style="display: none;">
+                                <label>Serie del Cheque</label>
+                                <input type="text" id="serieCheque" placeholder="Ej: A">
+                            </div>
+                            <div class="form-group" id="numeroChequeGroup" style="display: none;">
+                                <label>Número del Cheque</label>
+                                <input type="text" id="numeroCheque" placeholder="Ej: 1234567">
+                            </div>
+                            <div class="form-group span-2" id="bancoGroup" style="display: none;">
+                                <label>Banco Emisor</label>
+                                <input type="text" id="bancoEmisor" placeholder="Ej: Banco de Chile">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MINISTRO DE FE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Ministro de Fe</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Ministro de Fe</label>
+                                <input type="text" id="nombreMinistroFe" placeholder="Ej: Carlos Alberto Morales López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Ministro de Fe</label>
+                                <input type="text" id="rutMinistroFe" placeholder="Ej: 15.678.901-2">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo o Institución</label>
+                                <input type="text" id="cargoMinistroFe" placeholder="Ej: Inspector del Trabajo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FECHA Y LUGAR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Fecha y Lugar de Firma</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Firma del Finiquito</label>
+                                <input type="date" id="fechaFiniquito">
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar de Firma</label>
+                                <input type="text" id="lugarFiniquito" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIONES LEGALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✅</div>
+                            <h2 class="section-title">Declaraciones Legales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionPensiones" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro bajo juramento que no he sido notificado de ninguna orden de retención por pensión de alimentos adeudada por el trabajador, y se acompañan las últimas tres liquidaciones de sueldo conforme a la Ley N° 21.389 y N° 14.908.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionCompleta" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro que la información proporcionada en este finiquito es verdadera, completa y exacta, y que he revisado detenidamente todos los cálculos y montos especificados.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionRenuncia" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Como trabajador, declaro expresamente que renuncio a cualquier derecho, acción o reclamo que eventualmente pudiere corresponderme en contra del empleador en relación con mi contrato de trabajo, servicios prestados o terminación del mismo.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Finiquito Laboral</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">FINIQUITO DE CONTRATO DE TRABAJO</div>
+                            <div class="document-subtitle">Modelo Final 2</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 40px; text-align: justify; line-height: 1.8;">
+                                <p style="margin-bottom: 20px;">
+                                    En <strong><span id="prev_lugarFiniquito" class="highlight">Santiago</span></strong>, a 
+                                    <strong><span id="prev_fechaFiniquito" class="highlight">__ de _______ del ____</span></strong>, 
+                                    entre <strong><span id="prev_nombreEmpresa" class="highlight">_____________________</span></strong>, 
+                                    R.U.T. <strong><span id="prev_rutEmpresa" class="highlight">______________</span></strong>, en adelante, 
+                                    también, «la empresa» o «el empleador», representado por 
+                                    Don(a) <strong><span id="prev_nombreRepresentante" class="highlight">_____________________</span></strong>, 
+                                    R.U.T. <strong><span id="prev_rutRepresentante" class="highlight">______________</span></strong> ambos domiciliados en 
+                                    <strong><span id="prev_direccionEmpresa" class="highlight">_________________________________</span></strong>, 
+                                    por una parte; y por la otra, don(a) <strong><span id="prev_nombreTrabajador" class="highlight">_____________________</span></strong>, 
+                                    R.U.T. <strong><span id="prev_rutTrabajador" class="highlight">______________</span></strong>, domiciliado en 
+                                    <strong><span id="prev_direccionTrabajador" class="highlight">_________________________________</span></strong>, 
+                                    en adelante, también, «el trabajador(a)», se deja testimonio y se ha acordado el finiquito que consta de las siguientes cláusulas:
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>PRIMERO:</strong> El trabajador prestó servicios al empleador desde el 
+                                    <strong><span id="prev_fechaInicio" class="highlight">__ de _______ de ____</span></strong> hasta el 
+                                    <strong><span id="prev_fechaTermino" class="highlight">__ de _______ de ____</span></strong>, fecha esta última en que su contrato de trabajo ha terminado por 
+                                    <strong><span id="prev_causalTerminacion" class="highlight">_____________________</span></strong>, 
+                                    causal(es) señalada(s) en el Código del Trabajo, artículo(s) 
+                                    <strong><span id="prev_articulosCodigo" class="highlight">______</span></strong>.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>SEGUNDO:</strong> Don(a) <strong><span id="prev_nombreTrabajador2" class="highlight">_____________________</span></strong> 
+                                    declara recibir en este acto, a su entera satisfacción, de parte de 
+                                    <strong><span id="prev_nombreEmpresa2" class="highlight">_____________________</span></strong> 
+                                    la suma de <strong>$<span id="prev_montoTotal" class="highlight">_________</span></strong> 
+                                    (<strong><span id="prev_montoEnPalabras" class="highlight">_____________________</span></strong>), 
+                                    según la liquidación que se señala a continuación:
+                                </p>
+                                
+                                <div style="margin: 20px 0; padding: 20px; background: rgba(59, 130, 246, 0.05); border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.2);">
+                                    <pre style="font-family: inherit; margin: 0; white-space: pre-wrap;" id="prev_detalleLiquidacion">El detalle de la liquidación aparecerá aquí...</pre>
+                                </div>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Don(a) <strong><span id="prev_nombreTrabajador3" class="highlight">_____________________</span></strong> 
+                                    declara haber analizado y estudiado detenidamente dicha liquidación, aceptándola en todas sus partes, 
+                                    sin tener observación alguna que formularle.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>TERCERO:</strong> En consecuencia, el empleador paga a 
+                                    don(a) <strong><span id="prev_nombreTrabajador4" class="highlight">_____________________</span></strong> 
+                                    <span id="prev_metodoPago">en dinero efectivo</span> 
+                                    la suma de <strong>$ <span id="prev_montoTotal2" class="highlight">_________</span></strong> 
+                                    (<strong><span id="prev_montoEnPalabras2" class="highlight">_____________________</span></strong>), 
+                                    que el trabajador declara recibir en este acto a su entera satisfacción. 
+                                    Las partes dejan constancia que la referida suma cubre el total de haberes especificados 
+                                    en la liquidación señalada en el numerando SEGUNDO del presente finiquito.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>CUARTO:</strong> Don(a) <strong><span id="prev_nombreTrabajador5" class="highlight">_____________________</span></strong> 
+                                    deja constancia que durante el tiempo que prestó servicios a 
+                                    <strong><span id="prev_nombreEmpresa3" class="highlight">_____________________</span></strong>, 
+                                    recibió oportunamente el total de las remuneraciones, beneficios y demás prestaciones convenidas 
+                                    de acuerdo a su contrato de trabajo, clase de trabajo ejecutado y disposiciones legales pertinentes, 
+                                    y que en tal virtud el empleador nada le adeuda por tales conceptos, ni por horas extraordinarias, 
+                                    asignación familiar, feriado, indemnización por años de servicios, imposiciones previsionales, 
+                                    así como por ningún otro concepto, ya sea legal o contractual, derivado de la prestación de sus servicios, 
+                                    de su contrato de trabajo o de la terminación del mismo.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>QUINTO:</strong> En virtud de lo anteriormente expuesto, 
+                                    Don(a) <strong><span id="prev_nombreTrabajador6" class="highlight">_____________________</span></strong> 
+                                    manifiesta expresamente que <strong><span id="prev_nombreEmpresa4" class="highlight">_____________________</span></strong> 
+                                    nada le adeuda en relación con los servicios prestados, con el contrato de trabajo o con motivo de la terminación del mismo, 
+                                    por lo que libre y espontáneamente, y con el pleno y cabal conocimiento de sus derechos, 
+                                    otorga a su empleador, el más amplio, completo, total y definitivo finiquito por los servicios prestados 
+                                    o la terminación de ellos.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    <strong>SEXTO:</strong> El empleador declara bajo juramento que no ha sido notificado de ninguna orden 
+                                    de retención por pensión de alimentos adeudada por el trabajador. Se acompañan a este finiquito 
+                                    las últimas tres liquidaciones de sueldo del trabajador, de conformidad con la Ley N° 21.389 y N° 14.908, 
+                                    donde no figuran descuentos por el referido concepto.
+                                </p>
+                                
+                                <p style="margin-bottom: 40px;">
+                                    Para constancia, las partes firman el presente finiquito en tres ejemplares, quedando uno en poder de cada una de ellas, 
+                                    y en cumplimiento de la legislación vigente, Don(a) <strong><span id="prev_nombreTrabajador7" class="highlight">_____________________</span></strong> 
+                                    lo lee, firma y lo ratifica ante <strong><span id="prev_nombreMinistroFe" class="highlight">_____________________</span></strong>.
+                                </p>
+                            </div>
+
+                            <!-- Sección de Firmas -->
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderOtorgante">Firma del Trabajador</span>
+                                            <img class="signature-preview" id="signaturePreviewOtorgante" style="display: none; max-width: 100%; max-height: 60px; object-fit: contain;" alt="Firma del Trabajador">
+                                        </div>
+                                        <div style="margin-top: 15px;">
+                                            <div class="signature-name" id="prev_nombreTrabajadorFirma">_____________________</div>
+                                            <div class="signature-role">TRABAJADOR</div>
+                                            <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                                RUT <span id="prev_rutTrabajadorFirma">______________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="signature-box">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder">Firma del Empleador</span>
+                                        </div>
+                                        <div style="margin-top: 15px;">
+                                            <div class="signature-name" id="prev_nombreEmpleadorFirma">_____________________</div>
+                                            <div class="signature-role">EMPLEADOR</div>
+                                            <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                                RUT <span id="prev_rutEmpleadorFirma">______________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 50px; text-align: center;">
+                                    <div class="signature-line" style="display: inline-block; width: 300px;">
+                                        <span class="signature-placeholder">Firma del Ministro de Fe</span>
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <div class="signature-name" id="prev_nombreMinistroFeFirma">_____________________</div>
+                                        <div class="signature-role">MINISTRO DE FE</div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            RUT <span id="prev_rutMinistroFeFirma">______________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

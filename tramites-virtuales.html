@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trámites Virtuales | Notaría Digital</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS DIVIDIDO EN 3 ARCHIVOS -->
+    <link rel="stylesheet" href="tramites-virtuales1.css">
+    <link rel="stylesheet" href="tramites-virtuales2.css">
+    <link rel="stylesheet" href="tramites-virtuales3.css">
+</head>
+
+<body>
+    <!-- HEADER UNIFICADO CON BUSCADOR Y TOGGLE -->
+    <div class="top-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="logo2.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+            
+            <!-- BUSCADOR SIMPLE -->
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar documento..." id="searchInput">
+                <button class="search-btn" onclick="buscarDocumento()">🔍</button>
+            </div>
+            
+            <!-- NUEVO: Botón Toggle Vista MEJORADO -->
+            <div class="view-toggle">
+                <button class="toggle-btn active" onclick="setViewMode('grid')" data-view="grid" title="Vista Tarjetas">
+                    <span class="toggle-icon">⊞</span>
+                    <span class="toggle-text">Tarjetas</span>
+                </button>
+                <button class="toggle-btn" onclick="setViewMode('list')" data-view="list" title="Vista Lista">
+                    <span class="toggle-icon">☰</span>
+                    <span class="toggle-text">Lista</span>
+                </button>
+                <button class="toggle-btn" onclick="setViewMode('compact')" data-view="compact" title="Vista Compacta">
+                    <span class="toggle-icon">▦</span>
+                    <span class="toggle-text">Compacta</span>
+                </button>
+            </div>
+        </div>
+    </div>
+   
+    <!-- HERO TRÁMITES VIRTUALES -->
+    <section class="virtual-hero">
+        <div class="virtual-hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">💻</span>
+                <span>100% Online</span>
+            </div>
+        <h1>Trámites Virtuales</h1>
+        <p>Realiza tus gestiones notariales desde la comodidad de tu hogar. Servicios completamente digitales con la misma validez legal.</p>
+        
+        <div class="features-quick">
+            <div class="feature-item">
+                <span class="feature-icon">🔒</span>
+                <span>Seguro</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <span>Rápido</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <span>24/7</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BANNER NOTARÍA SELECCIONADA -->
+<section class="notaria-seleccionada" id="notariaInfo" style="display: none;">
+    <div class="container">
+        <div class="notaria-banner">
+            <div class="notaria-icono">🏛️</div>
+            <div class="notaria-detalles">
+                <h3 class="notaria-nombre" id="notariaNombre">-</h3>
+                <p class="notaria-direccion" id="notariaDireccion">-</p>
+                <p class="notaria-telefono" id="notariaTelefono">-</p>
+            </div>
+            <div class="notaria-badge-precio">
+                <span>Precios Personalizados</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- SERVICIOS VIRTUALES - NUEVO MOSAICO CON 5 SECCIONES -->
+    <section class="virtual-services" id="virtual-services">
+        <div class="container">
+            <h2 class="section-title">Servicios Virtuales Disponibles</h2>
+            <p class="section-subtitle">Documentos notariales digitales con validez legal garantizada</p>
+            
+            <h3 class="services-category-title">DECLARACIONES JURADAS, PODERES, SOCIEDADES Y OTROS</h3>
+            
+            <div class="virtual-grid">
+                <!-- 1. Carta de Invitación TIPO -->
+                <div class="virtual-card" data-service="carta-invitacion">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📧</div>
+                    </div>
+                    <h3>Carta de invitacion TIPO</h3>
+                    <p>Documento oficial para invitar personas del extranjero con validez migratoria.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('carta-invitacion', 15, 'Carta-de-invitacion-TIPO/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Declaración de Expensas Modelo -->
+                <div class="virtual-card" data-service="declaracion-expensas">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">💰</div>
+                    </div>
+                    <h3>Declaracion de Expensas Modelo</h3>
+                    <p>Declaración notarial de gastos e ingresos para trámites oficiales y bancarios.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-expensas', 15, 'Declaracion-de-Expensas-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Declaración Jurada Convivencia Chile -->
+                <div class="virtual-card" data-service="declaracion-convivencia">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">👥</div>
+                    </div>
+                    <h3>Declaracion jurada convivencia Chile</h3>
+                    <p>Certificación legal de unión de hecho y convivencia para trámites civiles.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-convivencia', 15, 'Declaracion-jurada-convivencia-Chile/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Declaración Jurada de Allegamiento Modelo -->
+                <div class="virtual-card" data-service="declaracion-allegamiento">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏠</div>
+                    </div>
+                    <h3>Declaracion Jurada de Allegamiento Modelo</h3>
+                    <p>Documento que certifica residencia en propiedad ajena para fines legales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-allegamiento', 15, 'Declaracion-Jurada-de-Allegamiento-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 5. Declaración Jurada de Soltería Modelo -->
+                <div class="virtual-card" data-service="declaracion-solteria">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">💍</div>
+                    </div>
+                    <h3>DECLARACION JURADA DE SOLTERIA MODELO</h3>
+                    <p>Certificación notarial del estado civil soltero para matrimonio y trámites.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-solteria', 15, 'DECLARACION-JURADA-DE-SOLTERIA-MODELO/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 6. Declaración Jurada No Parentesco TIPO -->
+                <div class="virtual-card" data-service="declaracion-no-parentesco">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">⚖️</div>
+                    </div>
+                    <h3>DECLARACION JURADA NO PARENTESCO TIPO</h3>
+                    <p>Certificación legal de ausencia de vínculos familiares entre personas.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-no-parentesco', 15, 'DECLARACION-JURADA-NO-PARENTESCO-TIPO/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 7. Formato Orden de Compra -->
+                <div class="virtual-card" data-service="formato-orden-compra">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🛒</div>
+                    </div>
+                    <h3>Formato Orden de Compra</h3>
+                    <p>Documento comercial notariado para órdenes de compra con validez legal.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('formato-orden-compra', 15, 'Formato-Orden-de-Compra/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 8. Mandato para Suscribir y Completar Pagaré Modelo -->
+                <div class="virtual-card" data-service="mandato-pagare">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📝</div>
+                    </div>
+                    <h3>Mandato para suscribir y completar pagare Modelo</h3>
+                    <p>Autorización notarial para firmar pagarés en representación de terceros.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('mandato-pagare', 15, 'Mandato-para-suscribir-y-completar-pagare-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 9. Modelo Autorización Notarial para Muro o Adosamiento -->
+                <div class="virtual-card" data-service="autorizacion-muro">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🧱</div>
+                    </div>
+                    <h3>Modelo autorizacion notarial para muro o adosamiento</h3>
+                    <p>Permiso legal para construcción de muros y estructuras adosadas.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('autorizacion-muro', 15, 'Modelo-autorizacion-notarial-para-muro-o-adosamiento/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 10. Modelo Autorización Salida del País Menor de Edad -->
+                <div class="virtual-card" data-service="autorizacion-salida-menor">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">✈️</div>
+                    </div>
+                    <h3>Modelo Autorizacion Salida del Pais Menor de Edad</h3>
+                    <p>Permiso notarial para viaje de menores al extranjero con validez migratoria.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('autorizacion-salida-menor', 15, 'Modelo-Autorizacion-Salida-del-Pais-Menor-de-Edad/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 11. Modelo Declaración Jurada de Ingresos -->
+                <div class="virtual-card" data-service="declaracion-ingresos">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📊</div>
+                    </div>
+                    <h3>Modelo Declaracion jurada de ingresos</h3>
+                    <p>Certificación notarial de ingresos económicos para créditos y trámites.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-ingresos', 15, 'Modelo-Declaracion-jurada-de-ingresos/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 12. Modelo de Testamento Abierto Firma Presencial -->
+                <div class="virtual-card" data-service="testamento-abierto">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📜</div>
+                    </div>
+                    <h3>Modelo de Testamento Abierto firma presencial</h3>
+                    <p>Documento testamentario con validez legal para disposición de bienes.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('testamento-abierto', 25, 'Modelo-de-Testamento-Abierto-firma-presencial/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 13. Modelo Estatuto para Constitución Fundación -->
+                <div class="virtual-card" data-service="estatuto-fundacion">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏛️</div>
+                    </div>
+                    <h3>Modelo Estatuto para constitucion Fundacion</h3>
+                    <p>Estatutos legales para la creación de fundaciones sin fines de lucro.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$35</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('estatuto-fundacion', 35, 'Modelo-Estatuto-para-constitucion-Fundacion/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 14. Modelo Poder Contador SII -->
+                <div class="virtual-card" data-service="poder-contador-sii">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🧮</div>
+                    </div>
+                    <h3>Modelo Poder Contador SII</h3>
+                    <p>Poder especial para representación tributaria ante el Servicio de Impuestos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('poder-contador-sii', 20, 'Modelo-Poder-Contador-SII/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 15. Pagaré Modelo Firma Presencial -->
+                <div class="virtual-card" data-service="pagare-modelo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">💳</div>
+                    </div>
+                    <h3>Pagare Modelo firma presencial</h3>
+                    <p>Documento de compromiso de pago con validez legal y ejecutiva.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('pagare-modelo', 18, 'Pagare-Modelo-firma-presencial/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 16. Poder Simple Modelo -->
+                <div class="virtual-card" data-service="poder-simple">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📋</div>
+                    </div>
+                    <h3>Poder Simple Modelo</h3>
+                    <p>Poder general para representación en trámites administrativos básicos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('poder-simple', 15, 'Poder-simple-modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+            
+            <h3 class="services-category-title">INMOBILIARIO</h3>
+            
+            <div class="virtual-grid">
+                <!-- 1. Anexo Contrato de Arriendo Modelo -->
+                <div class="virtual-card" data-service="anexo-arriendo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📄</div>
+                    </div>
+                    <h3>Anexo Contrato de Arriendo Modelo</h3>
+                    <p>Anexo legal para modificaciones y adiciones a contratos de arriendo existentes.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('anexo-arriendo', 15, 'Anexo-Contrato-de-Arriendo-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Carta de notificación Termino de Contrato de Arrendamiento Modelo -->
+                <div class="virtual-card" data-service="notificacion-termino">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📮</div>
+                    </div>
+                    <h3>Carta de notificación Termino de Contrato de Arrendamiento Modelo</h3>
+                    <p>Notificación formal para término de contratos de arrendamiento con validez legal.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('notificacion-termino', 15, 'Carta-de-notificacion-Termino-de-Contrato-de-Arrendamiento-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Cesión de arriendo Modelo -->
+                <div class="virtual-card" data-service="cesion-arriendo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🔄</div>
+                    </div>
+                    <h3>Cesión de arriendo Modelo</h3>
+                    <p>Documento para transferencia de derechos y obligaciones de contratos de arriendo.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('cesion-arriendo', 20, 'Cesion-de-arriendo-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Contrato de Arriendo Modelo -->
+                <div class="virtual-card" data-service="contrato-arriendo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏠</div>
+                    </div>
+                    <h3>Contrato de Arriendo Modelo</h3>
+                    <p>Contrato completo de arrendamiento de inmuebles con todas las cláusulas legales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-arriendo', 25, 'Contrato-de-Arriendo-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 5. Mandato de Administración Modelo -->
+                <div class="virtual-card" data-service="mandato-administracion">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏢</div>
+                    </div>
+                    <h3>Mandato de Administración Modelo</h3>
+                    <p>Poder para administración de propiedades inmobiliarias y gestión de arriendos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('mandato-administracion', 20, 'Mandato-de-Administracion-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 6. Modelo Carta Autorización Uso Comercial -->
+                <div class="virtual-card" data-service="autorizacion-comercial">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏪</div>
+                    </div>
+                    <h3>Modelo Carta Autorización Uso Comercial</h3>
+                    <p>Autorización notarial para uso comercial de inmuebles residenciales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('autorizacion-comercial', 18, 'Modelo-Carta-Autorizacion-Uso-Comercial/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 7. Modelo Contrato Arriendo Dirección Comercial -->
+                <div class="virtual-card" data-service="arriendo-direccion-comercial">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏬</div>
+                    </div>
+                    <h3>Modelo Contrato Arriendo Dirección Comercial</h3>
+                    <p>Contrato especializado para arriendo de locales y espacios comerciales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$30</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('arriendo-direccion-comercial', 30, 'anexo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 8. Modelo resciliación promesa de compraventa -->
+                <div class="virtual-card" data-service="resciliacion-promesa">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">❌</div>
+                    </div>
+                    <h3>Modelo resciliación promesa de compraventa</h3>
+                    <p>Documento para anulación mutua de promesas de compraventa inmobiliaria.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('resciliacion-promesa', 25, 'Modelo-resciliacion-promesa-de-compraventa/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 9. Promesa de Compraventa Inmueble Modelo 1 -->
+                <div class="virtual-card" data-service="promesa-compraventa">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🤝</div>
+                    </div>
+                    <h3>Promesa de Compraventa Inmueble Modelo 1</h3>
+                    <p>Promesa bilateral de compraventa de bienes raíces con garantías legales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$35</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('promesa-compraventa', 35, 'Promesa-de-Compraventa-Inmueble-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+            
+            <h3 class="services-category-title">LABORAL</h3>
+            
+            <div class="virtual-grid">
+                <!-- 1. Aviso Termino Contrato Modelo -->
+                <div class="virtual-card" data-service="aviso-termino-contrato">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📋</div>
+                    </div>
+                    <h3>Aviso Termino Contrato Modelo</h3>
+                    <p>Notificación formal para finalización de relación laboral con validez legal.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('aviso-termino-contrato', 15, 'Aviso-Termino-Contrato-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Carta Oferta Laboral Modelo -->
+                <div class="virtual-card" data-service="carta-oferta-laboral">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">👔</div>
+                    </div>
+                    <h3>Carta Oferta Laboral Modelo</h3>
+                    <p>Documento oficial de oferta de empleo con condiciones laborales detalladas.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('carta-oferta-laboral', 18, 'Carta-Oferta-Laboral-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Contrato de Prestacion de Servicios a Honorarios -->
+                <div class="virtual-card" data-service="contrato-prestacion-servicios-honorarios">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📄</div>
+                    </div>
+                    <h3>Contrato de Prestacion de Servicios a Honorarios</h3>
+                    <p>Acuerdo para servicios profesionales independientes con términos específicos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-prestacion-servicios-honorarios', 25, 'CONTRATO-DE-PRESTACION-DE-SERVICIOS-A-HONORARIOS/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Finiquito Laboral Modelo Final -->
+                <div class="virtual-card" data-service="finiquito-laboral-final">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">💼</div>
+                    </div>
+                    <h3>Finiquito Laboral Modelo Final</h3>
+                    <p>Documento de liquidación final de relación laboral con cálculos incluidos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('finiquito-laboral-final', 20, 'Finiquito-Laboral-Modelo-Final/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 5. Modelo Contrato de Trabajo Indefinido -->
+                <div class="virtual-card" data-service="modelo-contrato-trabajo-indefinido">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🤝</div>
+                    </div>
+                    <h3>Modelo Contrato de Trabajo Indefinido</h3>
+                    <p>Contrato estándar para empleo permanente con todas las cláusulas legales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$22</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('modelo-contrato-trabajo-indefinido', 22, 'Modelo-Contrato-de-Trabajo-Indefinido/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 6. Modelo de Contrato a Plazo Fijo -->
+                <div class="virtual-card" data-service="modelo-contrato-plazo-fijo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">⏰</div>
+                    </div>
+                    <h3>Modelo de Contrato a Plazo Fijo</h3>
+                    <p>Acuerdo laboral por tiempo determinado con fechas específicas de vigencia.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('modelo-contrato-plazo-fijo', 20, 'Modelo-de-Contrato-a-Plazo-Fijo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 7. Modelo de Contrato de Trabajo a Trato -->
+                <div class="virtual-card" data-service="modelo-contrato-trabajo-trato">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🔨</div>
+                    </div>
+                    <h3>Modelo de Contrato de Trabajo a Trato</h3>
+                    <p>Contrato por obra o faena específica con remuneración por resultado.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('modelo-contrato-trabajo-trato', 18, 'Modelo-de-Contrato-de-Trabajo-a-Trato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 8. Modelo de Contrato de trabajo para trabajadores de casa particular puertas adentro -->
+                <div class="virtual-card" data-service="contrato-casa-particular-adentro">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏠</div>
+                    </div>
+                    <h3>Modelo de Contrato de trabajo para trabajadores de casa particular puertas adentro</h3>
+                    <p>Contrato para empleados domésticos con residencia en el lugar de trabajo.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-casa-particular-adentro', 20, 'Modelo-de-Contrato-de-trabajo-para-trabajadores-de-casa-particular-puertas-adentro/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 9. Modelo de Contrato de trabajo para trabajadores de casa particular puertas afuera -->
+                <div class="virtual-card" data-service="contrato-casa-particular-afuera">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏡</div>
+                    </div>
+                    <h3>Modelo de Contrato de trabajo para trabajadores de casa particular puertas afuera</h3>
+                    <p>Contrato para empleados domésticos sin residencia en el lugar de trabajo.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-casa-particular-afuera', 20, 'Modelo-de-Contrato-de-trabajo-para-trabajadores-de-casa-particular-puertas-afuera/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 10. Modelo de Convenio de Practica Profesional -->
+                <div class="virtual-card" data-service="convenio-practica-profesional">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🎓</div>
+                    </div>
+                    <h3>Modelo de Convenio de Practica Profesional</h3>
+                    <p>Acuerdo para prácticas profesionales y pasantías con términos educativos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('convenio-practica-profesional', 18, 'Modelo-de-Convenio-de-Practica-Profesional/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 11. Oferta Laboral Extranjeros Modelo -->
+                <div class="virtual-card" data-service="oferta-laboral-extranjeros">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🌍</div>
+                    </div>
+                    <h3>Oferta Laboral Extranjeros Modelo</h3>
+                    <p>Propuesta de empleo especializada para trabajadores extranjeros con visa.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('oferta-laboral-extranjeros', 25, 'Oferta-Laboral-Extranjeros-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 12. Permiso Trabajo Menor de Edad Modelo -->
+                <div class="virtual-card" data-service="permiso-trabajo-menor-edad">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">👦</div>
+                    </div>
+                    <h3>Permiso Trabajo Menor de Edad Modelo</h3>
+                    <p>Autorización legal para trabajo de menores con protecciones especiales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('permiso-trabajo-menor-edad', 18, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 13. Renuncia Voluntaria Modelo -->
+                <div class="virtual-card" data-service="renuncia-voluntaria">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">✋</div>
+                    </div>
+                    <h3>Renuncia Voluntaria Modelo</h3>
+                    <p>Documento de renuncia voluntaria al empleo con efectos legales válidos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('renuncia-voluntaria', 15, 'Renuncia-Voluntaria-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NUEVA SECCIÓN: MUDANZA & RESIDENCIA -->
+            <h3 class="services-category-title">MUDANZA Y RESIDENCIA </h3>
+            
+            <div class="virtual-grid">
+                <!-- 1. Contrato de Servicio de Mudanza -->
+                <div class="virtual-card" data-service="Salvoconducto-de-Mudanza-Modelo-Arrendatario">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📦</div>
+                    </div>
+                    <h3>Salvoconducto de Mudanza Modelo Arrendatario</h3>
+                    <p>Acuerdo legal para servicios de traslado y mudanza con responsabilidades definidas.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$22</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-servicio-mudanza', 22, 'Salvoconducto-de-Mudanza-Modelo.-Arrendatario/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Declaración Jurada de Cambio de Domicilio -->
+                <div class="virtual-card" data-service="Declaracion-Jurada-Mudanza">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🏠</div>
+                    </div>
+                    <h3>Declaración Jurada Mudanza</h3>
+                    <p>Certificación notarial del cambio de residencia para trámites oficiales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$15</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-cambio-domicilio', 15, 'Declaracion-Jurada-Mudanza-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Autorización de Residencia Temporal -->
+                <div class="virtual-card" data-service="autorizacion-residencia-temporal">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🗂️</div>
+                    </div>
+                    <h3>Autorización de Residencia Temporal</h3>
+                    <p>Documento para autorizar estadía temporal en propiedad de terceros.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('autorizacion-residencia-temporal', 18, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Carta de Invitación para Residencia -->
+                <div class="virtual-card" data-service="carta-invitacion-residencia">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">✉️</div>
+                    </div>
+                    <h3>Carta de Invitación para Residencia</h3>
+                    <p>Invitación formal para hospedaje o residencia con validez legal.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$16</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('carta-invitacion-residencia', 16, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 5. Contrato de Almacenamiento Temporal -->
+                <div class="virtual-card" data-service="contrato-almacenamiento-temporal">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📋</div>
+                    </div>
+                    <h3>Contrato de Almacenamiento Temporal</h3>
+                    <p>Acuerdo para guarda y custodia temporal de bienes durante mudanza.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-almacenamiento-temporal', 20, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 6. Certificado de Entrega de Vivienda -->
+                <div class="virtual-card" data-service="certificado-entrega-vivienda">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🔑</div>
+                    </div>
+                    <h3>Certificado de Entrega de Vivienda</h3>
+                    <p>Documento que certifica la entrega formal de inmueble en perfectas condiciones.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$19</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('certificado-entrega-vivienda', 19, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 7. Inventario de Bienes para Mudanza -->
+                <div class="virtual-card" data-service="inventario-bienes-mudanza">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📝</div>
+                    </div>
+                    <h3>Inventario de Bienes para Mudanza</h3>
+                    <p>Lista detallada y notariada de bienes para traslado con valores incluidos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$17</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('inventario-bienes-mudanza', 17, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 8. Mandato para Cambio de Dirección -->
+                <div class="virtual-card" data-service="mandato-cambio-direccion">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📍</div>
+                    </div>
+                    <h3>Mandato para Cambio de Dirección</h3>
+                    <p>Poder para realizar cambios de domicilio en instituciones y servicios.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$21</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('mandato-cambio-direccion', 21, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NUEVA SECCIÓN: VEHICULAR -->
+            <h3 class="services-category-title">VEHICULAR</h3>
+            
+            <div class="virtual-grid">
+                <!-- 1. Contrato de Arriendo TIPO Vehículo -->
+                <div class="virtual-card" data-service="contrato-arriendo-tipo-vehiculo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🚗</div>
+                    </div>
+                    <h3>Contrato de Arriendo TIPO Vehículo</h3>
+                    <p>Contrato completo para arrendamiento de vehículos con todas las cláusulas legales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$28</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('contrato-arriendo-tipo-vehiculo', 28, 'CONTRATO-DE-ARRIENDO-TIPO-vehiculo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 2. Modelo Autorización Notarial Salida Vehículo -->
+                <div class="virtual-card" data-service="modelo-autorizacion-notarial-salida-vehiculo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🛣️</div>
+                    </div>
+                    <h3>Modelo Autorización Notarial Salida Vehículo</h3>
+                    <p>Autorización legal para salida de vehículos del país con validez aduanera.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$22</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('modelo-autorizacion-notarial-salida-vehiculo', 22, 'Modelo-autorizacion-notarial-salida-vehiculo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 3. Modelo Promesa de Compraventa Vehículo -->
+                <div class="virtual-card" data-service="modelo-promesa-compraventa-vehiculo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🤝</div>
+                    </div>
+                    <h3>Modelo Promesa de Compraventa Vehículo</h3>
+                    <p>Promesa bilateral de compraventa de vehículos con garantías y condiciones.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$30</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('modelo-promesa-compraventa-vehiculo', 30, 'Modelo-Promesa-de-Compraventa-Vehiculo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 4. Vehículo Compraventa Modelo -->
+                <div class="virtual-card" data-service="vehiculo-compraventa-modelo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">💰</div>
+                    </div>
+                    <h3>Vehículo Compraventa Modelo</h3>
+                    <p>Contrato estándar de compraventa de vehículos con transferencia de dominio.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$35</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('vehiculo-compraventa-modelo', 35, 'Vehiculo-Compraventa-Modelo/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 5. Vehículo Compraventa Modelo Alternativo -->
+                <div class="virtual-card" data-service="vehiculo-compraventa-modelo-alternativo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🔄</div>
+                    </div>
+                    <h3>Vehículo Compraventa Modelo Alternativo</h3>
+                    <p>Versión alternativa del contrato de compraventa con cláusulas especiales.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$35</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('vehiculo-compraventa-modelo-alternativo', 35, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 6. Mandato para Trámites Vehiculares -->
+                <div class="virtual-card" data-service="mandato-tramites-vehiculares">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📋</div>
+                    </div>
+                    <h3>Mandato para Trámites Vehiculares</h3>
+                    <p>Poder notarial para realizar trámites vehiculares ante el Registro Civil.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$20</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('mandato-tramites-vehiculares', 20, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 7. Declaración Jurada de Vehículo -->
+                <div class="virtual-card" data-service="declaracion-jurada-vehiculo">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">⚖️</div>
+                    </div>
+                    <h3>Declaración Jurada de Vehículo</h3>
+                    <p>Certificación legal sobre propiedad, estado y condiciones del vehículo.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$18</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('declaracion-jurada-vehiculo', 18, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- 8. Cesión de Derechos Vehiculares -->
+                <div class="virtual-card" data-service="cesion-derechos-vehiculares">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🔀</div>
+                    </div>
+                    <h3>Cesión de Derechos Vehiculares</h3>
+                    <p>Documento para transferencia de derechos y obligaciones sobre vehículos.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">$25</div>
+                    </div>
+                    
+                    <button class="virtual-cta" onclick="openPaymentModal('cesion-derechos-vehiculares', 25, 'anexo-contrato/index.html')">
+                        <span>Crear Documento</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- ✅ 9. CAMBIADO: Tasación Vehicular AHORA VA PRIMERO -->
+                <div class="virtual-card tasacion-card" data-service="tasacion-vehicular">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">🚗</div>
+                    </div>
+                    <h3>BUSCA LA TASACIÓN DE TU VEHÍCULO</h3>
+                    <p>Consulta el valor oficial de tasación según la base de datos del SII actualizada.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">GRATIS</div>
+                    </div>
+                    
+                    <button class="virtual-cta tasacion-btn" onclick="window.open('http://localhost:8000/', '_blank')">
+                        <span>Buscar Tasación</span>
+                    </button>
+                </div>
+
+                <!-- ✅ 10. CAMBIADO: Calculadora de Impuesto Vehicular AHORA VA SEGUNDO -->
+                <div class="virtual-card calculator-card" data-service="calculadora-impuesto-vehicular">
+                    <div class="virtual-header">
+                        <div class="virtual-icon">📊</div>
+                    </div>
+                    <h3>Calculadora de Impuesto Vehicular</h3>
+                    <p>Calcula el impuesto anual de tu vehículo al instante según año y avalúo fiscal.</p>
+                    
+                    <div class="virtual-pricing">
+                        <div class="price-main">GRATIS</div>
+                    </div>
+                    
+                    <button class="virtual-cta calculator-btn" onclick="window.location.href='calculadoraveh.html'">
+                        <span>Calcular Impuesto</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFICIOS VIRTUALES -->
+    <section class="virtual-benefits">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir nuestros trámites virtuales?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⏰</div>
+                    <h3>Ahorro de Tiempo</h3>
+                    <p>Sin filas ni desplazamientos. Completa tus trámites en minutos desde cualquier lugar.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>Máxima Seguridad</h3>
+                    <p>Tecnología blockchain y cifrado de extremo a extremo para proteger tus documentos.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Disponible 24/7</h3>
+                    <p>Acceso completo a nuestros servicios las 24 horas, los 7 días de la semana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Notaría Digital</h4>
+                    <p>Pioneros en servicios notariales virtuales. Innovación y tradición al servicio de nuestros clientes.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📧</a>
+                        <a href="#" class="social-link">📱</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Documentos Notariales</h4>
+                    <ul class="footer-links">
+                        <li><a href="#virtual-services">Cartas de Invitación</a></li>
+                        <li><a href="#virtual-services">Declaraciones Juradas</a></li>
+                        <li><a href="#virtual-services">Poderes Notariales</a></li>
+                        <li><a href="#virtual-services">Contratos de Arriendo</a></li>
+                        <li><a href="#virtual-services">Promesas de Compraventa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Guías Paso a Paso</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Chat en Vivo</a></li>
+                        <li><a href="#">Videotutoriales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto Virtual</h4>
+                    <div class="quick-contact">
+                        <p>📧 contacto@notariadigital.com</p>
+                        <p>📞 +56 41 234 5678</p>
+                        <p>📍 Av. Libertador Bernardo O'Higgins 123</p>
+                        <p>🌐 Plataforma siempre activa</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Notaría Digital | Trámites Virtuales. Todos los derechos reservados. | Plataforma certificada ISO 27001</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE PAGO CON SISTEMA DEMO -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-overlay" onclick="closePaymentModal()"></div>
+        <div class="payment-container">
+            <div class="payment-header">
+                <h3>💳 Procesar Pago</h3>
+                <button class="payment-close" onclick="closePaymentModal()">×</button>
+            </div>
+            
+            <div class="payment-content">
+                <div class="service-summary">
+                    <div class="service-info">
+                        <span class="service-name" id="serviceName">Documento Notarial</span>
+                        <span class="service-price" id="servicePrice">$15</span>
+                    </div>
+                    <div class="payment-methods">
+                        <h4>Método de Pago</h4>
+                        <div class="method-options">
+                            <label class="payment-method active">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <span class="method-icon">💳</span>
+                                <span>Tarjeta de Crédito/Débito</span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                <span class="method-icon">🅿️</span>
+                                <span>PayPal</span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="mercadopago">
+                                <span class="method-icon">💰</span>
+                                <span>MercadoPago</span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="paymentMethod" value="caja">
+                                <span class="method-icon">🏪</span>
+                                <span>Pagar en Caja</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-form" id="cardForm">
+                    <div class="form-group">
+                        <label>Número de Tarjeta</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber">
+                        <div class="card-icons">
+                            <span>💳</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vencimiento</label>
+                            <input type="text" placeholder="MM/AA" maxlength="5" id="cardExpiry">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="3" id="cardCvv">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nombre del Titular</label>
+                        <input type="text" placeholder="Juan Pérez" id="cardName">
+                    </div>
+                </div>
+                
+                <div class="payment-total">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$15</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Procesamiento:</span>
+                        <span>$0</span>
+                    </div>
+                    <div class="total-line total-final">
+                        <span>Total:</span>
+                        <span id="totalAmount">$15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-actions">
+                <button class="btn-cancel" onclick="closePaymentModal()">Cancelar</button>
+                <button class="btn-pay" onclick="processPayment()" id="payButton">
+                    <span class="pay-text">Pagar $15</span>
+                    <span class="pay-loading" style="display: none;">
+                        <span class="spinner"></span>
+                        Procesando...
+                    </span>
+                </button>
+            </div>
+            
+            <!-- BOTÓN DEMO -->
+            <div class="demo-section">
+                <button class="btn-demo" onclick="continueDemo()">
+                    <span class="demo-icon">🎯</span>
+                    <span>Continuar Demo</span>
+                </button>
+                <p class="demo-text">Saltar pago y continuar con la demostración</p>
+            </div>
+            
+            <div class="payment-security">
+                <span class="security-icon">🔒</span>
+                <span>Pago seguro y encriptado</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL COMPROBANTE PAGO EN CAJA -->
+    <div class="comprobante-modal" id="comprobanteModal">
+        <div class="comprobante-overlay" onclick="closeComprobanteModal()"></div>
+        <div class="comprobante-container">
+            <div class="comprobante-header">
+                <h3>🧾 Comprobante de Pago en Caja</h3>
+                <button class="comprobante-close" onclick="closeComprobanteModal()">×</button>
+            </div>
+            
+            <div class="comprobante-content">
+                <div class="comprobante-info">
+                    <div class="servicio-detalle">
+                        <div class="detalle-row">
+                            <span class="detalle-label">📋 Servicio:</span>
+                            <span class="detalle-valor" id="comprobanteServicio">-</span>
+                        </div>
+                        <div class="detalle-row">
+                            <span class="detalle-label">🏛️ Notaría:</span>
+                            <span class="detalle-valor" id="comprobanteNotaria">-</span>
+                        </div>
+                        <div class="detalle-row">
+                            <span class="detalle-label">💰 Monto a Pagar:</span>
+                            <span class="detalle-valor monto" id="comprobanteMonto">-</span>
+                        </div>
+                        <div class="detalle-row destacado">
+                            <span class="detalle-label">🔢 N° de Servicio:</span>
+                            <span class="detalle-valor numero-servicio" id="comprobanteNumero">-</span>
+                        </div>
+                        <div class="detalle-row">
+                            <span class="detalle-label">📍 Dirección:</span>
+                            <span class="detalle-valor" id="comprobanteDireccion">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="codigo-section">
+                        <div class="codigo-info">
+                            <h4>🔐 Código de Acceso</h4>
+                            <p>El código se liberará automáticamente después del pago en caja</p>
+                            <div class="codigo-display bloqueado" id="codigoDisplay">
+                                <span class="codigo-texto">****</span>
+                                <span class="codigo-estado">BLOQUEADO</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="instrucciones">
+                        <h4>📝 Instrucciones:</h4>
+                        <ol>
+                            <li>Dirígete a la notaría en la dirección indicada</li>
+                            <li>Presenta tu <strong>N° de Servicio</strong> y paga el monto en efectivo</li>
+                            <li>El código de acceso se liberará automáticamente</li>
+                            <li>Regresa a esta página e ingresa el código para continuar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comprobante-actions">
+                <button class="btn-imprimir" onclick="imprimirComprobante()">
+                    <span>🖨️ Imprimir</span>
+                </button>
+                <button class="btn-verificar" onclick="mostrarVerificacionCodigo()">
+                    <span>🔍 Verificar Código</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VERIFICACIÓN DE CÓDIGO -->
+    <div class="verificacion-modal" id="verificacionModal">
+        <div class="verificacion-overlay" onclick="closeVerificacionModal()"></div>
+        <div class="verificacion-container">
+            <div class="verificacion-header">
+                <h3>🔐 Verificar Código de Acceso</h3>
+                <button class="verificacion-close" onclick="closeVerificacionModal()">×</button>
+            </div>
+            
+            <div class="verificacion-content">
+                <div class="codigo-input-section">
+                    <label for="codigoInput">Ingresa tu código de 4 dígitos:</label>
+                    <div class="codigo-input-container">
+                        <input type="text" id="codigoInput" maxlength="4" placeholder="0000" class="codigo-input">
+                        <button class="btn-verificar-codigo" onclick="verificarCodigo()">
+                            <span>✓ Verificar</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="verificacion-info">
+                    <p>💡 <strong>¿No tienes tu código?</strong></p>
+                    <p>El código se libera automáticamente después de realizar el pago en la notaría. Si ya pagaste y no tienes el código, contacta a la notaría.</p>
+                </div>
+                
+                <div class="servicio-recordatorio">
+                    <div class="recordatorio-row">
+                        <span>🔢 N° Servicio:</span>
+                        <span id="recordatorioNumero">-</span>
+                    </div>
+                    <div class="recordatorio-row">
+                        <span>📋 Servicio:</span>
+                        <span id="recordatorioServicio">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         ASISTENTE INTELIGENTE
+         ============================================ -->
+
+    <!-- Botón Asistente Flotante -->
+    <div class="asistente-fab" onclick="openAsistente()">
+        <span class="fab-icon">🤖</span>
+        <span class="fab-text">Asistente</span>
+    </div>
+
+    <!-- Modal Asistente -->
+    <div class="asistente-modal" id="asistenteModal">
+        <div class="asistente-overlay" onclick="closeAsistente()"></div>
+        <div class="asistente-container">
+            <div class="asistente-header">
+                <div class="asistente-avatar">🤖</div>
+                <div class="asistente-info">
+                    <h3>Asistente Virtual</h3>
+                    <p class="asistente-status">Te ayudo a encontrar tu documento</p>
+                </div>
+                <button class="asistente-close" onclick="closeAsistente()">×</button>
+            </div>
+            
+            <div class="asistente-content">
+                <div class="conversation-area" id="conversationArea">
+                    <!-- Las conversaciones se agregan dinámicamente aquí -->
+                </div>
+                
+                <div class="question-area" id="questionArea">
+                    <!-- Las preguntas se muestran aquí -->
+                </div>
+                
+                <div class="action-area" id="actionArea">
+                    <button class="btn-restart" onclick="restartAsistente()" style="display: none;">
+                        🔄 Empezar de Nuevo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón volver arriba -->
+    <button class="back-to-top" id="back-to-top">
+        <span>↑</span>
+    </button>
+
+    <!-- CONFIGURACIÓN DE PRECIOS (DEBE IR PRIMERO) -->
+    <script src="precios-notarias.js"></script>
+    <!-- JAVASCRIPT DIVIDIDO EN 3 ARCHIVOS -->
+    <script src="tramites-virtuales1.js"></script>
+    <script src="tramites-virtuales2.js"></script>
+    <script src="tramites-virtuales3.js"></script>
+
+    <!-- NUEVO: Asistente Inteligente -->
+    <script src="asistente-inteligente.js"></script>
+    
+    <script>
+    // FUNCIÓN BUSCADOR SIMPLE
+    function buscarDocumento() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        filtrarDocumentos(query);
+    }
+    
+    // Buscar en tiempo real mientras escribe
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                filtrarDocumentos(query);
+            });
+            
+            // Buscar al presionar Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    buscarDocumento();
+                }
+            });
+        }
+    });
+    
+    function filtrarDocumentos(query) {
+        const cards = document.querySelectorAll('.virtual-card');
+        let found = false;
+        
+        cards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('p').textContent.toLowerCase();
+            const service = card.getAttribute('data-service');
+            
+            if (query === '' || 
+                title.includes(query) || 
+                description.includes(query) || 
+                service.includes(query)) {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+                found = true;
+            } else {
+                card.style.display = 'none';
+                card.style.opacity = '0';
+            }
+        });
+        
+        // Mostrar mensaje si no hay resultados
+        let noResults = document.getElementById('no-results');
+        if (!found && query !== '') {
+            if (!noResults) {
+                noResults = document.createElement('div');
+                noResults.id = 'no-results';
+                noResults.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <h3>🔍 No se encontraron documentos</h3>
+                        <p>Intenta con otros términos de búsqueda</p>
+                    </div>
+                `;
+                document.querySelector('.virtual-grid').appendChild(noResults);
+            }
+            noResults.style.display = 'block';
+        } else if (noResults) {
+            noResults.style.display = 'none';
+        }
+        
+        console.log(`🔍 Búsqueda: "${query}" - ${found ? 'Resultados encontrados' : 'Sin resultados'}`);
+    }
+    </script>
+</body>
+</html>

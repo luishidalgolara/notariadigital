@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Carta Oferta Laboral Modelo 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Carta Oferta Laboral Modelo 2</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DE LA OFERTA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Información General de la Oferta</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de la Oferta</label>
+                                <input type="date" id="fechaOferta" placeholder="Fecha de emisión">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Candidato</label>
+                                <input type="text" id="nombreCandidato" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo Ofrecido</label>
+                                <input type="text" id="cargoOfrecido" placeholder="Ej: Ejecutivo de Ventas Senior">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre de la Empresa</label>
+                                <input type="text" id="nombreEmpresa" placeholder="Ej: Corporación Comercial Ltda.">
+                            </div>
+                            <div class="form-group">
+                                <label>Dependencia Directa</label>
+                                <input type="text" id="dependenciaDirecta" placeholder="Ej: Gerencia Comercial">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio Propuesta</label>
+                                <input type="date" id="fechaInicioPropuesta" placeholder="Fecha de inicio laboral">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FUNCIONES Y RESPONSABILIDADES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Principales Funciones y Responsabilidades</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Descripción de Funciones</label>
+                                <textarea id="funcionesResponsabilidades" rows="6" placeholder="Detalle las principales funciones y responsabilidades del cargo...&#10;&#10;Ejemplo:&#10;- Gestión de cartera de clientes corporativos&#10;- Desarrollo de nuevos prospectos comerciales&#10;- Elaboración de propuestas comerciales&#10;- Seguimiento de cumplimiento de metas"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONDICIONES ECONÓMICAS PRIMEROS TRES MESES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones Económicas - Primeros 3 Meses</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Sueldo Fijo Líquido ($)</label>
+                                <input type="number" id="sueldoFijo3Meses" placeholder="Ej: 850000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Porcentaje de Comisión (%)</label>
+                                <input type="number" id="comisionPorcentaje3Meses" placeholder="Ej: 5" min="0" max="100" step="0.1">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Concepto de Comisión (3 primeros meses)</label>
+                                <input type="text" id="conceptoComision3Meses" placeholder="Ej: de ventas brutas mensuales">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONDICIONES ECONÓMICAS DEL CUARTO MES EN ADELANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📈</div>
+                            <h2 class="section-title">Condiciones Económicas - Del 4° Mes en Adelante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Sueldo Fijo Líquido ($)</label>
+                                <input type="number" id="sueldoFijo4Mes" placeholder="Ej: 750000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Comisión Clientes Nuevos (%)</label>
+                                <input type="number" id="comisionClientesNuevos" placeholder="Ej: 8" min="0" max="100" step="0.1">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Concepto Comisión Clientes Nuevos</label>
+                                <input type="text" id="conceptoComisionNuevos" placeholder="Ej: de la ganancia real neta de clientes nuevos">
+                            </div>
+                            <div class="form-group">
+                                <label>Comisión Clientes Históricos (%)</label>
+                                <input type="number" id="comisionClientesHistoricos" placeholder="Ej: 3" min="0" max="100" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Concepto Comisión Históricos</label>
+                                <input type="text" id="conceptoComisionHistoricos" placeholder="Ej: de la ganancia real neta de clientes históricos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BENEFICIOS ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🎁</div>
+                            <h2 class="section-title">Beneficios Adicionales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Colación Mensual ($)</label>
+                                <input type="number" id="colacionMensual" placeholder="Ej: 45000" min="0">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Otros Beneficios (Opcional)</label>
+                                <textarea id="otrosBeneficios" rows="3" placeholder="Detalle otros beneficios adicionales como seguro de salud, bonos, capacitaciones, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAZO Y CONDICIONES GENERALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Plazo y Condiciones Generales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Plazo del Contrato</label>
+                                <input type="text" id="plazoContrato" placeholder="Ej: Contrato indefinido, Plazo fijo por 12 meses, etc.">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones o Condiciones Especiales (Opcional)</label>
+                                <textarea id="observacionesEspeciales" rows="4" placeholder="Cualquier condición especial, período de prueba, cláusulas específicas, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE LOS FIRMANTES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✍️</div>
+                            <h2 class="section-title">Datos de los Firmantes de la Empresa</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Gerente General</label>
+                                <input type="text" id="nombreGerenteGeneral" placeholder="Ej: Carlos Alberto Morales López">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre del Sub-Gerente General</label>
+                                <input type="text" id="nombreSubGerente" placeholder="Ej: Ana María Silva González">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre del Gerente Comercial</label>
+                                <input type="text" id="nombreGerenteComercial" placeholder="Ej: Pedro José Ramírez Castro">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL CANDIDATO PARA FIRMAS Y FOTOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Candidato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>RUT del Candidato</label>
+                                <input type="text" id="rutCandidato" placeholder="Ej: 15.678.901-2">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaCandidato" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoCandidato" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIONES LEGALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✅</div>
+                            <h2 class="section-title">Declaraciones y Aceptación</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionVeracidadOferta" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro que toda la información proporcionada en esta carta oferta es veraz y que acepto los términos y condiciones aquí establecidos.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionCondicionesLaborales" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Acepto las condiciones laborales, salariales y de comisiones establecidas en la presente oferta laboral.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionLegislacionLaboral" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Reconozco que esta oferta laboral se rige por la legislación laboral chilena vigente y que cualquier modificación debe ser acordada por escrito.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Carta Oferta Laboral</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CARTA OFERTA</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 30px; text-align: justify; line-height: 1.6;">
+                                
+                                <!-- Información Básica -->
+                                <div style="margin-bottom: 20px;">
+                                    <p><strong>Fecha:</strong> <span id="prev_fechaOferta" class="highlight">__ de _______ de ____</span></p>
+                                    <p><strong>Para:</strong> <span id="prev_nombreCandidato" class="highlight">_____________________</span></p>
+                                    <p><strong>Cargo:</strong> <span id="prev_cargoOfrecido" class="highlight">_____________________</span></p>
+                                    <p><strong>Empresa:</strong> <span id="prev_nombreEmpresa" class="highlight">_____________________</span></p>
+                                    <p><strong>Dependencia Directa:</strong> <span id="prev_dependenciaDirecta" class="highlight">_____________________</span></p>
+                                    <p><strong>Inicio de la propuesta:</strong> <span id="prev_fechaInicioPropuesta" class="highlight">__ de _______ de ____</span></p>
+                                </div>
+
+                                <!-- Principales Funciones y Responsabilidades -->
+                                <div style="margin-bottom: 25px;">
+                                    <p><strong><u>Principales Funciones y Responsabilidades:</u></strong></p>
+                                    <div style="margin: 15px 0; padding: 15px; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                                        <span id="prev_funcionesResponsabilidades" class="highlight" style="white-space: pre-line;">Funciones por definir</span>
+                                    </div>
+                                </div>
+
+                                <!-- Propuesta y Condiciones -->
+                                <div style="margin-bottom: 25px;">
+                                    <p><strong><u>Propuesta, Condiciones:</u></strong></p>
+                                    
+                                    <!-- Tres primeros meses -->
+                                    <div style="margin: 15px 0;">
+                                        <p><strong>Tres primeros meses:</strong></p>
+                                        <ul style="margin-left: 20px; list-style-type: disc;">
+                                            <li>Sueldo fijo $<span id="prev_sueldoFijo3Meses" class="highlight">____________</span> líquido.</li>
+                                            <li>Comisión del <span id="prev_comisionPorcentaje3Meses" class="highlight">__</span>% <span id="prev_conceptoComision3Meses" class="highlight">concepto por definir</span>.</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Del cuarto mes en adelante -->
+                                    <div style="margin: 15px 0;">
+                                        <p><strong>Del cuarto mes en adelante:</strong></p>
+                                        <ul style="margin-left: 20px; list-style-type: disc;">
+                                            <li>Sueldo fijo $<span id="prev_sueldoFijo4Mes" class="highlight">____________</span> líquido.</li>
+                                            <li>Comisión del <span id="prev_comisionClientesNuevos" class="highlight">__</span>% <span id="prev_conceptoComisionNuevos" class="highlight">concepto por definir</span> de clientes nuevos.</li>
+                                            <li>Comisión del <span id="prev_comisionClientesHistoricos" class="highlight">__</span>% <span id="prev_conceptoComisionHistoricos" class="highlight">concepto por definir</span> de clientes históricos (detallados en anexo) o captados fuera del área comercial.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Beneficios Adicionales -->
+                                <div style="margin-bottom: 25px;">
+                                    <p><strong><u>Además de los siguientes beneficios:</u></strong></p>
+                                    <ul style="margin-left: 20px; list-style-type: disc;">
+                                        <li>Por concepto de colación $<span id="prev_colacionMensual" class="highlight">____________</span> pesos mensuales.</li>
+                                    </ul>
+                                    
+                                    <div id="otrosBeneficiosSection" style="margin-top: 10px; padding: 10px; background: var(--bg-tertiary); border-radius: 6px; border-left: 3px solid var(--success-color);">
+                                        <p><strong>Otros beneficios:</strong></p>
+                                        <span id="prev_otrosBeneficios" class="highlight">Sin beneficios adicionales especificados</span>
+                                    </div>
+                                </div>
+
+                                <!-- Plazo -->
+                                <div style="margin-bottom: 40px;">
+                                    <p><strong><u>Plazo:</u></strong></p>
+                                    <p style="margin: 10px 0;"><span id="prev_plazoContrato" class="highlight">_____________________</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Sección de Firmas -->
+                            <div style="margin-top: 60px; border-top: 2px solid var(--border-color); padding-top: 30px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                                    
+                                    <!-- Primera fila de firmas -->
+                                    <div style="text-align: center;">
+                                        <div class="signature-line" style="margin-bottom: 15px; height: 60px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--text-primary);">
+                                            <span class="signature-placeholder">Firma Gerente General</span>
+                                        </div>
+                                        <div class="signature-name" id="prev_nombreGerenteGeneralFirma">
+                                            <span id="prev_nombreGerenteGeneral" class="highlight">_____________________</span>
+                                        </div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            <strong>Gerente General</strong>
+                                        </div>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <div class="signature-line" style="margin-bottom: 15px; height: 60px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--text-primary);">
+                                            <span class="signature-placeholder">Firma Sub-Gerente</span>
+                                        </div>
+                                        <div class="signature-name" id="prev_nombreSubGerenteFirma">
+                                            <span id="prev_nombreSubGerente" class="highlight">_____________________</span>
+                                        </div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            <strong>Sub-Gerente General</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tercera firma centrada -->
+                                <div style="text-align: center; margin-bottom: 60px;">
+                                    <div class="signature-line" style="margin: 0 auto 15px auto; width: 300px; height: 60px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--text-primary);">
+                                        <span class="signature-placeholder" id="signaturePlaceholderCandidato">Firma del Candidato</span>
+                                        <img class="signature-preview" id="signaturePreviewCandidato" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Candidato">
+                                    </div>
+                                    <div class="signature-name" id="prev_nombreGerenteComercialFirma">
+                                        <span id="prev_nombreGerenteComercial" class="highlight">_____________________</span>
+                                    </div>
+                                    <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                        <strong>Gerente Comercial</strong>
+                                    </div>
+                                </div>
+
+                                <!-- Firma Digital del Candidato -->
+                                <div style="text-align: center; margin-top: 40px; padding: 20px; background: var(--bg-tertiary); border-radius: 8px; border: 2px dashed var(--accent-color);">
+                                    <h4 style="margin: 0 0 15px 0; color: var(--accent-color);">Firma Digital del Candidato</h4>
+                                    <div class="signature-line" style="margin: 0 auto 15px auto; width: 350px; height: 80px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--text-primary); background: var(--bg-primary); border-radius: 4px;">
+                                        <span class="signature-placeholder" id="signaturePlaceholderCandidatoFinal">Firma Digital Pendiente</span>
+                                        <img class="signature-preview" id="signaturePreviewCandidatoFinal" style="display: none; max-width: 100%; max-height: 70px; object-fit: contain;" alt="Firma Digital del Candidato">
+                                    </div>
+                                    <div class="signature-details" style="font-size: 11px; color: var(--text-secondary);">
+                                        <p><strong>Candidato:</strong> <span id="prev_nombreCandidatoFirma" class="highlight">_____________________</span></p>
+                                        <p><strong>RUT:</strong> <span id="prev_rutCandidatoFirma" class="highlight">______________</span></p>
+                                    </div>
+                                    <div class="digital-signature-status" id="digitalSignatureStatus" style="margin-top: 10px; padding: 8px; border-radius: 4px; background: var(--warning-color); color: white; font-size: 10px;">
+                                        ⚠️ Pendiente: Firma digital del candidato requerida
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

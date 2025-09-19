@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario | Notaría Cervantes</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+/* ============================================
+   PÁGINA DE REGISTRO - CSS CON ESTILO BUSCADOR
+   ============================================ */
+
+:root {
+    /* Colores del buscador */
+    --primary: #8b5cf6;
+    --primary-light: #a78bfa;
+    --secondary: #4dff00;
+    --secondary-light: #66ff33;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    
+    /* Fondos oscuros */
+    --dark-900: #0f172a;
+    --dark-800: #1e293b;
+    --dark-700: #334155;
+    --dark-600: #475569;
+    --gray-300: #cbd5e1;
+    --gray-200: #e2e8f0;
+    --white: #ffffff;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    
+    /* Colores del sistema */
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --neon-green: #4dff00;
+    --bright-green: #66ff33;
+    
+    /* Gradientes del buscador */
+    --gradient-primary: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    
+    /* Efectos glassmorphism */
+    --glass-bg: rgba(30, 41, 59, 0.6);
+    --glass-border: rgba(77, 255, 0, 0.3);
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 32px 60px rgba(0, 0, 0, 0.25);
+    
+    /* Transiciones */
+    --transition: all 0.3s ease;
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s ease;
+    
+    /* Espaciado */
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    /* Fuente */
+    --font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, 
+        var(--dark-900) 0%, 
+        var(--dark-800) 50%, 
+        var(--dark-900) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--text-primary);
+    font-weight: 400;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Partículas de fondo animadas del buscador */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(77, 255, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(77, 255, 0, 0.03) 0%, transparent 50%);
+    z-index: -1;
+    animation: particles 20s ease-in-out infinite;
+}
+
+@keyframes particles {
+    0%, 100% { opacity: 1; transform: translateY(0px); }
+    50% { opacity: 0.7; transform: translateY(-20px); }
+}
+
+/* ============================================
+   BOTÓN VOLVER
+   ============================================ */
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 12px 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-md);
+    font-size: 0.9rem;
+}
+
+.back-button:hover {
+    background: rgba(77, 255, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--secondary);
+    box-shadow: 0 5px 15px rgba(77, 255, 0, 0.2);
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.back-button i {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
+.registro-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: 3rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--secondary);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease;
+}
+
+.registro-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    z-index: 1;
+}
+
+/* Efecto shine del buscador */
+.registro-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(77, 255, 0, 0.1), transparent);
+    animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ============================================
+   HEADER DEL FORMULARIO
+   ============================================ */
+.registro-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-registro {
+    width: 80px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 12px rgba(77, 255, 0, 0.4));
+    transition: var(--transition-normal);
+}
+
+.logo-registro:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 16px rgba(77, 255, 0, 0.5));
+}
+
+.registro-titulo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--white), var(--secondary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.registro-subtitulo {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.registro-beneficios {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.beneficio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.beneficio-icon {
+    color: var(--secondary);
+    font-size: 1rem;
+    filter: drop-shadow(0 0 4px rgba(77, 255, 0, 0.5));
+}
+
+/* ============================================
+   FORMULARIO
+   ============================================ */
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-normal);
+}
+
+.label-icon {
+    font-size: 1.1rem;
+    color: var(--secondary);
+}
+
+.form-input {
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(77, 255, 0, 0.3);
+    border-radius: var(--radius-lg);
+    background: rgba(30, 41, 59, 0.4);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-family);
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    background: rgba(30, 41, 59, 0.6);
+    box-shadow: 0 0 20px rgba(77, 255, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.form-input.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.password-strength {
+    display: flex;
+    gap: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.strength-bar {
+    height: 4px;
+    flex: 1;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 2px;
+    transition: var(--transition-normal);
+}
+
+.strength-bar.active.weak { 
+    background: var(--error-color);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+}
+.strength-bar.active.medium { 
+    background: var(--warning-color);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+.strength-bar.active.strong { 
+    background: var(--secondary);
+    box-shadow: 0 0 8px rgba(77, 255, 0, 0.3);
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   TÉRMINOS Y CONDICIONES
+   ============================================ */
+.terminos-grupo {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(77, 255, 0, 0.1);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(77, 255, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+}
+
+.terminos-grupo:hover {
+    background: rgba(77, 255, 0, 0.15);
+    border-color: var(--secondary);
+}
+
+.terminos-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.1rem;
+    cursor: pointer;
+    accent-color: var(--secondary);
+}
+
+.terminos-texto {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.terminos-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.terminos-link:hover {
+    text-decoration: underline;
+    color: var(--secondary-light);
+}
+
+/* ============================================
+   BOTÓN DE REGISTRO
+   ============================================ */
+.btn-registro {
+    padding: 1.2rem 2rem;
+    background: var(--gradient-primary);
+    color: var(--dark-900);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(77, 255, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Efecto shine del botón */
+.btn-registro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-registro:hover::before {
+    left: 100%;
+}
+
+.btn-registro:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(77, 255, 0, 0.4);
+}
+
+.btn-registro:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-registro.loading {
+    pointer-events: none;
+}
+
+.btn-loading {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(15, 23, 42, 0.3);
+    border-top: 2px solid var(--dark-900);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   FOOTER DEL FORMULARIO
+   ============================================ */
+.registro-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(77, 255, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.login-link {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.login-btn {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.login-btn:hover {
+    text-decoration: underline;
+    color: var(--secondary-light);
+}
+
+/* ============================================
+   CREDENCIALES DE PRUEBA
+   ============================================ */
+.credenciales-prueba {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.credenciales-prueba:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--success-color);
+}
+
+.credenciales-titulo {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.credencial-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.credencial-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.credencial-valor {
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 1px solid rgba(77, 255, 0, 0.2);
+}
+
+.credencial-valor:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: var(--secondary);
+    transform: translateY(-1px);
+}
+
+.btn-autocompletar {
+    padding: 0.5rem 1rem;
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    color: var(--success-color);
+    border-radius: var(--radius-lg);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    margin-top: 0.5rem;
+    width: 100%;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+.btn-autocompletar:hover {
+    background: rgba(16, 185, 129, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .registro-container {
+        padding: 2rem;
+    }
+    
+    .registro-titulo {
+        font-size: 1.7rem;
+    }
+    
+    .registro-beneficios {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .beneficio-item {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+    
+    .registro-container {
+        padding: 1.5rem;
+    }
+    
+    .registro-titulo {
+        font-size: 1.5rem;
+    }
+    
+    .form-input {
+        padding: 0.8rem 1rem;
+    }
+    
+    .btn-registro {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .back-button {
+        position: static;
+        margin-bottom: 1rem;
+        width: fit-content;
+        align-self: flex-start;
+    }
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   NOTIFICACIONES
+   ============================================ */
+.notificacion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--gradient-secondary);
+    color: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    animation: slideInRight 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 400px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    font-weight: 600;
+}
+
+.notificacion.error {
+    background: linear-gradient(135deg, var(--error-color) 0%, #dc2626 100%);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   MEJORAS ADICIONALES DEL BUSCADOR
+   ============================================ */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.logo-registro {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Progress indicator */
+.progress-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    z-index: 10000;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(77, 255, 0, 0.7);
+}
+
+/* Efectos de focus mejorados */
+*:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+button:focus,
+input:focus,
+.terminos-checkbox:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+    </style>
+</head>
+
+<body>
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+
+    <div class="registro-container">
+        <!-- Header del formulario -->
+        <div class="registro-header">
+            <img src="logo2.png" alt="Logo Notaría" class="logo-registro" onerror="this.style.display='none'">
+            <h1 class="registro-titulo">Crear Cuenta</h1>
+            <p class="registro-subtitulo">Accede a tu portal personal de documentos legales</p>
+            
+            <div class="registro-beneficios">
+                <div class="beneficio-item">
+                    <span class="beneficio-icon">✓</span>
+                    <span>Rastreo en tiempo real</span>
+                </div>
+                <div class="beneficio-item">
+                    <span class="beneficio-icon">✓</span>
+                    <span>Documentos seguros</span>
+                </div>
+                <div class="beneficio-item">
+                    <span class="beneficio-icon">✓</span>
+                    <span>Historial completo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credenciales de prueba -->
+        <div class="credenciales-prueba">
+            <div class="credenciales-titulo">
+                <span>🧪</span>
+                <span>Credenciales de Prueba</span>
+            </div>
+            <div class="credencial-item">
+                <span class="credencial-label">Email:</span>
+                <span class="credencial-valor" onclick="copiarCredencial('admin@notaria.cl')" title="Clic para copiar">admin@notaria.cl</span>
+            </div>
+            <div class="credencial-item">
+                <span class="credencial-label">Contraseña:</span>
+                <span class="credencial-valor" onclick="copiarCredencial('demo123')" title="Clic para copiar">demo123</span>
+            </div>
+            <button class="btn-autocompletar" onclick="autocompletarCredenciales()">
+                🔄 Autocompletar Formulario
+            </button>
+        </div>
+
+        <!-- Formulario de registro -->
+        <form class="registro-form" id="registroForm">
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    <span class="label-icon">📧</span>
+                    <span>Correo Electrónico</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-input" 
+                    placeholder="tu@email.com" 
+                    required
+                    autocomplete="email"
+                >
+                <div class="error-message" id="emailError" style="display: none;">
+                    <span>⚠️</span>
+                    <span>Por favor ingresa un email válido</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono" class="form-label">
+                    <span class="label-icon">📱</span>
+                    <span>Número de Teléfono</span>
+                </label>
+                <input 
+                    type="tel" 
+                    id="telefono" 
+                    name="telefono" 
+                    class="form-input" 
+                    placeholder="+56 9 1234 5678" 
+                    required
+                    autocomplete="tel"
+                >
+                <div class="error-message" id="telefonoError" style="display: none;">
+                    <span>⚠️</span>
+                    <span>Por favor ingresa un teléfono válido</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">
+                    <span class="label-icon">🔒</span>
+                    <span>Contraseña</span>
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input" 
+                    placeholder="Tu contraseña segura" 
+                    required
+                    autocomplete="new-password"
+                    minlength="6"
+                >
+                <div class="password-strength" id="passwordStrength">
+                    <div class="strength-bar"></div>
+                    <div class="strength-bar"></div>
+                    <div class="strength-bar"></div>
+                </div>
+                <div class="strength-text" id="strengthText">Mínimo 6 caracteres</div>
+                <div class="error-message" id="passwordError" style="display: none;">
+                    <span>⚠️</span>
+                    <span>La contraseña debe tener al menos 6 caracteres</span>
+                </div>
+            </div>
+
+            <div class="terminos-grupo">
+                <input type="checkbox" id="terminos" name="terminos" class="terminos-checkbox" required>
+                <label for="terminos" class="terminos-texto">
+                    Acepto los <a href="#" class="terminos-link">términos y condiciones</a> y la 
+                    <a href="#" class="terminos-link">política de privacidad</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-registro" id="btnRegistro">
+                <span class="btn-text">🚀 Crear Mi Cuenta</span>
+                <span class="btn-loading" style="display: none;">
+                    <span class="spinner"></span>
+                    <span>Creando cuenta...</span>
+                </span>
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="registro-footer">
+            <span class="login-link">
+                ¿Ya tienes cuenta?
+                <a href="#" class="login-btn" onclick="mostrarLogin()">Iniciar Sesión</a>
+            </span>
+        </div>
+    </div>
+
+    <script>
+/* ============================================
+   SISTEMA DE REGISTRO - JAVASCRIPT
+   ============================================ */
+
+// Configuración del sistema
+const RegistroConfig = {
+    credencialesPrueba: {
+        email: 'admin@notaria.cl',
+        telefono: '+56 9 8765 4321',
+        password: 'demo123'
+    },
+    portalURL: 'portal-index.html', // Cambia por la ruta correcta de tu portal
+    redirectDelay: 2000
+};
+
+// Estado del formulario
+const RegistroState = {
+    formValid: false,
+    passwordStrength: 0
+};
+
+// Elementos DOM
+const elements = {
+    form: document.getElementById('registroForm'),
+    email: document.getElementById('email'),
+    telefono: document.getElementById('telefono'),
+    password: document.getElementById('password'),
+    terminos: document.getElementById('terminos'),
+    btnRegistro: document.getElementById('btnRegistro'),
+    passwordStrength: document.getElementById('passwordStrength'),
+    strengthText: document.getElementById('strengthText')
+};
+
+/* ============================================
+   INICIALIZACIÓN
+   ============================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    setupEventListeners();
+    setupValidation();
+    console.log('🚀 Sistema de registro inicializado');
+});
+
+/* ============================================
+   EVENT LISTENERS
+   ============================================ */
+function setupEventListeners() {
+    // Formulario
+    elements.form.addEventListener('submit', handleRegistro);
+    
+    // Validación en tiempo real
+    elements.email.addEventListener('input', function() {
+        validateEmail();
+        validateForm();
+    });
+    elements.telefono.addEventListener('input', function() {
+        validateTelefono();
+        validateForm();
+    });
+    elements.password.addEventListener('input', function() {
+        validatePassword();
+        validateForm();
+    });
+    elements.terminos.addEventListener('change', validateForm);
+    
+    // Formateo de teléfono
+    elements.telefono.addEventListener('input', formatTelefono);
+    
+    // Tecla Enter
+    document.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (RegistroState.formValid) {
+                handleRegistro(e);
+            }
+        }
+    });
+}
+
+/* ============================================
+   AUTOCOMPLETAR CREDENCIALES DE PRUEBA
+   ============================================ */
+function autocompletarCredenciales() {
+    const { email, telefono, password } = RegistroConfig.credencialesPrueba;
+    
+    elements.email.value = email;
+    elements.telefono.value = telefono;
+    elements.password.value = password;
+    elements.terminos.checked = true;
+    
+    // Triggear validaciones
+    validateEmail();
+    validateTelefono();
+    validatePassword();
+    validateForm();
+    
+    showNotification('✅ Formulario autocompletado con credenciales de prueba', 'success');
+}
+
+function copiarCredencial(valor) {
+    navigator.clipboard.writeText(valor).then(() => {
+        showNotification(`📋 Copiado: ${valor}`, 'success');
+    }).catch(() => {
+        showNotification('❌ Error al copiar', 'error');
+    });
+}
+
+/* ============================================
+   VALIDACIONES
+   ============================================ */
+function setupValidation() {
+    validateForm();
+}
+
+function validateEmail() {
+    const email = elements.email.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(email);
+    
+    showFieldError('email', !isValid && email.length > 0);
+    return isValid;
+}
+
+function validateTelefono() {
+    const telefono = elements.telefono.value.trim();
+    const telefonoRegex = /^\+?56\s?9\s?\d{4}\s?\d{4}$/;
+    const isValid = telefonoRegex.test(telefono.replace(/\s/g, '')) || telefono.length >= 9;
+    
+    showFieldError('telefono', !isValid && telefono.length > 0);
+    return isValid;
+}
+
+function validatePassword() {
+    const password = elements.password.value;
+    const strength = calculatePasswordStrength(password);
+    
+    updatePasswordStrength(strength);
+    
+    const isValid = password.length >= 6;
+    showFieldError('password', !isValid && password.length > 0);
+    return isValid;
+}
+
+function validateForm() {
+    const emailValid = validateEmail();
+    const telefonoValid = validateTelefono();
+    const passwordValid = validatePassword();
+    const terminosValid = elements.terminos.checked;
+    
+    RegistroState.formValid = emailValid && telefonoValid && passwordValid && terminosValid;
+    
+    elements.btnRegistro.disabled = !RegistroState.formValid;
+    
+    return RegistroState.formValid;
+}
+
+function showFieldError(fieldName, show) {
+    const field = elements[fieldName];
+    const error = document.getElementById(`${fieldName}Error`);
+    
+    if (show) {
+        field.classList.add('error');
+        error.style.display = 'flex';
+    } else {
+        field.classList.remove('error');
+        error.style.display = 'none';
+    }
+}
+
+/* ============================================
+   FORTALEZA DE CONTRASEÑA
+   ============================================ */
+function calculatePasswordStrength(password) {
+    let strength = 0;
+    
+    if (password.length >= 6) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    
+    return Math.min(strength, 3);
+}
+
+function updatePasswordStrength(strength) {
+    const bars = elements.passwordStrength.querySelectorAll('.strength-bar');
+    const texts = ['Muy débil', 'Débil', 'Media', 'Fuerte'];
+    const classes = ['', 'weak', 'medium', 'strong'];
+    
+    bars.forEach((bar, index) => {
+        bar.classList.remove('active', 'weak', 'medium', 'strong');
+        if (index < strength) {
+            bar.classList.add('active', classes[strength]);
+        }
+    });
+    
+    elements.strengthText.textContent = strength > 0 ? texts[strength - 1] : 'Mínimo 6 caracteres';
+    RegistroState.passwordStrength = strength;
+}
+
+/* ============================================
+   FORMATEO DE TELÉFONO
+   ============================================ */
+function formatTelefono(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    
+    if (value.startsWith('569')) {
+        value = value.substring(3);
+        value = `+56 9 ${value}`;
+    } else if (value.startsWith('56')) {
+        value = value.substring(2);
+        if (value.startsWith('9')) {
+            value = `+56 9 ${value.substring(1)}`;
+        }
+    } else if (value.startsWith('9')) {
+        value = `+56 9 ${value.substring(1)}`;
+    }
+    
+    // Formatear con espacios
+    if (value.startsWith('+56 9 ')) {
+        const number = value.substring(7);
+        if (number.length > 4) {
+            value = `+56 9 ${number.substring(0, 4)} ${number.substring(4, 8)}`;
+        }
+    }
+    
+    e.target.value = value;
+}
+
+/* ============================================
+   MANEJO DEL REGISTRO
+   ============================================ */
+async function handleRegistro(e) {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+        showNotification('❌ Por favor completa todos los campos correctamente', 'error');
+        return;
+    }
+    
+    // Mostrar loading
+    showLoading(true);
+    
+    try {
+        // Simular proceso de registro
+        await simulateRegistro();
+        
+        // Obtener datos del formulario
+        const userData = {
+            email: elements.email.value.trim(),
+            telefono: elements.telefono.value.trim(),
+            password: elements.password.value,
+            fechaRegistro: new Date().toISOString(),
+            id: generateUserId()
+        };
+        
+        // Guardar usuario
+        saveUser(userData);
+        
+        // Mostrar éxito
+        showNotification('🎉 ¡Cuenta creada exitosamente!', 'success');
+        
+        // Redireccionar al portal
+        setTimeout(() => {
+            redirectToPortal(userData);
+        }, RegistroConfig.redirectDelay);
+        
+    } catch (error) {
+        console.error('Error en registro:', error);
+        showNotification('❌ Error al crear la cuenta. Intenta nuevamente.', 'error');
+        showLoading(false);
+    }
+}
+
+async function simulateRegistro() {
+    // Simular delay de procesamiento
+    return new Promise(resolve => {
+        setTimeout(resolve, 2000);
+    });
+}
+
+function generateUserId() {
+    return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function saveUser(userData) {
+    // Guardar en localStorage
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+    localStorage.setItem(`user_${userData.id}`, JSON.stringify(userData));
+    
+    // Establecer sesión
+    sessionStorage.setItem('userLoggedIn', 'true');
+    sessionStorage.setItem('currentUserId', userData.id);
+    
+    console.log('👤 Usuario guardado:', userData);
+}
+
+function redirectToPortal(userData) {
+    showLoading(false);
+    
+    // Verificar si es usuario de prueba
+    if (userData.email === RegistroConfig.credencialesPrueba.email) {
+        showNotification('🚀 Redirigiendo al portal de prueba...', 'success');
+    }
+    
+    // Redireccionar
+    window.location.href = RegistroConfig.portalURL;
+}
+
+/* ============================================
+   UI HELPERS
+   ============================================ */
+function showLoading(show) {
+    const btnText = elements.btnRegistro.querySelector('.btn-text');
+    const btnLoading = elements.btnRegistro.querySelector('.btn-loading');
+    
+    if (show) {
+        elements.btnRegistro.classList.add('loading');
+        elements.btnRegistro.disabled = true;
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'flex';
+    } else {
+        elements.btnRegistro.classList.remove('loading');
+        elements.btnRegistro.disabled = !RegistroState.formValid;
+        btnText.style.display = 'flex';
+        btnLoading.style.display = 'none';
+    }
+}
+
+function showNotification(message, type = 'success') {
+    // Remover notificación existente
+    const existing = document.querySelector('.notificacion');
+    if (existing) {
+        existing.remove();
+    }
+    
+    // Crear nueva notificación
+    const notification = document.createElement('div');
+    notification.className = `notificacion ${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: 0.5rem;">&times;</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remover después de 5 segundos
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+/* ============================================
+   FUNCIONES GLOBALES
+   ============================================ */
+function mostrarLogin() {
+    showNotification('🔄 Función de login próximamente...', 'info');
+    // Aquí podrías redireccionar a una página de login
+}
+
+// Debug: Función para probar el sistema
+function testRegistro() {
+    autocompletarCredenciales();
+    setTimeout(() => {
+        handleRegistro({ preventDefault: () => {} });
+    }, 1000);
+}
+
+// Hacer disponible para testing
+window.testRegistro = testRegistro;
+window.RegistroConfig = RegistroConfig;
+
+console.log('🎯 Sistema de registro listo. Usa testRegistro() para probar.');
+    </script>
+</body>
+</html>

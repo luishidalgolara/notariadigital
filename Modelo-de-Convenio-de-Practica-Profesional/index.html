@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Convenio de Práctica Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Convenio de Práctica Profesional</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONVENIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Convenio</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Convenio</label>
+                                <input type="text" id="ciudadConvenio" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Convenio</label>
+                                <input type="date" id="fechaConvenio">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ESTABLECIMIENTO EDUCACIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏫</div>
+                            <h2 class="section-title">Establecimiento Educacional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Establecimiento Educacional</label>
+                                <input type="text" id="nombreEstablecimiento" placeholder="Ej: Instituto Profesional DUOC UC">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre del Docente Coordinador de Práctica</label>
+                                <input type="text" id="nombreDocente" placeholder="Ej: María Elena González López">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA EMPRESA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Empresa</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre de la Empresa</label>
+                                <input type="text" id="nombreEmpresa" placeholder="Ej: Tecnológica Innovación Ltda.">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresa" placeholder="Ej: Av. Providencia 567">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de la Empresa</label>
+                                <input type="text" id="comunaEmpresa" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaEmpresa" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA EMPRESA</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoEmpresa" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL REPRESENTANTE DE LA EMPRESA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Representante de la Empresa</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Representante</label>
+                                <input type="text" id="nombreRepresentante" placeholder="Ej: Carlos Alberto Mendoza Silva">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL EDUCANDO/ESTUDIANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🎓</div>
+                            <h2 class="section-title">Datos del Educando/Estudiante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Educando</label>
+                                <input type="text" id="nombreEducando" placeholder="Ej: Ana María Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Educando</label>
+                                <input type="text" id="rutEducando" placeholder="Ej: 98.765.432-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadEducando" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoEducando">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Educando</label>
+                                <input type="text" id="domicilioEducando" placeholder="Ej: Calle Los Álamos 123">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna del Educando</label>
+                                <input type="text" id="comunaEducando" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaEducando" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA EDUCANDO</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoEducando" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES DE LA PRÁCTICA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⏰</div>
+                            <h2 class="section-title">Condiciones de la Práctica</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Sección/Departamento donde realizará la práctica</label>
+                                <input type="text" id="seccionPractica" placeholder="Ej: Departamento de Sistemas">
+                            </div>
+                            <div class="form-group">
+                                <label>Total de Horas Cronológicas</label>
+                                <input type="number" id="horasTotales" placeholder="480" min="480" max="720">
+                                <small>Mínimo 480 horas, máximo 720 horas</small>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Horario de la Práctica</label>
+                                <input type="text" id="horarioPractica" placeholder="Ej: Lunes a Viernes de 09:00 a 17:00 hrs">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio de la Práctica</label>
+                                <input type="date" id="fechaInicioPractica">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ASIGNACIONES Y COMPENSACIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Asignaciones y Compensaciones</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Asignación de Colación ($)</label>
+                                <input type="number" id="asignacionColacion" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Asignación de Movilización ($)</label>
+                                <input type="number" id="asignacionMovilizacion" placeholder="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Tope Reembolso de Gastos ($)</label>
+                                <input type="number" id="topeReembolso" placeholder="0" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Condiciones Adicionales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Días consecutivos de inasistencia permitidos</label>
+                                <input type="number" id="diasInasistencia" placeholder="3" min="1" max="10">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de ejemplares del convenio</label>
+                                <input type="number" id="numeroEjemplares" placeholder="3" min="2" max="5">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Condiciones específicas de la empresa</label>
+                                <textarea id="condicionesEspecificas" rows="3" placeholder="Detalle las condiciones específicas que debe cumplir el educando durante su práctica"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">MODELO CONVENIO DE PRÁCTICA PROFESIONAL</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadConvenio">Santiago</span>, a <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>, a pedido expreso del establecimiento educacional <strong><span class="highlight" id="prev_nombreEstablecimiento">________________</span></strong> representado por el docente coordinador de práctica Don(a) <strong><span class="highlight" id="prev_nombreDocente">________________</span></strong>, la Empresa <strong><span class="highlight" id="prev_nombreEmpresa">________________</span></strong>, R.U.T <strong><span class="highlight" id="prev_rutEmpresa">___________</span></strong> representada por Don(a) <strong><span class="highlight" id="prev_nombreRepresentante">________________</span></strong> R.U.T <strong><span class="highlight" id="prev_rutRepresentante">___________</span></strong>, con domicilio para estos efectos en <strong><span class="highlight" id="prev_domicilioEmpresa">________________</span></strong>, comuna de <strong><span class="highlight" id="prev_comunaEmpresa">________</span></strong>, autoriza al educando del citado establecimiento Sr.(ta) <strong><span class="highlight" id="prev_nombreEducando">________________</span></strong> R.U.T <strong><span class="highlight" id="prev_rutEducando">___________</span></strong> de nacionalidad <strong><span class="highlight" id="prev_nacionalidadEducando">________</span></strong>, nacido el <span class="highlight" id="prev_fechaNacimiento">__ de ________ de ____</span> y domiciliado en <strong><span class="highlight" id="prev_domicilioEducando">________________</span></strong>, comuna de <strong><span class="highlight" id="prev_comunaEducando">________</span></strong> para realizar su práctica profesional en la sección <strong><span class="highlight" id="prev_seccionPractica">________________</span></strong> en las siguientes condiciones:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>PRIMERO:</strong> Las partes declaran que el educando, no es, ni será trabajador dependiente de la empresa, la que en este caso actúa como delegado del establecimiento educacional y que su función es una prolongación de la función docente del citado establecimiento.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>SEGUNDO:</strong> Con todo, pese a no existir vínculo de subordinación y dependencia, la empresa para el buen fin de la práctica del educando establece que éste debe obligarse a las condiciones que se detallan a continuación:
+                            </p>
+                            
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;" id="condicionesContainer">
+                                <p style="margin: 0; font-style: italic;">
+                                    <span class="highlight" id="prev_condicionesEspecificas">Las condiciones específicas se detallarán según los requerimientos de la empresa</span>
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>TERCERO:</strong> La práctica del educando, de acuerdo a lo solicitado por el establecimiento educacional será de <strong><span class="highlight" id="prev_horasTotales">____</span></strong> horas cronológicas las que deberán, por asuntos de ordenamiento interno, desarrollarse dentro del siguiente horario: <strong><span class="highlight" id="prev_horarioPractica">________________</span></strong>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>CUARTO:</strong> La prestación aparente de servicios no juega como elemento de plusvalía y la empresa, como colaboradores de la función docente del establecimiento educacional, no se encuentra obligada a pagar remuneraciones alguna para esta práctica.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                Pese a lo anterior, la empresa pagará, a título de compensación, asignaciones de movilización, de colación y de reembolso de gastos, debidamente comprobados, que el educando haya podido efectuar en relación a la práctica y que hubieren sido previamente autorizados por ella. Sin perjuicio de lo anterior, se fija en este acto el pago de las siguientes asignaciones:
+                            </p>
+                            
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(34, 197, 94, 0.1); border-radius: 8px;">
+                                <p style="margin: 5px 0;"><strong>Asignación de Colación:</strong> $<span class="highlight" id="prev_asignacionColacion">0</span></p>
+                                <p style="margin: 5px 0;"><strong>Asignación de Movilización:</strong> $<span class="highlight" id="prev_asignacionMovilizacion">0</span></p>
+                                <p style="margin: 5px 0;"><strong>Los reembolsos de gastos en que incurra el educando tendrá un tope de:</strong> $<span class="highlight" id="prev_topeReembolso">0</span></p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>QUINTO:</strong> Por no ser trabajador de la empresa el educando no podrá intervenir en forma alguna en los asuntos sindicales o de negociación colectiva de ésta.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>SEXTO:</strong> El hecho de haber realizado su práctica en la empresa no obliga en forma alguna a ésta a contratarlo con posterioridad a ella.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>SÉPTIMO:</strong> La empresa se obliga a los controles que el establecimiento educacional practique mediante sus docentes.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>OCTAVO:</strong> La práctica terminará al haberse completado satisfactoriamente las horas establecidas en la cláusula tercera de este convenio y haberse extendido el informe de práctica requerido.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                Sin embargo, la práctica podrá terminarse anticipadamente por lo siguiente:
+                            </p>
+                            
+                            <p style="margin-left: 20px; margin-bottom: 5px; line-height: 1.8;">
+                                a) Abandono notorio de ella, cuando, de acuerdo con el establecimiento educacional se compruebe la inasistencia injustificada por <strong><span class="highlight" id="prev_diasInasistencia">__</span></strong> días consecutivos;
+                            </p>
+                            
+                            <p style="margin-left: 20px; margin-bottom: 5px; line-height: 1.8;">
+                                b) Faltas a la buena relación que debe existir entre el educando y las personas que imparten la práctica en los niveles que sean;
+                            </p>
+                            
+                            <p style="margin-left: 20px; margin-bottom: 15px; line-height: 1.8;">
+                                c) Por infringir la norma de la cláusula quinta de este convenio.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                En todos estos casos se dará aviso escrito y circunstancias a la autoridad educacional del caso.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                <strong>NOVENO:</strong> Se deja constancia que el educando, Sr.(ta) <strong><span class="highlight" id="prev_nombreEducando2">________________</span></strong>, motivo del presente convenio, inicia su práctica profesional con fecha <span class="highlight" id="prev_fechaInicio">__ de ________ de 20__</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8;">
+                                <strong>DÉCIMO:</strong> El presente convenio se firma en <strong><span class="highlight" id="prev_numeroEjemplares">__</span></strong> ejemplares, declarando las partes haber recibido, a lo menos, un ejemplar de este convenio.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div style="display: flex; justify-content: center; max-width: 600px; margin: 0 auto; gap: 100px;">
+                                        <!-- Firma Empresa -->
+                                        <div class="signature-box" style="flex: 1;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderEmpresa">Firma Empresa</span>
+                                                <img class="signature-preview" id="signaturePreviewEmpresa" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Empresa">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaEmpresa">_______________</div>
+                                            <div style="font-size: 0.9rem; margin-top: 5px; text-align: center; font-weight: bold;">EMPRESA</div>
+                                            <div style="font-size: 0.8rem; margin-top: 5px; text-align: center;">
+                                                RUT <span class="highlight" id="prev_rutEmpresa2">___________</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Firma Educando -->
+                                        <div class="signature-box" style="flex: 1;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderEducando">Firma Educando</span>
+                                                <img class="signature-preview" id="signaturePreviewEducando" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Educando">
+                                            </div>
+                                            <div class="signature-name" id="prev_firmaEducando">_______________</div>
+                                            <div style="font-size: 0.9rem; margin-top: 5px; text-align: center; font-weight: bold;">EDUCANDO</div>
+                                            <div style="font-size: 0.8rem; margin-top: 5px; text-align: center;">
+                                                RUT <span class="highlight" id="prev_rutEducando2">___________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <p style="margin: 0 0 10px 0;"><strong>(1)</strong> Este convenio no se rige por la legislación laboral, ya que la práctica profesional obedece a normas emanadas por el Ministerio de Educación Pública.</p>
+                                <p style="margin: 0;"><strong>(2)</strong> Como norma general, de acuerdo con el D.S. Nº 30, de Educación, publicado el 11-03-1987, la duración de la práctica no podrá ser inferior a 480 horas cronológicas ni superior a 720 de estas horas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

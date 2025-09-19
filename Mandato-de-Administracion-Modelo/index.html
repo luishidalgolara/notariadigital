@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Mandato de Administración</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Mandato de Administración</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL MANDATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Mandato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Mandato</label>
+                                <input type="text" id="ciudadCarta" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Mandato</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL MANDANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Mandante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Mandante</label>
+                                <input type="text" id="nombresInvitante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Mandante</label>
+                                <input type="text" id="runInvitante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitante" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilMandante">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="ocupacionInvitante" placeholder="Ej: Ingeniero, Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Mandante</label>
+                                <input type="text" id="domicilioInvitante" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMandante" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionMandante" placeholder="Ej: Metropolitana" value="Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoInvitante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaInvitante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoInvitante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL MANDATARIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Mandatario</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Mandatario</label>
+                                <input type="text" id="nombresInvitado" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Mandatario</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitado" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilMandatario">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="ocupacionMandatario" placeholder="Ej: Corredor de Propiedades">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA PROPIEDAD -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos de la Propiedad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Ubicación del Inmueble</label>
+                                <input type="text" id="ubicacionInmueble" placeholder="Ej: Av. Las Condes 1234, Depto. 501">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna del Inmueble</label>
+                                <input type="text" id="comunaInmueble" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región del Inmueble</label>
+                                <input type="text" id="regionInmueble" placeholder="Ej: Metropolitana" value="Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Repertorio</label>
+                                <input type="text" id="numeroRepertorio" placeholder="Ej: 123456/2024">
+                            </div>
+                            <div class="form-group">
+                                <label>Notario</label>
+                                <input type="text" id="notario" placeholder="Ej: Juan Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>ROL de Contribuciones</label>
+                                <input type="text" id="rolContribuciones" placeholder="Ej: 12345-6">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES DEL MANDATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones del Mandato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Porcentaje de Comisión (%)</label>
+                                <input type="number" id="porcentajeComision" placeholder="Ej: 8" min="1" max="50" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración del Mandato</label>
+                                <select id="duracionMandato">
+                                    <option value="">Seleccionar duración</option>
+                                    <option value="1 año">1 año</option>
+                                    <option value="2 años">2 años</option>
+                                    <option value="3 años">3 años</option>
+                                    <option value="5 años">5 años</option>
+                                    <option value="indefinido">Indefinido</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Banco para Depósitos</label>
+                                <input type="text" id="bancoDepositos" placeholder="Ej: Banco de Chile">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Cuenta</label>
+                                <input type="text" id="numeroCuenta" placeholder="Ej: 12345678901">
+                            </div>
+                            <div class="form-group">
+                                <label>Información Dividendo</label>
+                                <input type="text" id="infoDividendo" placeholder="Ej: Cuota mensual $250.000">
+                            </div>
+                            <div class="form-group">
+                                <label>Días de Anticipación para Desahucio</label>
+                                <input type="number" id="diasDesahucio" placeholder="60" value="60" min="30" max="180">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OBSERVACIONES E INSTRUCCIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Observaciones e Instrucciones Especiales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Observaciones Generales</label>
+                                <textarea id="observacionesGenerales" rows="3" placeholder="Todos los asuntos domésticos de los arrendatarios, tanto sanitarios como de reparación de algún artefacto, serán tratados con el mandatario..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Instrucciones Especiales del Mandante</label>
+                                <textarea id="instruccionesEspeciales" rows="4" placeholder="Incluya cualquier instrucción particular para el mandatario..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Mandato</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">MANDATO DE ADMINISTRACIÓN</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En la ciudad de <span class="highlight" id="prev_ciudadCarta">Santiago</span> de Chile, a <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> del año <span class="highlight" id="prev_anio">20__</span>, entre <span class="highlight" id="prev_nombresInvitante">_________________________</span>, <span class="highlight" id="prev_nacionalidadInvitante">chilena</span>, <span class="highlight" id="prev_estadoCivilMandante">________</span>, <span class="highlight" id="prev_ocupacionInvitante">________</span>, Rut N° <span class="highlight" id="prev_runInvitante">XX.XXX.XXX-X</span>, en adelante <strong>La mandante</strong> por una parte, y por la otra: Don/Doña <span class="highlight" id="prev_nombresInvitado">_________________________</span>, <span class="highlight" id="prev_nacionalidadInvitado">chilena</span>, <span class="highlight" id="prev_estadoCivilMandatario">________</span>, <span class="highlight" id="prev_ocupacionMandatario">________</span>, Rut N° <span class="highlight" id="prev_rutRepresentante">XX.XXX.XXX-X</span>, en adelante <strong>EL CORREDOR</strong> o Mandatario; ambas domiciliadas en <span class="highlight" id="prev_domicilioInvitante">_________________________</span>, Comuna de <span class="highlight" id="prev_comunaMandante">___________</span>, Región <span class="highlight" id="prev_regionMandante">___________</span>, se ha convenido el siguiente contrato:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>PROPIEDAD:</strong> El Mandante encarga al Mandatario, quien acepta dar en Administración el inmueble ubicado en <span class="highlight" id="prev_ubicacionInmueble">_________________________</span>, Comuna de <span class="highlight" id="prev_comunaInmueble">___________</span>, región <span class="highlight" id="prev_regionInmueble">___________</span>, en mi calidad de Dueña de la propiedad, según consta en Escritura Pública con repertorio N° <span class="highlight" id="prev_numeroRepertorio">XXXXXX/XX</span>, suscrita ante el Notario <span class="highlight" id="prev_notario">_________________________</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>CONDICIONES DEL MANDATO:</strong> a) En uso de este mandato, el mandatario podrá además celebrar y firmar contrato de arrendamiento, administrar el inmueble arrendado, cobrar y percibir todas las rentas de arrendamiento, multas, cláusulas penales, garantías, indemnizaciones y costas que por cualquier motivo deba pagar el arrendatario; igualmente podrá cobrar y percibir la suma que pudiera quedar adeudando el arrendatario; podrá pagar las contribuciones a los Bienes Raíces del inmueble u otras deudas que periódicamente afecten a la propiedad según las instrucciones que se le entregan más adelante.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>GARANTÍAS:</strong> Con el objeto de facilitar la devolución de la garantía al arrendatario, que perciba el mandante al momento de celebrar el contrato de arrendamiento, el mandatario queda facultado para retener el valor de la renta del último mes de arrendamiento. El Mandante se compromete a completar oportunamente cualquier diferencia que se produjere en su contra.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>COMISIÓN:</strong> El mandatario recibirá por la realización total o parcial de sus servicios de administración una comisión equivalente al <span class="highlight" id="prev_porcentajeComision">X</span>% de las sumas que perciba, más el impuesto correspondiente.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>DESAHUCIO DEL MANDATO:</strong> El mandato tendrá una duración de <span class="highlight" id="prev_duracionMandato">cinco años</span>, pero cualquiera de las partes podrá desahuciar el mandato de administración, con una anticipación no inferior a <span class="highlight" id="prev_diasDesahucio">60</span> días al término de cualquiera de los períodos de arrendamiento, mediante carta certificada notarial.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>INSTRUCCIONES ESPECIALES:</strong> El mandante entrega al mandatario las siguientes instrucciones: La renta deberá ser liquidada, mediante depósito Bancario, a nombre de Don/Doña <span class="highlight" id="prev_nombresInvitante2">_________________________</span>. Se depositará en el <span class="highlight" id="prev_bancoDepositos">Banco</span> cuenta N° <span class="highlight" id="prev_numeroCuenta">XXXXXXXXXXXX</span>. Pagará Contribuciones Rol N° <span class="highlight" id="prev_rolContribuciones">XX-XXX</span> (si esto correspondiese). <span class="highlight" id="prev_infoDividendo">Pagará dividendo (si esto correspondiese)</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>OBSERVACIONES:</strong> Las partes dejan constancia de las siguientes observaciones: <span class="highlight" id="prev_observacionesGenerales">Todos los asuntos domésticos de los arrendatarios, tanto sanitarios, como de reparación de algún artefacto, serán tratados con el mandatario, decidiendo esta, cada solución, frente a cada situación en particular.</span>
+                            </p>
+                            
+                            <div style="margin-top: 20px;">
+                                <p style="text-align: justify; line-height: 1.8;">
+                                    <span class="highlight" id="prev_instruccionesEspeciales">Instrucciones adicionales del mandante...</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderInvitante">Firma Mandante</span>
+                                            <img class="signature-preview" id="signaturePreviewInvitante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Mandante">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaInvitante">_______________</div>
+                                        <div class="signature-role">MANDANTE</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            RUT: <span class="highlight" id="prev_runInvitante2">___________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este mandato debe ser firmado por ambas partes y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

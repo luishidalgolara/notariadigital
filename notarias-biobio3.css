@@ -1,0 +1,1253 @@
+/* ============================================
+   UBICACIÓN CON MAPA RESPONSIVE OPTIMIZADA
+   ============================================ */
+.notaria-location-section {
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+}
+
+.notaria-location-section:hover {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.location-section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+}
+
+.location-section-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    color: var(--white);
+    flex: 1;
+    min-width: 0;
+}
+
+/* ============================================
+   MAPA RESPONSIVE OPTIMIZADO
+   ============================================ */
+.location-map-container {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    width: 100%;
+}
+
+.map-placeholder {
+    background: rgba(77, 255, 0, 0.1);
+    border: 2px dashed var(--secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-align: center;
+    width: 100%;
+    min-height: clamp(80px, 18vw, 120px);
+}
+
+.map-placeholder:hover {
+    background: rgba(77, 255, 0, 0.15);
+    border-color: var(--secondary-light);
+    transform: translateY(-1px);
+}
+
+.map-preview-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.map-icon {
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: var(--font-xl);
+    flex-shrink: 0;
+}
+
+.map-text-content {
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+}
+
+.map-address {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    font-size: var(--font-sm);
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.map-instruction {
+    font-size: var(--font-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* ============================================
+   BOTONES DE ACCIÓN ULTRA RESPONSIVOS - OPTIMIZADOS
+   ============================================ */
+.notaria-actions-section {
+    margin-top: auto;
+    width: 100%;
+}
+
+.actions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: 100%;
+}
+
+.secondary-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 25vw, 140px), 1fr));
+    gap: var(--space-xs);
+    width: 100%;
+}
+
+.action-btn {
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: var(--font-sm);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    width: 100%;
+    min-height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.action-btn:hover::before,
+.action-btn:active::before {
+    left: 100%;
+}
+
+.action-btn:hover,
+.action-btn:active {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.call-btn {
+    background: var(--secondary);
+    color: var(--white);
+    border: 1px solid var(--secondary);
+}
+
+.call-btn:hover,
+.call-btn:active {
+    background: var(--secondary-light);
+}
+
+.directions-btn {
+    background: var(--accent);
+    color: var(--white);
+    border: 1px solid var(--accent);
+}
+
+.directions-btn:hover,
+.directions-btn:active {
+    background: var(--accent-light);
+}
+
+.website-btn {
+    background: #f59e0b;
+    color: var(--white);
+    border: 1px solid #f59e0b;
+}
+
+.website-btn:hover,
+.website-btn:active {
+    background: #fbbf24;
+}
+
+.tramites-btn {
+    background: transparent !important;
+    color: var(--secondary) !important;
+    border: 2px solid var(--secondary) !important;
+    padding: var(--space-lg) !important;
+    font-size: var(--font-lg) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+    min-height: calc(var(--touch-target) + 10px);
+    order: -1;
+}
+
+.tramites-btn:hover,
+.tramites-btn:active {
+    background: var(--secondary) !important;
+    color: var(--white) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+/* ============================================
+   MOSAICO DE FOTOS COMPLETAMENTE RESPONSIVE OPTIMIZADO
+   ============================================ */
+.photos-mosaic-container {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.mosaic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.mosaic-title-section {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.mosaic-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    color: var(--white);
+}
+
+.mosaic-count {
+    background: rgba(77, 255, 0, 0.1);
+    padding: 2px var(--space-xs);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--secondary);
+    font-size: var(--font-xs);
+    color: var(--secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.mosaic-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.mosaic-upload-btn,
+.mosaic-delete-mode-btn {
+    background: var(--secondary);
+    border: none;
+    color: var(--white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    min-width: clamp(60px, 18vw, 80px);
+    text-align: center;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mosaic-upload-btn:hover {
+    background: var(--secondary-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.mosaic-delete-mode-btn {
+    background: #ef4444;
+}
+
+.mosaic-delete-mode-btn:hover {
+    background: #f87171;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.mosaic-delete-mode-btn.delete-mode-active {
+    background: #f59e0b;
+}
+
+.mosaic-delete-mode-btn.delete-mode-active:hover {
+    background: #fbbf24;
+}
+
+.mosaic-specs-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    width: clamp(20px, 5vw, 28px);
+    height: clamp(20px, 5vw, 28px);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-xs);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.mosaic-specs-btn:hover {
+    background: rgba(77, 255, 0, 0.1);
+    border-color: var(--secondary);
+    color: var(--secondary);
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* ============================================
+   GRID DE MOSAICO PERFECTAMENTE RESPONSIVE OPTIMIZADO
+   ============================================ */
+.photos-mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 28vw, 140px), 1fr));
+    gap: var(--space-xs);
+    grid-auto-rows: clamp(100px, 28vw, 140px);
+    flex: 1;
+    width: 100%;
+}
+
+.mosaic-photo-item {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    height: 100%;
+    grid-row: span 1;
+    grid-column: span 1;
+    aspect-ratio: 1;
+}
+
+.mosaic-photo-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-md);
+}
+
+.mosaic-photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-normal);
+}
+
+.mosaic-photo-item:hover img {
+    transform: scale(1.05);
+}
+
+.mosaic-photo-overlay {
+    position: absolute;
+    bottom: var(--space-xs);
+    right: var(--space-xs);
+    background: rgba(77, 255, 0, 0.8);
+    color: var(--white);
+    width: clamp(20px, 6vw, 24px);
+    height: clamp(20px, 6vw, 24px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    font-weight: 600;
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.mosaic-photo-item:hover .mosaic-photo-overlay {
+    opacity: 1;
+}
+
+/* Estado vacío responsive optimizado */
+.mosaic-empty-state {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(77, 255, 0, 0.05);
+    border: 2px dashed var(--secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    min-height: clamp(160px, 40vw, 240px);
+}
+
+.mosaic-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+    max-width: 280px;
+}
+
+.mosaic-empty-icon {
+    font-size: var(--font-3xl);
+    color: var(--secondary);
+    opacity: 0.6;
+}
+
+.mosaic-empty-title {
+    font-size: var(--font-xl);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.mosaic-empty-subtitle {
+    font-size: var(--font-sm);
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.mosaic-empty-btn {
+    background: var(--secondary);
+    border: none;
+    color: var(--white);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mosaic-empty-btn:hover {
+    background: var(--secondary-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.mosaic-add-item {
+    background: rgba(77, 255, 0, 0.1) !important;
+    border: 2px dashed var(--secondary) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    grid-row: span 1;
+    grid-column: span 1;
+    aspect-ratio: 1;
+}
+
+.mosaic-add-item:hover {
+    background: rgba(77, 255, 0, 0.15) !important;
+    border-color: var(--secondary-light) !important;
+    transform: translateY(-1px);
+}
+
+.mosaic-add-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.mosaic-add-icon {
+    font-size: var(--font-xl);
+    color: var(--secondary);
+}
+
+.mosaic-add-text {
+    font-size: var(--font-xs);
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* ============================================
+   SISTEMA DE ELIMINACIÓN RESPONSIVE
+   ============================================ */
+.mosaic-delete-overlay {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-xs);
+    background: rgba(239, 68, 68, 0.9);
+    color: var(--white);
+    width: clamp(24px, 7vw, 28px);
+    height: clamp(24px, 7vw, 28px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-weight: 600;
+    opacity: 0;
+    transition: var(--transition-normal);
+    cursor: pointer;
+    border: 1px solid var(--white);
+    z-index: 5;
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-delete-overlay {
+    opacity: 1;
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-photo-item:hover .mosaic-delete-overlay {
+    background: #ef4444;
+    transform: scale(1.1);
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-photo-item {
+    cursor: pointer !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-photo-item:hover {
+    border-color: rgba(239, 68, 68, 0.6) !important;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3) !important;
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-photo-item img {
+    filter: brightness(0.7);
+}
+
+.photos-mosaic-grid.delete-mode-active .mosaic-photo-overlay {
+    opacity: 0 !important;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS MÓVIL OPTIMIZADOS
+   ============================================ */
+@media (max-width: 767px) {
+    .header-buttons {
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 var(--space-xs);
+    }
+    
+    .back-btn,
+    .register-btn,
+    .register-notary-btn {
+        min-width: clamp(60px, 28vw, 90px);
+        font-size: var(--font-xs);
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .comuna-filters {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+    }
+    
+    .filter-btn {
+        font-size: var(--font-xs);
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .notaria-content-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+    
+    .notaria-left-column,
+    .notaria-right-column {
+        padding: var(--space-sm);
+    }
+    
+    .notaria-left-column {
+        gap: var(--space-sm);
+        order: 1;
+    }
+    
+    .notaria-right-column {
+        order: 2;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-left: none;
+        border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+    }
+    
+    .banner-customize {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-xs);
+    }
+    
+    .customize-banner-btn,
+    .remove-banner-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .banner-specs-btn {
+        align-self: center;
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-xs);
+        grid-auto-rows: clamp(80px, 35vw, 120px);
+    }
+    
+    .secondary-actions {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+    }
+    
+    .modal-content,
+    .specs-content,
+    .editor-content,
+    .delete-content {
+        max-width: 95vw;
+        max-height: 95vh;
+        margin: var(--space-xs);
+    }
+    
+    .specs-header,
+    .editor-header,
+    .delete-header {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .specs-body,
+    .editor-body {
+        padding: var(--space-md);
+        max-height: 70vh;
+    }
+    
+    .dimension-item {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .dimension-label {
+        margin-bottom: var(--space-xs);
+    }
+    
+    .services-input-area {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .add-service-btn {
+        width: 100%;
+    }
+    
+    .specs-footer,
+    .editor-footer,
+    .delete-footer {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .cancel-btn,
+    .save-services-btn,
+    .confirm-delete-btn {
+        max-width: none;
+        width: 100%;
+    }
+    
+    /* Botón de scroll responsive para móviles */
+    .scroll-to-top-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.3rem;
+    }
+    
+    .scroll-to-top-btn::before {
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 10px solid var(--secondary);
+    }
+    
+    .scroll-to-top-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+    }
+}
+
+/* ============================================
+   BREAKPOINTS ADICIONALES PARA MEJOR RESPONSIVIDAD
+   ============================================ */
+
+/* Móviles muy pequeños (hasta 360px) */
+@media (max-width: 360px) {
+    .container {
+        padding-left: var(--space-xs);
+        padding-right: var(--space-xs);
+    }
+    
+    .info-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+        text-align: left;
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .info-icon {
+        justify-self: start;
+        font-size: var(--font-xs);
+        min-width: 50px;
+    }
+    
+    .info-text,
+    .info-link {
+        font-size: var(--font-xs);
+    }
+    
+    .servicios-compact-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+    
+    .servicios-compact-edit {
+        align-self: flex-end;
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: clamp(120px, 50vw, 200px);
+    }
+    
+    /* Botón de scroll para móviles muy pequeños */
+    .scroll-to-top-btn {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        right: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .scroll-to-top-btn::before {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 8px solid var(--secondary);
+    }
+}
+
+/* Móviles medianos (361px - 480px) */
+@media (min-width: 361px) and (max-width: 480px) {
+    .info-item {
+        grid-template-columns: 70px 1fr;
+    }
+    
+    .info-icon {
+        font-size: var(--font-xs);
+    }
+    
+    .servicios-compact-more {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .servicios-more-btn {
+        width: 100%;
+        margin-top: var(--space-xs);
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Móviles grandes y tablets pequeñas (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .info-item {
+        grid-template-columns: 80px 1fr;
+    }
+    
+    .servicio-compact-item {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .servicios-compact-more {
+        flex-direction: row;
+    }
+    
+    .secondary-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .notaria-content-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .secondary-actions {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Desktop pequeño (1025px+) */
+@media (min-width: 1025px) {
+    .notaria-content-grid {
+        grid-template-columns: 2fr 1fr;
+        gap: var(--space-lg);
+    }
+    
+    .notaria-right-column {
+        border-top: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0 var(--radius-2xl) var(--radius-2xl) 0;
+        order: 2;
+    }
+    
+    .photos-mosaic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: clamp(120px, 15vw, 180px);
+    }
+    
+    .secondary-actions {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ============================================
+   RESPONSIVE PARA TODOS LOS MODALES
+   ============================================ */
+@media (max-width: 767px) {
+    .modal-content,
+    .editor-content,
+    .specs-content,
+    .delete-content {
+        max-width: 95vw !important;
+        max-height: 95vh !important;
+        margin: var(--space-xs) !important;
+    }
+    
+    .specs-header,
+    .editor-header,
+    .delete-header,
+    .photo-modal .modal-header {
+        padding: var(--space-md) var(--space-lg);
+    }
+    
+    .specs-body,
+    .editor-body,
+    .photo-modal .modal-image {
+        padding: var(--space-md);
+        max-height: 70vh;
+    }
+    
+    .photo-modal .modal-image {
+        min-height: 200px;
+    }
+    
+    .photo-modal .modal-image img {
+        max-height: 60vh;
+    }
+    
+    .dimension-item {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .dimension-label {
+        margin-bottom: var(--space-xs);
+    }
+    
+    .specs-footer,
+    .editor-footer {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .cancel-btn,
+    .save-services-btn {
+        width: 100%;
+    }
+    
+    /* Editor de servicios responsive */
+    .services-input-area {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .add-service-btn {
+        width: 100%;
+    }
+    
+    .service-item-content {
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+    }
+    
+    .service-text-container {
+        min-width: 0;
+        flex: 1;
+    }
+    
+    .template-services {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    
+    .template-service {
+        text-align: center;
+        padding: var(--space-sm);
+    }
+}
+
+/* ============================================
+   ESTILOS ADICIONALES PARA ASEGURAR FUNCIONAMIENTO
+   ============================================ */
+
+/* Asegurar que los modales estén por encima de todo */
+.photo-modal,
+.services-editor-modal,
+.photo-specs-modal {
+    z-index: 10001 !important;
+}
+
+/* Prevenir scroll del body cuando modal está abierto */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* Animaciones suaves para modales */
+.photo-modal,
+.services-editor-modal,
+.photo-specs-modal {
+    animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content,
+.editor-content,
+.specs-content {
+    animation: slideInModal 0.3s ease-out;
+}
+
+@keyframes slideInModal {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   MODAL DE VISUALIZACIÓN DE FOTOS - ESTILOS FALTANTES
+   ============================================ */
+.photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.photo-modal .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.photo-modal .modal-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(77, 255, 0, 0.3);
+    box-shadow: var(--shadow-xl);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg) var(--space-xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 41, 59, 0.8);
+    flex-shrink: 0;
+}
+
+.photo-modal .modal-title {
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+}
+
+.photo-modal .modal-close {
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid rgba(239, 68, 68, 0.4);
+    color: #f87171;
+    width: clamp(36px, 8vw, 44px);
+    height: clamp(36px, 8vw, 44px);
+    border-radius: 50%;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.photo-modal .modal-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: scale(1.1);
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+.photo-modal .modal-image {
+    padding: var(--space-xl);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.5);
+    min-height: 300px;
+}
+
+.photo-modal .modal-image img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive para móviles */
+@media (max-width: 767px) {
+    .photo-modal .modal-content {
+        max-width: 95vw;
+        max-height: 95vh;
+        margin: var(--space-xs);
+    }
+    
+    .photo-modal .modal-header {
+        padding: var(--space-md) var(--space-lg);
+    }
+    
+    .photo-modal .modal-image {
+        padding: var(--space-md);
+        min-height: 200px;
+    }
+    
+    .photo-modal .modal-image img {
+        max-height: 60vh;
+    }
+}
+
+/* ============================================
+   ANIMACIONES ADICIONALES PARA NOTIFICACIONES
+   ============================================ */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MEJORAS ADICIONALES PARA EL SCROLL
+   ============================================ */
+
+/* Scrollbar personalizado para webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
+}
+
+/* Firefox scrollbar */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) rgba(30, 41, 59, 0.3);
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus states mejorados */
+button:focus-visible,
+input:focus-visible,
+.filter-btn:focus-visible,
+.action-btn:focus-visible,
+.scroll-to-top-btn:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+/* Reduce motion para usuarios que lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .scroll-to-top-btn,
+    .scroll-to-top-btn::before {
+        transition: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .top-header,
+    .scroll-to-top-btn,
+    .banner-customize,
+    .mosaic-actions,
+    .action-btn,
+    .filter-btn {
+        display: none !important;
+    }
+    
+    .container {
+        padding-top: 0 !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .notaria-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}

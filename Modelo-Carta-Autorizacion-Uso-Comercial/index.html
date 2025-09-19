@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Carta de Autorización de Uso Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Carta de Autorización de Uso Comercial</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Contrato</label>
+                                <input type="text" id="ciudadContrato" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaContrato">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA EMPRESA QUE AUTORIZA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Empresa que Autoriza</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social de la Empresa</label>
+                                <input type="text" id="razonSocialAutoriza" placeholder="Ej: Empresa Autorizante S.A.">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresaAutoriza" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Representante Legal</label>
+                                <input type="text" id="nombreRepresentanteAutoriza" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentanteAutoriza" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad del Representante</label>
+                                <input type="text" id="nacionalidadRepresentanteAutoriza" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresaAutoriza" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpresaAutoriza" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionEmpresaAutoriza" placeholder="Ej: Región Metropolitana" value="Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico</label>
+                                <input type="email" id="correoEmpresaAutoriza" placeholder="Ej: contacto@empresaautoriza.cl">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutoriza" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutoriza" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA EMPRESA AUTORIZADA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏛️</div>
+                            <h2 class="section-title">Datos de la Empresa Autorizada</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social de la Empresa</label>
+                                <input type="text" id="razonSocialAutorizada" placeholder="Ej: Empresa Autorizada Ltda.">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresaAutorizada" placeholder="Ej: 76.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Representante Legal</label>
+                                <input type="text" id="nombreRepresentanteAutorizada" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Representante</label>
+                                <input type="text" id="rutRepresentanteAutorizada" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad del Representante</label>
+                                <input type="text" id="nacionalidadRepresentanteAutorizada" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresaAutorizada" placeholder="Ej: Av. Libertador 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpresaAutorizada" placeholder="Ej: Ñuñoa">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionEmpresaAutorizada" placeholder="Ej: Región Metropolitana" value="Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico</label>
+                                <input type="email" id="correoEmpresaAutorizada" placeholder="Ej: contacto@empresaautorizada.cl">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizada" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizada" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL INMUEBLE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos del Inmueble Autorizado</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Dirección Completa del Inmueble</label>
+                                <input type="text" id="direccionInmueble" placeholder="Ej: Av. Las Condes 1234, Of. 501">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaInmueble" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionInmueble" placeholder="Ej: Región Metropolitana" value="Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Inmueble</label>
+                                <select id="tipoInmueble">
+                                    <option value="">Seleccionar</option>
+                                    <option value="oficina">Oficina</option>
+                                    <option value="local comercial">Local Comercial</option>
+                                    <option value="bodega">Bodega</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="departamento">Departamento</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Porción Autorizada</label>
+                                <input type="text" id="porcionAutorizada" placeholder="Ej: Parte del inmueble, Oficina 501">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PROPÓSITO DE LA AUTORIZACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Propósito de la Autorización</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Descripción del Uso Autorizado</label>
+                                <textarea id="descripcionUsoAutorizado" rows="3" placeholder="Para uso comercial y tributario ante cualquier organismo, institución pública o privada, Servicio de Impuestos Internos, Bancos e Instituciones Financieras y para el desarrollo de los objetos propios de la Sociedad." style="height: 80px;">Para uso comercial y tributario ante cualquier organismo, institución pública o privada, Servicio de Impuestos Internos, Bancos e Instituciones Financieras y para el desarrollo de los objetos propios de la Sociedad.</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Vigencia de la Autorización</label>
+                                <select id="vigenciaAutorizacion">
+                                    <option value="">Seleccionar</option>
+                                    <option value="indefinida">Indefinida</option>
+                                    <option value="1 año">1 Año</option>
+                                    <option value="2 años">2 Años</option>
+                                    <option value="3 años">3 Años</option>
+                                    <option value="hasta revocación">Hasta Revocación</option>
+                                    <option value="otro plazo">Otro Plazo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Vencimiento (si aplica)</label>
+                                <input type="date" id="fechaVencimiento">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Condiciones Especiales</label>
+                                <textarea id="condicionesEspeciales" rows="3" placeholder="Condiciones adicionales, restricciones o requisitos específicos..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CLÁUSULAS ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Cláusulas Adicionales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Responsabilidades de la Empresa Autorizada</label>
+                                <textarea id="responsabilidadesAutorizada" rows="3" placeholder="La empresa autorizada se compromete a usar el inmueble únicamente para los fines aquí estipulados..." style="height: 80px;">La empresa autorizada se compromete a usar el inmueble únicamente para los fines aquí estipulados y mantener al día todas las obligaciones tributarias y comerciales que se deriven del uso del domicilio.</textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Condiciones de Revocación</label>
+                                <textarea id="condicionesRevocacion" rows="3" placeholder="La empresa que autoriza podrá revocar esta autorización..." style="height: 80px;">La empresa que autoriza podrá revocar esta autorización en cualquier momento mediante notificación escrita con 30 días de anticipación.</textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="4" placeholder="Cualquier información adicional, acuerdos especiales, etc..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Carta</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CARTA DE AUTORIZACIÓN</div>
+                            <div class="document-subtitle">USO COMERCIAL DE INMUEBLE</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadContrato">Santiago</span>, a <span class="highlight" id="prev_dia">__</span> días del mes de <span class="highlight" id="prev_mes">________</span> del año <span class="highlight" id="prev_anio">20__</span>; entre <strong><span class="highlight" id="prev_razonSocialAutoriza">________________</span></strong>, Rol Único Tributario Nº <span class="highlight" id="prev_rutEmpresaAutoriza">XX.XXX.XXX-X</span>, representada por don(ña) <strong><span class="highlight" id="prev_nombreRepresentanteAutoriza">________________</span></strong>, <span class="highlight" id="prev_nacionalidadRepresentanteAutoriza">chilena</span>, cédula de identidad Nº <span class="highlight" id="prev_rutRepresentanteAutoriza">XX.XXX.XXX-X</span>, ambos domiciliados en <span class="highlight" id="prev_domicilioEmpresaAutoriza">________________</span>, comuna de <span class="highlight" id="prev_comunaEmpresaAutoriza">________</span>, <span class="highlight" id="prev_regionEmpresaAutoriza">________</span> y <strong><span class="highlight" id="prev_razonSocialAutorizada">________________</span></strong>, Rol Único Tributario Nº <span class="highlight" id="prev_rutEmpresaAutorizada">XX.XXX.XXX-X</span>, representada por don(ña) <strong><span class="highlight" id="prev_nombreRepresentanteAutorizada">________________</span></strong>, <span class="highlight" id="prev_nacionalidadRepresentanteAutorizada">chilena</span>, cédula de identidad Nº <span class="highlight" id="prev_rutRepresentanteAutorizada">XX.XXX.XXX-X</span>, ambos domiciliados en <span class="highlight" id="prev_domicilioEmpresaAutorizada">________________</span>, comuna de <span class="highlight" id="prev_comunaEmpresaAutorizada">________</span>, <span class="highlight" id="prev_regionEmpresaAutorizada">________</span>, en adelante, se ha convenido el siguiente acuerdo:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong><span class="highlight" id="prev_razonSocialAutoriza2">________________</span></strong>, autoriza la utilización de <span class="highlight" id="prev_porcionAutorizada">parte de su inmueble</span> ubicado en <span class="highlight" id="prev_direccionInmueble">________________</span>, comuna de <span class="highlight" id="prev_comunaInmueble">________</span>, <span class="highlight" id="prev_regionInmueble">________</span>, <span class="highlight" id="prev_descripcionUsoAutorizado">para uso comercial y tributario ante cualquier organismo, institución pública o privada, Servicio de Impuestos Internos, Bancos e Instituciones Financieras y para el desarrollo de los objetos propios de la Sociedad</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Esta autorización tendrá una vigencia <span class="highlight" id="prev_vigenciaAutorizacion">________</span><span id="fechaVencimientoTexto"></span>.
+                            </p>
+                            
+                            <div style="margin-bottom: 30px;">
+                                <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                    <strong>RESPONSABILIDADES:</strong> <span class="highlight" id="prev_responsabilidadesAutorizada">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 30px;">
+                                <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                    <strong>CONDICIONES DE REVOCACIÓN:</strong> <span class="highlight" id="prev_condicionesRevocacion">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 30px;">
+                                <p style="text-align: justify; line-height: 1.8;">
+                                    <strong>OBSERVACIONES ADICIONALES:</strong> <span class="highlight" id="prev_observacionesAdicionales">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+                                <p style="font-weight: bold; font-size: 1.1rem;">
+                                    <span class="highlight" id="prev_razonSocialAutoriza3">________________</span> RUT: <span class="highlight" id="prev_rutEmpresaAutoriza2">XX.XXX.XXX-X</span>
+                                </p>
+                                <p style="margin-top: 5px;">
+                                    <strong>Representante Legal:</strong> <span class="highlight" id="prev_nombreRepresentanteAutoriza2">________________</span> RUT: <span class="highlight" id="prev_rutRepresentanteAutoriza2">XX.XXX.XXX-X</span>
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center; margin-bottom: 40px;">
+                                <p style="font-weight: bold; font-size: 1.1rem;">
+                                    <span class="highlight" id="prev_razonSocialAutorizada2">________________</span> RUT: <span class="highlight" id="prev_rutEmpresaAutorizada2">XX.XXX.XXX-X</span>
+                                </p>
+                                <p style="margin-top: 5px;">
+                                    <strong>Representante Legal:</strong> <span class="highlight" id="prev_nombreRepresentanteAutorizada2">________________</span> RUT: <span class="highlight" id="prev_rutRepresentanteAutorizada2">XX.XXX.XXX-X</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center; margin-right: 5%;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderAutoriza">Firma Empresa Autoriza</span>
+                                            <img class="signature-preview" id="signaturePreviewAutoriza" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Empresa Autoriza">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaAutoriza">_______________</div>
+                                        <div class="signature-role">EMPRESA QUE AUTORIZA</div>
+                                    </div>
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderAutorizada">Firma Empresa Autorizada</span>
+                                            <img class="signature-preview" id="signaturePreviewAutorizada" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Empresa Autorizada">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaAutorizada">_______________</div>
+                                        <div class="signature-role">EMPRESA AUTORIZADA</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta carta de autorización debe ser firmada por ambas partes y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

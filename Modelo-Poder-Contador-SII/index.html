@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Carta Poder para Contador SII</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Carta Poder para Contador SII</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- TIPO DE OTORGANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Tipo de Otorgante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>¿Quién otorga el poder?</label>
+                                <select id="tipoOtorgante">
+                                    <option value="">Seleccione el tipo de otorgante</option>
+                                    <option value="persona_natural">Persona Natural</option>
+                                    <option value="empresa">Empresa/Sociedad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL OTORGANTE PERSONA NATURAL -->
+                    <div class="section-card" id="datosPersonaNatural" style="display: none;">
+                        <div class="section-header">
+                            <div class="section-icon">🆔</div>
+                            <h2 class="section-title">Datos del Otorgante (Persona Natural)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreOtorgante" placeholder="Ej: Juan Carlos Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadOtorgante">
+                                    <option value="chilena">Chilena</option>
+                                    <option value="extranjera">Extranjera</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaOtorgante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioOtorgante" placeholder="Ej: Avenida Libertador Bernardo O'Higgins 1449, Santiago Centro">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE LA EMPRESA -->
+                    <div class="section-card" id="datosEmpresa" style="display: none;">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Empresa/Sociedad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social</label>
+                                <input type="text" id="razonSocial" placeholder="Ej: Comercial Los Andes Limitada">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Sociedad</label>
+                                <select id="tipoSociedad">
+                                    <option value="">Seleccione tipo</option>
+                                    <option value="Limitada">Limitada (Ltda.)</option>
+                                    <option value="SpA">Sociedad por Acciones (SpA)</option>
+                                    <option value="EIRL">Empresa Individual de Responsabilidad Limitada (EIRL)</option>
+                                    <option value="SA">Sociedad Anónima (S.A.)</option>
+                                    <option value="SRL">Sociedad de Responsabilidad Limitada (SRL)</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio Comercial</label>
+                                <input type="text" id="domicilioComercial" placeholder="Ej: Av. Apoquindo 4501, Las Condes, Santiago">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL REPRESENTANTE LEGAL (Solo para empresas) -->
+                    <div class="section-card" id="datosRepresentante" style="display: none;">
+                        <div class="section-header">
+                            <div class="section-icon">👔</div>
+                            <h2 class="section-title">Datos del Representante Legal</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Representante</label>
+                                <input type="text" id="nombreRepresentante" placeholder="Ej: María Elena González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadRepresentante">
+                                    <option value="chilena">Chilena</option>
+                                    <option value="extranjera">Extranjera</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaRepresentante" placeholder="Ej: 11.222.333-4">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaOtorgante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoOtorgante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL MANDATARIO/CONTADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🧾</div>
+                            <h2 class="section-title">Datos del Contador/Mandatario</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Contador</label>
+                                <input type="text" id="nombreContador" placeholder="Ej: Carlos Alberto Morales López">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaContador" placeholder="Ej: 15.678.901-2">
+                            </div>
+                            <div class="form-group">
+                                <label>Registro Contador (Opcional)</label>
+                                <input type="text" id="registroContador" placeholder="Ej: N° 1234 Colegio de Contadores">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FACULTADES A OTORGAR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Facultades a Otorgar</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Seleccione las facultades que desea otorgar:</label>
+                                
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_timbraje" value="timbraje">
+                                        <span>Timbraje de Libros de Contabilidad y/o Hojas de Contabilidad Computacional</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_facturas" value="facturas">
+                                        <span>Timbraje de facturas afectas y/o facturas exentas</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_boletas" value="boletas">
+                                        <span>Timbraje de boletas de ventas y servicios afectas y/o exentas</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_notificaciones" value="notificaciones">
+                                        <span>Concurrir a notificaciones</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_rectificatorias" value="rectificatorias">
+                                        <span>Realizar rectificatorias de IVA y/o Renta</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_rut" value="rut">
+                                        <span>Comprar y/o retirar copias de R.U.T.</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_domicilio" value="domicilio">
+                                        <span>Realizar cambios de domicilio</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_sucursales" value="sucursales">
+                                        <span>Apertura y cierre de sucursales</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_formularios" value="formularios">
+                                        <span>Firmar formularios (3230, 3239, 29, 22, 50, 2117, 2121, 4415, 4418)</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_tramites" value="tramites">
+                                        <span>Cualquier trámite de orden administrativo ante el SII</span>
+                                    </label>
+                                    
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="facultad_subdelegar" value="subdelegar">
+                                        <span>Facultad de subdelegar el poder en un tercero</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group span-2">
+                                <label>Facultades Adicionales (Opcional)</label>
+                                <textarea id="facultadesAdicionales" rows="3" placeholder="Especifique otras facultades que desee otorgar..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FECHA Y LUGAR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Fecha y Lugar de Otorgamiento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Otorgamiento</label>
+                                <input type="date" id="fechaOtorgamiento">
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar de Otorgamiento</label>
+                                <input type="text" id="lugarOtorgamiento" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACEPTACIÓN LEGAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Aceptación y Conocimiento Legal</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="conocimientoLegal" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro que otorgo el presente poder con pleno conocimiento de las facultades conferidas y las responsabilidades que implica.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="veracidadDatos" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro bajo juramento que la información proporcionada en este documento es verdadera y completa.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Carta Poder</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CARTA PODER</div>
+                            <div class="document-subtitle">Para trámites ante el Servicio de Impuestos Internos</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 40px; text-align: justify; line-height: 1.8;">
+                                <p style="margin-bottom: 20px;" id="parrafoOtorgante">
+                                    Yo, <strong><span id="prev_datosOtorgante" class="highlight">_____________________</span></strong>, 
+                                    <span id="prev_representacion" class="highlight"></span>
+                                    domiciliado en <strong><span id="prev_domicilio" class="highlight">_________________________________</span></strong>, 
+                                    expone:
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Que en el presente acto viene a conferir poder especial, tan amplio y bastante como en derecho se requiere, 
+                                    a favor de <strong><span id="prev_nombreContador" class="highlight">_____________________</span></strong>, 
+                                    cédula de identidad nº <strong><span id="prev_cedulaContador" class="highlight">______________</span></strong> 
+                                    para que en mi nombre y representación actúe ante el Servicio de Impuestos Internos en:
+                                </p>
+                                
+                                <div style="margin: 20px 0; padding-left: 20px;">
+                                    <ul id="prev_facultades" style="line-height: 2;">
+                                        <li>Las facultades seleccionadas aparecerán aquí</li>
+                                    </ul>
+                                </div>
+                                
+                                <p style="margin-bottom: 20px;" id="prev_facultadesAdicionales_p" style="display: none;">
+                                    Facultades adicionales: <strong><span id="prev_facultadesAdicionales" class="highlight"></span></strong>
+                                </p>
+                                
+                                <p style="margin-bottom: 40px;">
+                                    Al efecto confiere al mandatario todas las facultades necesarias para el eficaz y correcto 
+                                    desempeño de su mandato, incluso las de firmar los documentos que se le exijan, y en general 
+                                    lo faculta para que proceda a efectuar los trámites, diligencias y actuaciones que sean 
+                                    procedentes para dar cumplimiento con éxito a su misión.
+                                </p>
+                                
+                                <div style="margin-bottom: 60px;">
+                                    <span id="prev_lugarOtorgamiento" class="highlight">Santiago</span>, 
+                                    <span id="prev_fechaOtorgamiento" class="highlight">__ de _______ del ____</span>.
+                                </div>
+                            </div>
+
+                            <!-- Sección de Firma -->
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 100%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderOtorgante">Firma del Otorgante</span>
+                                            <img class="signature-preview" id="signaturePreviewOtorgante" style="display: none; max-width: 100%; max-height: 60px; object-fit: contain;" alt="Firma del Otorgante">
+                                        </div>
+                                        <div style="margin-top: 15px;">
+                                            <div class="signature-name" id="prev_nombreFirma">_____________________</div>
+                                            <div class="signature-role">OTORGANTE</div>
+                                            <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                                Cédula de identidad N° <span id="prev_cedulaFirma">______________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Compraventa de Vehículo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Contrato de Compraventa de Vehículo Usado</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadContrato" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato</label>
+                                <input type="date" id="fechaContrato">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Notario Público</label>
+                                <input type="text" id="notarioPublico" placeholder="Ej: Juan Pérez Soto">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Notaría</label>
+                                <select id="numeroNotaria">
+                                    <option value="Primera">Primera</option>
+                                    <option value="Segunda">Segunda</option>
+                                    <option value="Tercera">Tercera</option>
+                                    <option value="Cuarta">Cuarta</option>
+                                    <option value="Quinta">Quinta</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad de la Notaría</label>
+                                <input type="text" id="ciudadNotaria" placeholder="Ej: Santiago">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VENDEDOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Vendedor</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Vendedor</label>
+                                <input type="text" id="nombreVendedor" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Vendedor</label>
+                                <input type="text" id="rutVendedor" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="telefonoVendedor" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Vendedor</label>
+                                <input type="text" id="domicilioVendedor" placeholder="Ej: Calle Los Aromos 567">
+                            </div>
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="text" id="numeroVendedor" placeholder="Ej: 567">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaVendedor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadVendedor" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="regionVendedor">
+                                    <option value="">Seleccionar Región</option>
+                                    <option value="Arica y Parinacota">Arica y Parinacota</option>
+                                    <option value="Tarapacá">Tarapacá</option>
+                                    <option value="Antofagasta">Antofagasta</option>
+                                    <option value="Atacama">Atacama</option>
+                                    <option value="Coquimbo">Coquimbo</option>
+                                    <option value="Valparaíso">Valparaíso</option>
+                                    <option value="Metropolitana" selected>Metropolitana</option>
+                                    <option value="O'Higgins">O'Higgins</option>
+                                    <option value="Maule">Maule</option>
+                                    <option value="Ñuble">Ñuble</option>
+                                    <option value="Biobío">Biobío</option>
+                                    <option value="Araucanía">Araucanía</option>
+                                    <option value="Los Ríos">Los Ríos</option>
+                                    <option value="Los Lagos">Los Lagos</option>
+                                    <option value="Aysén">Aysén</option>
+                                    <option value="Magallanes">Magallanes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaVendedor" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL VENDEDOR</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoVendedor" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">DOCUMENTOS VENDEDOR</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL COMPRADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos del Comprador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Comprador</label>
+                                <input type="text" id="nombreComprador" placeholder="Ej: María Elena García López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Comprador</label>
+                                <input type="text" id="rutComprador" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="telefonoComprador" placeholder="Ej: +56 9 9876 5432">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Comprador</label>
+                                <input type="text" id="domicilioComprador" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="text" id="numeroComprador" placeholder="Ej: 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaComprador" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadComprador" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="regionComprador">
+                                    <option value="">Seleccionar Región</option>
+                                    <option value="Arica y Parinacota">Arica y Parinacota</option>
+                                    <option value="Tarapacá">Tarapacá</option>
+                                    <option value="Antofagasta">Antofagasta</option>
+                                    <option value="Atacama">Atacama</option>
+                                    <option value="Coquimbo">Coquimbo</option>
+                                    <option value="Valparaíso">Valparaíso</option>
+                                    <option value="Metropolitana" selected>Metropolitana</option>
+                                    <option value="O'Higgins">O'Higgins</option>
+                                    <option value="Maule">Maule</option>
+                                    <option value="Ñuble">Ñuble</option>
+                                    <option value="Biobío">Biobío</option>
+                                    <option value="Araucanía">Araucanía</option>
+                                    <option value="Los Ríos">Los Ríos</option>
+                                    <option value="Los Lagos">Los Lagos</option>
+                                    <option value="Aysén">Aysén</option>
+                                    <option value="Magallanes">Magallanes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaComprador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL COMPRADOR</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoComprador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">DOCUMENTOS COMPRADOR</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VEHÍCULO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚗</div>
+                            <h2 class="section-title">Datos del Vehículo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Vehículo</label>
+                                <select id="tipoVehiculo">
+                                    <option value="Automóvil">Automóvil</option>
+                                    <option value="Camioneta">Camioneta</option>
+                                    <option value="Motocicleta">Motocicleta</option>
+                                    <option value="Furgón">Furgón</option>
+                                    <option value="Jeep">Jeep</option>
+                                    <option value="Camión">Camión</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <input type="text" id="marcaVehiculo" placeholder="Ej: Toyota">
+                            </div>
+                            <div class="form-group">
+                                <label>Año</label>
+                                <input type="number" id="anioVehiculo" placeholder="Ej: 2015" min="1990" max="2025">
+                            </div>
+                            <div class="form-group">
+                                <label>Modelo</label>
+                                <input type="text" id="modeloVehiculo" placeholder="Ej: Corolla">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Motor</label>
+                                <input type="text" id="numeroMotor" placeholder="Ej: 1ZR123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Chasis</label>
+                                <input type="text" id="numeroChasis" placeholder="Ej: JTDBL40E123456789">
+                            </div>
+                            <div class="form-group">
+                                <label>Kilometraje</label>
+                                <input type="number" id="kilometraje" placeholder="Ej: 85000">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Puertas</label>
+                                <select id="numeroPuertas">
+                                    <option value="2">2 puertas</option>
+                                    <option value="3">3 puertas</option>
+                                    <option value="4" selected>4 puertas</option>
+                                    <option value="5">5 puertas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Color</label>
+                                <input type="text" id="colorVehiculo" placeholder="Ej: Blanco">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Patente</label>
+                                <input type="text" id="patenteVehiculo" placeholder="Ej: ABCD12" style="text-transform: uppercase;">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inscripción en Registro Civil</label>
+                                <input type="date" id="fechaInscripcion">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado del Vehículo</label>
+                                <select id="estadoVehiculo">
+                                    <option value="buen">Buen estado de funcionamiento</option>
+                                    <option value="regular">Regular estado de funcionamiento</option>
+                                    <option value="excelente">Excelente estado de funcionamiento</option>
+                                    <option value="necesita_reparacion">Necesita reparación</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES DE LA VENTA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones de la Venta</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Precio de Venta</label>
+                                <input type="text" id="precioVenta" placeholder="Ej: $8.500.000">
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de Pago</label>
+                                <select id="formaPago">
+                                    <option value="contado" selected>Al contado en este acto</option>
+                                    <option value="transferencia">Transferencia bancaria</option>
+                                    <option value="cheque">Cheque al día</option>
+                                    <option value="financiamiento">Con financiamiento</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Precio en Palabras</label>
+                                <input type="text" id="precioEnPalabras" placeholder="Ej: Ocho millones quinientos mil pesos">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Declaración sobre Deudas y Gravámenes</label>
+                                <select id="declaracionDeudas">
+                                    <option value="sin_deudas" selected>El vehículo NO tiene deudas ni gravámenes</option>
+                                    <option value="con_deudas">El vehículo tiene deudas pendientes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2" id="detalleDeudas" style="display: none;">
+                                <label>Detalle de Deudas (si aplica)</label>
+                                <textarea id="detalleDeudaTexto" rows="3" placeholder="Especifique las deudas existentes..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN LEGAL ADICIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Información Legal Adicional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Domicilio para efectos legales - Comuna</label>
+                                <input type="text" id="domicilioLegalComuna" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio para efectos legales - Ciudad</label>
+                                <input type="text" id="domicilioLegalCiudad" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Renuncia a Saneamiento</label>
+                                <select id="renunciaSaneamiento">
+                                    <option value="si" selected>El comprador renuncia a acciones de saneamiento</option>
+                                    <option value="no">El comprador NO renuncia a acciones de saneamiento</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Responsabilidad por Multas Anteriores</label>
+                                <select id="responsabilidadMultas">
+                                    <option value="vendedor" selected>El vendedor responde por multas anteriores</option>
+                                    <option value="comprador">El comprador asume multas anteriores</option>
+                                    <option value="sin_multas">No existen multas pendientes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Gastos del Contrato</label>
+                                <select id="gastosContrato">
+                                    <option value="comprador" selected>Todos los gastos son de cargo del comprador</option>
+                                    <option value="vendedor">Todos los gastos son de cargo del vendedor</option>
+                                    <option value="compartidos">Gastos compartidos entre las partes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="4" placeholder="Cualquier información adicional sobre el contrato..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Contrato</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CONTRATO DE COMPRAVENTA DE VEHÍCULO USADO</div>
+                            <div class="document-subtitle">Ante Notario Público</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadContrato">Santiago</span> a <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> del <span class="highlight" id="prev_anio">2024</span>, ante mí, <span class="highlight" id="prev_notarioPublico">________________</span> notario público titular de la <span class="highlight" id="prev_numeroNotaria">Primera</span> Notaría de <span class="highlight" id="prev_ciudadNotaria">________________</span>, comparecen:
+                            </p>
+                            
+                            <div style="margin: 20px 0;">
+                                <p style="font-weight: 600; margin-bottom: 10px;">EL VENDEDOR:</p>
+                                <div style="margin: 10px 0; border: 1px solid rgba(59, 130, 246, 0.3); padding: 15px; border-radius: 8px; background: rgba(59, 130, 246, 0.05);">
+                                    <p>Don(ña) <span class="highlight" id="prev_nombreVendedor">________________</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutVendedor">________________</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioVendedor">________________</span> número <span class="highlight" id="prev_numeroVendedor">____</span>, de la comuna de <span class="highlight" id="prev_comunaVendedor">________________</span> de la ciudad de <span class="highlight" id="prev_ciudadVendedor">________________</span>, República de Chile, en adelante "EL VENDEDOR".</p>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 20px 0;">
+                                <p style="font-weight: 600; margin-bottom: 10px;">EL COMPRADOR:</p>
+                                <div style="margin: 10px 0; border: 1px solid rgba(16, 185, 129, 0.3); padding: 15px; border-radius: 8px; background: rgba(16, 185, 129, 0.05);">
+                                    <p>Don(ña) <span class="highlight" id="prev_nombreComprador">________________</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutComprador">________________</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioComprador">________________</span> número <span class="highlight" id="prev_numeroComprador">____</span>, de la comuna de <span class="highlight" id="prev_comunaComprador">________________</span>, de la ciudad de <span class="highlight" id="prev_ciudadComprador">________________</span>, República de Chile, en adelante "EL COMPRADOR".</p>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                Quienes manifiestan haber convenido el siguiente contrato de compraventa:
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">PRIMERO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                El vendedor vende y transfiere, al comprador, quien compra y adquiere para sí, el <span class="highlight" id="prev_tipoVehiculo">automóvil</span> usado de marca <span class="highlight" id="prev_marcaVehiculo">________________</span>, del año <span class="highlight" id="prev_anioVehiculo">____</span>, modelo <span class="highlight" id="prev_modeloVehiculo">________________</span>, número de motor <span class="highlight" id="prev_numeroMotor">________________</span>, número de chasis <span class="highlight" id="prev_numeroChasis">________________</span>, kilometraje <span class="highlight" id="prev_kilometraje">________</span> km, de <span class="highlight" id="prev_numeroPuertas">4</span> puertas, color <span class="highlight" id="prev_colorVehiculo">________________</span>, inscrito en el Registro de Vehículos Motorizados del Registro Civil con el número de patente <span class="highlight" id="prev_patenteVehiculo">________________</span>, de fecha <span class="highlight" id="prev_fechaInscripcion">________________</span>, vehículo que se encuentra en <span class="highlight" id="prev_estadoVehiculo">buen</span> estado de funcionamiento, que es conocido del comprador, sin derecho a ningún reclamo posterior.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">SEGUNDO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                El precio de venta por el vehículo es la cantidad de <span class="highlight" id="prev_precioVenta">$________________</span> (<span class="highlight" id="prev_precioEnPalabras">________________</span>) que el comprador paga al vendedor <span class="highlight" id="prev_formaPago">al contado en este acto</span> y que el vendedor declara recibir a su entera satisfacción.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">TERCERO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                El vendedor declara que el vehículo en referencia <span class="highlight" id="prev_declaracionDeudas">no tiene deudas ni gravámenes de ninguna especie</span>, declaración que ha sido motivo determinante de esta operación. El comprador declara por su parte que este hecho es causa determinante de esta compraventa y que ha estudiado debidamente los títulos del vehículo que compra.
+                            </p>
+                            
+                            <div id="detalleDeudaSection" style="display: none;">
+                                <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                    <strong>Detalle de deudas:</strong> <span class="highlight" id="prev_detalleDeudaTexto">________________</span>
+                                </p>
+                            </div>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">CUARTO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                El comprador declara haber recibido materialmente el vehículo objeto de este contrato, a su entera satisfacción. Por lo que expresa no tener cargo alguno ni objeción que formular, declarando el comprador que <span class="highlight" id="prev_renunciaSaneamiento">renuncia expresamente a las acciones de saneamiento por evicción y por vicios redhibitorios, establecidos en los párrafos siete y ocho del Título XXIII del Libro IV del Código Civil</span>.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">QUINTO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                En el evento que al vehículo materia del presente contrato se le haya cursado una infracción o multa con fecha anterior al presente contrato de compraventa, <span class="highlight" id="prev_responsabilidadMultas">el vendedor declara que exime de responsabilidad al comprador de dicha multa y que responderá de ella</span>.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">SEXTO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                Los gastos derivados del presente contrato de compraventa, incluso impuestos, derechos notariales, inscripción serán <span class="highlight" id="prev_gastosContrato">de cargo exclusivo del comprador</span> del vehículo.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">SÉPTIMO:</p>
+                            <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                Para todos los efectos del presente contrato, las partes fijan su domicilio en la comuna de <span class="highlight" id="prev_domicilioLegalComuna">________________</span> y ciudad de <span class="highlight" id="prev_domicilioLegalCiudad">________________</span> y se someten a la jurisdicción de sus Tribunales.
+                            </p>
+                            
+                            <p style="font-weight: 600; margin: 20px 0 15px 0;">OCTAVO:</p>
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Se faculta al portador de copia autorizada de este contrato para requerir su inscripción en el Registro de Vehículos Motorizados del Registro Civil.
+                            </p>
+                            
+                            <div id="observacionesSection" style="display: none;">
+                                <p style="font-weight: 600; margin: 20px 0 15px 0;">OBSERVACIONES ADICIONALES:</p>
+                                <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                    <span class="highlight" id="prev_observacionesAdicionales">________________</span>
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: center; margin: 40px 0 20px 0; font-weight: 600;">
+                                En comprobante, firman:
+                            </p>
+                            
+                            <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+                                <div class="signature-section" style="width: 45%; text-align: center;">
+                                    <div class="signature-box">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderVendedor">Firma del Vendedor</span>
+                                            <img class="signature-preview" id="signaturePreviewVendedor" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Vendedor">
+                                        </div>
+                                        <div style="margin-top: 20px; border-top: 1px solid #666; padding-top: 10px;">
+                                            <div style="font-weight: 600; margin-bottom: 5px;">VENDEDOR</div>
+                                            <div id="prev_nombreVendedorFirma" style="margin-bottom: 5px;">________________</div>
+                                            <div style="font-size: 0.9em;">CI: <span id="prev_rutVendedorFirma">________________</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-section" style="width: 45%; text-align: center;">
+                                    <div class="signature-box">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderComprador">Firma del Comprador</span>
+                                            <img class="signature-preview" id="signaturePreviewComprador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Comprador">
+                                        </div>
+                                        <div style="margin-top: 20px; border-top: 1px solid #666; padding-top: 10px;">
+                                            <div style="font-weight: 600; margin-bottom: 5px;">COMPRADOR</div>
+                                            <div id="prev_nombreCompradorFirma" style="margin-bottom: 5px;">________________</div>
+                                            <div style="font-size: 0.9em;">CI: <span id="prev_rutCompradorFirma">________________</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Documentos</h2>
+                        <p>Fotografíe los documentos necesarios</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Documento 1</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Documento 2</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el documento en el recuadro</h3>
+                        <p>Asegúrese de que el documento esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del documento</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa del documento">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Documentos capturados correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Documento 1</h4>
+                            <img id="summaryFrente" alt="Documento 1">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Documento 2</h4>
+                            <img id="summaryReverso" alt="Documento 2">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Documentos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

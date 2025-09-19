@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Online - Administrador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 255, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            box-shadow: 0 0 20px rgba(77, 255, 0, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f8fafc;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .notification-btn {
+            position: relative;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(77, 255, 0, 0.3);
+            color: #cbd5e1;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-btn:hover {
+            background: rgba(77, 255, 0, 0.1);
+            border-color: #4dff00;
+            color: #4dff00;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            color: #0f172a;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(77, 255, 0, 0.5);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4dff00;
+        }
+        
+        .user-info span {
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin: 2rem 0;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            background: rgba(30, 41, 59, 0.6);
+            color: #cbd5e1;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-btn:hover {
+            background: rgba(77, 255, 0, 0.1);
+            border-color: rgba(77, 255, 0, 0.5);
+            color: #4dff00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 255, 0, 0.2);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(77, 255, 0, 0.2), rgba(57, 211, 83, 0.2));
+            border-color: #4dff00;
+            color: #4dff00;
+            box-shadow: 0 4px 20px rgba(77, 255, 0, 0.3);
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(77, 255, 0, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Email List */
+        .email-list {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .email-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(77, 255, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .email-item:hover {
+            background: rgba(77, 255, 0, 0.05);
+            border-left: 4px solid #4dff00;
+            padding-left: calc(1.5rem - 4px);
+        }
+        
+        .email-item:last-child {
+            border-bottom: none;
+        }
+        
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .email-from {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .status-dot.new {
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            box-shadow: 0 0 10px rgba(77, 255, 0, 0.5);
+        }
+        
+        .status-dot.read {
+            background: #475569;
+        }
+        
+        .email-sender {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        
+        .email-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-documento {
+            background: linear-gradient(135deg, rgba(77, 255, 0, 0.2), rgba(57, 211, 83, 0.2));
+            color: #4dff00;
+            border: 1px solid rgba(77, 255, 0, 0.3);
+        }
+        
+        .badge-firma {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .badge-boleta {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2));
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .email-date {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .email-subject {
+            color: #cbd5e1;
+        }
+        
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: #f1f5f9;
+            border-bottom: 2px solid rgba(77, 255, 0, 0.3);
+        }
+        
+        .table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(77, 255, 0, 0.1);
+            color: #e2e8f0;
+        }
+        
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(77, 255, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(77, 255, 0, 0.4);
+        }
+        
+        .action-btn {
+            padding: 8px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: rgba(77, 255, 0, 0.1);
+            border-color: #4dff00;
+            transform: scale(1.1);
+        }
+        
+        .action-btn.view:hover {
+            color: #60a5fa;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+        }
+        
+        .action-btn.download:hover {
+            color: #4dff00;
+            box-shadow: 0 0 15px rgba(77, 255, 0, 0.3);
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(77, 255, 0, 0.3);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4dff00;
+            box-shadow: 0 0 20px rgba(77, 255, 0, 0.2);
+        }
+        
+        .form-input:disabled {
+            background: rgba(30, 41, 59, 0.5);
+            color: #94a3b8;
+        }
+        
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed rgba(77, 255, 0, 0.4);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        .upload-area:hover {
+            border-color: #4dff00;
+            background: rgba(77, 255, 0, 0.05);
+            box-shadow: 0 0 30px rgba(77, 255, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .upload-icon {
+            color: #4dff00;
+            margin-bottom: 12px;
+        }
+        
+        .upload-text {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+        
+        /* Status badges */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-success {
+            background: linear-gradient(135deg, rgba(77, 255, 0, 0.2), rgba(57, 211, 83, 0.2));
+            color: #4dff00;
+            border: 1px solid rgba(77, 255, 0, 0.3);
+        }
+        
+        .status-warning {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        /* Content sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Summary cards */
+        .summary-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(51, 65, 85, 0.9));
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .summary-title {
+            font-weight: 700;
+            color: #4dff00;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .summary-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #f8fafc;
+            text-shadow: 0 0 20px rgba(77, 255, 0, 0.3);
+        }
+        
+        .summary-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+        
+        /* Connected notarias */
+        .notaria-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .notaria-item:hover {
+            border-color: rgba(77, 255, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(77, 255, 0, 0.1);
+            transform: translateX(4px);
+        }
+        
+        .notaria-info h4 {
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+        
+        .notaria-info p {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        
+        .connect-notaria {
+            width: 100%;
+            border: 2px dashed rgba(77, 255, 0, 0.4);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.5);
+            cursor: pointer;
+            color: #4dff00;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .connect-notaria:hover {
+            border-color: #4dff00;
+            background: rgba(77, 255, 0, 0.05);
+            box-shadow: 0 0 25px rgba(77, 255, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .compose-modal {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .compose-modal {
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(77, 255, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            background: rgba(220, 38, 38, 0.2);
+            color: #ef4444;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            max-height: calc(90vh - 200px);
+            overflow-y: auto;
+        }
+        
+        .compose-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .form-row label {
+            min-width: 80px;
+            color: #cbd5e1;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-row input {
+            flex: 1;
+        }
+        
+        .compose-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 16px;
+            border: 1px solid rgba(77, 255, 0, 0.3);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            font-family: inherit;
+            font-size: 0.875rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        .compose-textarea:focus {
+            outline: none;
+            border-color: #4dff00;
+            box-shadow: 0 0 20px rgba(77, 255, 0, 0.2);
+        }
+        
+        .attachments-section {
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        .attachments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .attachments-title {
+            font-weight: 600;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .attach-btn {
+            background: rgba(77, 255, 0, 0.1);
+            border: 1px solid rgba(77, 255, 0, 0.3);
+            color: #4dff00;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .attach-btn:hover {
+            background: rgba(77, 255, 0, 0.2);
+            border-color: #4dff00;
+            transform: translateY(-1px);
+        }
+        
+        .attachments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(77, 255, 0, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .attachment-item:hover {
+            border-color: rgba(77, 255, 0, 0.4);
+        }
+        
+        .attachment-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .attachment-icon {
+            color: #4dff00;
+        }
+        
+        .attachment-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .attachment-name {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+        
+        .attachment-size {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+        
+        .remove-attachment {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-attachment:hover {
+            background: rgba(220, 38, 38, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(77, 255, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-send {
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            color: #0f172a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(77, 255, 0, 0.4);
+        }
+        
+        .btn-draft {
+            background: rgba(30, 41, 59, 0.8);
+            color: #cbd5e1;
+            border: 1px solid rgba(77, 255, 0, 0.3);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-draft:hover {
+            background: rgba(77, 255, 0, 0.1);
+            border-color: #4dff00;
+            color: #4dff00;
+        }
+        
+        .compose-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+        
+        .compose-info span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        h3 {
+            color: #f1f5f9;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4dff00, #39d353);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #39d353, #22c55e);
+        }
+        
+        .card:hover,
+        .email-list:hover {
+            box-shadow: 0 0 40px rgba(77, 255, 0, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .nav-tabs {
+                gap: 8px;
+            }
+            
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .compose-modal {
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .form-row label {
+                min-width: auto;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .modal-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <h1 class="logo-text">Notaría Online</h1>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i data-lucide="bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <span>Juan Pérez</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="inbox">
+                <i data-lucide="mail"></i>
+                Bandeja de Entrada
+            </button>
+            <button class="tab-btn" data-tab="documents">
+                <i data-lucide="file-text"></i>
+                Mis Documentos
+            </button>
+            <button class="tab-btn" data-tab="boletas">
+                <i data-lucide="credit-card"></i>
+                Boletas y Pagos
+            </button>
+            <button class="tab-btn" data-tab="profile">
+                <i data-lucide="settings"></i>
+                Mi Perfil
+            </button>
+        </div>
+
+        <!-- Inbox Content -->
+        <div id="inbox" class="content-section active">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 class="page-title">Bandeja de Entrada</h2>
+                <button class="btn btn-primary" onclick="openComposeModal()">
+                    <i data-lucide="plus"></i>
+                    Nuevo Mensaje
+                </button>
+            </div>
+            
+            <div class="email-list">
+                <div class="email-item">
+                    <div class="email-header">
+                        <div class="email-from">
+                            <div class="status-dot new"></div>
+                            <span class="email-sender">Notaría Primera Santiago</span>
+                            <span class="email-badge badge-documento">Documento Listo</span>
+                        </div>
+                        <span class="email-date">2025-08-21</span>
+                    </div>
+                    <div class="email-subject">Escritura de Compraventa - Proceso Finalizado</div>
+                </div>
+                
+                <div class="email-item">
+                    <div class="email-header">
+                        <div class="email-from">
+                            <div class="status-dot read"></div>
+                            <span class="email-sender">Notaría Segunda Las Condes</span>
+                            <span class="email-badge badge-firma">Solicitud Firma</span>
+                        </div>
+                        <span class="email-date">2025-08-20</span>
+                    </div>
+                    <div class="email-subject">Solicitud de Firma Digital para Poder Notarial</div>
+                </div>
+                
+                <div class="email-item">
+                    <div class="email-header">
+                        <div class="email-from">
+                            <div class="status-dot new"></div>
+                            <span class="email-sender">Sistema</span>
+                            <span class="email-badge badge-boleta">Boleta de Pago</span>
+                        </div>
+                        <span class="email-date">2025-08-19</span>
+                    </div>
+                    <div class="email-subject">Boleta de Pago - Legalización de Documentos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Content -->
+        <div id="documents" class="content-section">
+            <h2 class="page-title">Mis Documentos</h2>
+            
+            <div class="card">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Notaría</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i data-lucide="file-text" style="color: #ef4444;"></i>
+                                        Escritura_Compraventa_Casa_2025.pdf
+                                    </div>
+                                </td>
+                                <td>Notaría Primera Santiago</td>
+                                <td>2025-08-21</td>
+                                <td>Escritura Pública</td>
+                                <td><span class="status-badge status-success">Firmado</span></td>
+                                <td>
+                                    <button class="action-btn view">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+                                    <button class="action-btn download">
+                                        <i data-lucide="download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i data-lucide="file-text" style="color: #ef4444;"></i>
+                                        Poder_Notarial_Especial.pdf
+                                    </div>
+                                </td>
+                                <td>Notaría Segunda Las Condes</td>
+                                <td>2025-08-20</td>
+                                <td>Poder Notarial</td>
+                                <td><span class="status-badge status-warning">En proceso</span></td>
+                                <td>
+                                    <button class="action-btn view">
+                                        <i data-lucide="eye"></i>
+                                    </button>
+                                    <button class="action-btn download">
+                                        <i data-lucide="download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boletas Content -->
+        <div id="boletas" class="content-section">
+            <h2 class="page-title">Boletas y Pagos</h2>
+            
+            <div class="card">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Notaría</th>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i data-lucide="receipt" style="color: #10b981;"></i>
+                                        Escritura de Compraventa
+                                    </div>
+                                </td>
+                                <td>Notaría Primera Santiago</td>
+                                <td>2025-08-21</td>
+                                <td style="font-weight: 600;">$125.000</td>
+                                <td><span class="status-badge status-success">Pagado</span></td>
+                                <td>
+                                    <button class="action-btn download">
+                                        <i data-lucide="download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <i data-lucide="receipt" style="color: #10b981;"></i>
+                                        Legalización de Documentos
+                                    </div>
+                                </td>
+                                <td>Notaría Segunda Las Condes</td>
+                                <td>2025-08-19</td>
+                                <td style="font-weight: 600;">$45.000</td>
+                                <td><span class="status-badge status-success">Pagado</span></td>
+                                <td>
+                                    <button class="action-btn download">
+                                        <i data-lucide="download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <h3 class="summary-title">Resumen de Gastos</h3>
+                <div class="summary-grid">
+                    <div>
+                        <div class="summary-amount">$170.000</div>
+                        <div class="summary-label">Total Este Mes</div>
+                    </div>
+                    <div>
+                        <div class="summary-amount">$450.000</div>
+                        <div class="summary-label">Total Este Año</div>
+                    </div>
+                    <div>
+                        <div class="summary-amount">7</div>
+                        <div class="summary-label">Documentos Procesados</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profile" class="content-section">
+            <h2 class="page-title">Mi Perfil</h2>
+            
+            <div class="grid grid-cols-2">
+                <!-- Información Personal -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #f1f5f9; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="user"></i>
+                            Información Personal
+                        </h3>
+                        <div class="form-group">
+                            <label class="form-label">RUT</label>
+                            <input type="text" class="form-input" value="12.345.678-9" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-input" value="Juan Carlos Pérez González">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" value="juan.perez@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-input" value="+56 9 1234 5678">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documentos de Identidad -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #f1f5f9; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="shield"></i>
+                            Documentos de Identidad
+                        </h3>
+                        <div class="form-group">
+                            <label class="form-label">Cédula de Identidad (Frente)</label>
+                            <div class="upload-area">
+                                <i data-lucide="upload" class="upload-icon"></i>
+                                <p class="upload-text">Subir imagen del frente de la cédula</p>
+                                <button class="btn btn-primary" style="font-size: 0.75rem;">Seleccionar archivo</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cédula de Identidad (Reverso)</label>
+                            <div class="upload-area">
+                                <i data-lucide="upload" class="upload-icon"></i>
+                                <p class="upload-text">Subir imagen del reverso de la cédula</p>
+                                <button class="btn btn-primary" style="font-size: 0.75rem;">Seleccionar archivo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Firma Digital -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #f1f5f9; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="pen-tool"></i>
+                            Firma Digital
+                        </h3>
+                        <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(77, 255, 0, 0.3); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                            <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 8px;">Estado de la firma:</p>
+                            <span class="status-badge status-success">✓ Certificada por Notaría Primera Santiago</span>
+                            <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">Válida hasta: 21/08/2026</p>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">Renovar Certificación</button>
+                    </div>
+                </div>
+
+                <!-- Notarías Conectadas -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; color: #f1f5f9; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="building-2"></i>
+                            Notarías Conectadas
+                        </h3>
+                        <div class="notaria-item">
+                            <div class="notaria-info">
+                                <h4>Notaría Primera Santiago</h4>
+                                <p>Santiago Centro</p>
+                            </div>
+                            <span class="status-badge status-success">Activa</span>
+                        </div>
+                        <div class="notaria-item">
+                            <div class="notaria-info">
+                                <h4>Notaría Segunda Las Condes</h4>
+                                <p>Las Condes</p>
+                            </div>
+                            <span class="status-badge status-success">Activa</span>
+                        </div>
+                        <div class="notaria-item">
+                            <div class="notaria-info">
+                                <h4>Notaría Tercera Providencia</h4>
+                                <p>Providencia</p>
+                            </div>
+                            <span class="status-badge status-success">Activa</span>
+                        </div>
+                        <button class="connect-notaria">+ Conectar nueva notaría</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compose Email Modal -->
+    <div id="composeModal" class="modal-overlay">
+        <div class="compose-modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="edit"></i>
+                    Nuevo Mensaje
+                </div>
+                <button class="close-btn" onclick="closeComposeModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form class="compose-form" id="composeForm">
+                    <div class="form-row">
+                        <label for="recipient">Para:</label>
+                        <input type="email" id="recipient" class="form-input" placeholder="destinatario@notaria.cl" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <label for="cc">CC:</label>
+                        <input type="email" id="cc" class="form-input" placeholder="Opcional">
+                    </div>
+                    
+                    <div class="form-row">
+                        <label for="subject">Asunto:</label>
+                        <input type="text" id="subject" class="form-input" placeholder="Ingrese el asunto del mensaje" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Mensaje:</label>
+                        <textarea id="message" class="compose-textarea" placeholder="Escriba su mensaje aquí..." required></textarea>
+                    </div>
+                    
+                    <div class="attachments-section">
+                        <div class="attachments-header">
+                            <div class="attachments-title">
+                                <i data-lucide="paperclip"></i>
+                                Archivos Adjuntos
+                            </div>
+                            <button type="button" class="attach-btn" onclick="addAttachment()">
+                                <i data-lucide="plus"></i>
+                                Adjuntar archivo
+                            </button>
+                        </div>
+                        <div id="attachmentsList" class="attachments-list">
+                            <p style="text-align: center; color: #94a3b8; font-size: 0.875rem; padding: 1rem;">No hay archivos adjuntos</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="compose-info">
+                    <span>
+                        <i data-lucide="paperclip"></i>
+                        <span id="attachmentCount">0</span> archivos
+                    </span>
+                    <span>
+                        <i data-lucide="clock"></i>
+                        Guardado automático
+                    </span>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-draft" onclick="saveDraft()">
+                        <i data-lucide="save"></i>
+                        Guardar Borrador
+                    </button>
+                    <button type="submit" class="btn-send" onclick="sendEmail()">
+                        <i data-lucide="send"></i>
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let attachments = [];
+        
+        // Iconos de fallback
+        function getIconFallback(iconName) {
+            const fallbacks = {
+                'file-text': '📄', 'bell': '🔔', 'user': '👤', 'mail': '📧',
+                'credit-card': '💳', 'settings': '⚙️', 'plus': '➕', 'eye': '👁️',
+                'download': '⬇️', 'upload': '⬆️', 'shield': '🛡️', 'pen-tool': '✏️',
+                'building-2': '🏢', 'receipt': '🧾', 'edit': '✏️', 'x': '✖️',
+                'paperclip': '📎', 'send': '📤', 'save': '💾', 'clock': '🕒',
+                'loader': '⏳', 'trash-2': '🗑️', 'image': '🖼️', 'archive': '📦'
+            };
+            return fallbacks[iconName] || '●';
+        }
+        
+        // Inicializar iconos
+        function initializeLucide() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                document.querySelectorAll('[data-lucide]').forEach(icon => {
+                    const iconName = icon.getAttribute('data-lucide');
+                    icon.innerHTML = getIconFallback(iconName);
+                });
+            }
+        }
+        
+        // Funcionalidad de pestañas
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+                
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Funcionalidad de emails
+        document.querySelectorAll('.email-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const statusDot = item.querySelector('.status-dot');
+                if (statusDot.classList.contains('new')) {
+                    statusDot.classList.remove('new');
+                    statusDot.classList.add('read');
+                }
+            });
+        });
+        
+        // Botones de acción
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (btn.classList.contains('view')) {
+                    alert('Abriendo vista previa del documento...');
+                } else if (btn.classList.contains('download')) {
+                    alert('Descargando documento...');
+                }
+            });
+        });
+        
+        // Modal de composición
+        function openComposeModal() {
+            const modal = document.getElementById('composeModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => document.getElementById('recipient').focus(), 300);
+        }
+        
+        function closeComposeModal() {
+            const modal = document.getElementById('composeModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('composeForm').reset();
+            clearAttachments();
+        }
+        
+        // Cerrar modal con ESC o clic fuera
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('composeModal');
+                if (modal.classList.contains('active')) {
+                    closeComposeModal();
+                }
+            }
+        });
+        
+        document.getElementById('composeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'composeModal') {
+                closeComposeModal();
+            }
+        });
+        
+        // Gestión de archivos adjuntos
+        function addAttachment() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.multiple = true;
+            fileInput.style.display = 'none';
+            
+            fileInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files);
+                files.forEach(file => {
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert(`El archivo ${file.name} es demasiado grande. Máximo 10MB permitido.`);
+                        return;
+                    }
+                    
+                    const attachment = {
+                        id: Date.now() + Math.random(),
+                        file: file,
+                        name: file.name,
+                        size: formatFileSize(file.size),
+                        type: file.type
+                    };
+                    
+                    attachments.push(attachment);
+                    renderAttachments();
+                });
+            });
+            
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+        
+        function removeAttachment(id) {
+            attachments = attachments.filter(att => att.id !== id);
+            renderAttachments();
+        }
+        
+        function renderAttachments() {
+            const attachmentsList = document.getElementById('attachmentsList');
+            const attachmentCount = document.getElementById('attachmentCount');
+            
+            attachmentsList.innerHTML = '';
+            attachmentCount.textContent = attachments.length;
+            
+            if (attachments.length === 0) {
+                attachmentsList.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.875rem; padding: 1rem;">No hay archivos adjuntos</p>';
+                return;
+            }
+            
+            attachments.forEach(attachment => {
+                const attachmentElement = document.createElement('div');
+                attachmentElement.className = 'attachment-item';
+                attachmentElement.innerHTML = `
+                    <div class="attachment-info">
+                        <div class="attachment-icon">
+                            <i data-lucide="${getFileIcon(attachment.type)}"></i>
+                        </div>
+                        <div class="attachment-details">
+                            <div class="attachment-name">${attachment.name}</div>
+                            <div class="attachment-size">${attachment.size}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="remove-attachment" onclick="removeAttachment(${attachment.id})">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                `;
+                attachmentsList.appendChild(attachmentElement);
+            });
+            
+            initializeLucide();
+        }
+        
+        function clearAttachments() {
+            attachments = [];
+            renderAttachments();
+        }
+        
+        function getFileIcon(mimeType) {
+            if (mimeType.startsWith('image/')) return 'image';
+            if (mimeType.includes('pdf')) return 'file-text';
+            if (mimeType.includes('word') || mimeType.includes('document')) return 'file-text';
+            if (mimeType.includes('excel') || mimeType.includes('spreadsheet')) return 'file-spreadsheet';
+            if (mimeType.includes('zip') || mimeType.includes('rar')) return 'archive';
+            return 'file';
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Enviar email
+        function sendEmail() {
+            const recipient = document.getElementById('recipient').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!recipient || !subject || !message) {
+                alert('Por favor complete todos los campos obligatorios.');
+                return;
+            }
+            
+            const loadingBtn = document.querySelector('.btn-send');
+            const originalText = loadingBtn.innerHTML;
+            loadingBtn.innerHTML = '<i data-lucide="loader"></i> Enviando...';
+            loadingBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert(`Mensaje enviado exitosamente a ${recipient}`);
+                closeComposeModal();
+                loadingBtn.innerHTML = originalText;
+                loadingBtn.disabled = false;
+                initializeLucide();
+            }, 2000);
+        }
+        
+        // Guardar borrador
+        function saveDraft() {
+            const loadingBtn = document.querySelector('.btn-draft');
+            const originalText = loadingBtn.innerHTML;
+            loadingBtn.innerHTML = '<i data-lucide="loader"></i> Guardando...';
+            loadingBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Borrador guardado correctamente');
+                loadingBtn.innerHTML = originalText;
+                loadingBtn.disabled = false;
+                initializeLucide();
+            }, 1000);
+        }
+        
+        // Subida de archivos en perfil
+        document.querySelectorAll('.upload-area').forEach(area => {
+            area.addEventListener('click', () => {
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
+                fileInput.style.display = 'none';
+                
+                fileInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const uploadText = area.querySelector('.upload-text');
+                        uploadText.textContent = `Archivo seleccionado: ${file.name}`;
+                        area.style.borderColor = '#10b981';
+                        area.style.backgroundColor = '#ecfdf5';
+                    }
+                });
+                
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        });
+        
+        // Otros botones
+        document.querySelector('.notification-btn').addEventListener('click', () => {
+            alert('Mostrando notificaciones...');
+        });
+        
+        document.querySelector('.connect-notaria').addEventListener('click', () => {
+            alert('Buscando notarías disponibles...');
+        });
+        
+        // Auto-save simulation
+        let autoSaveTimeout;
+        document.addEventListener('input', (e) => {
+            if (e.target.closest('#composeForm')) {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => {
+                    console.log('Auto-guardado realizado');
+                }, 3000);
+            }
+        });
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Notaría Online cargada correctamente');
+            
+            const newEmails = document.querySelectorAll('.status-dot.new').length;
+            document.querySelector('.notification-badge').textContent = newEmails;
+            
+            initializeLucide();
+        });
+        
+        setTimeout(initializeLucide, 1000);
+    </script>
+</body>
+</html>

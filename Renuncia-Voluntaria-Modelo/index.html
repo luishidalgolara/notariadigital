@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Renuncia Voluntaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Modelo de Renuncia Voluntaria</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL DOCUMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Documento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadRenuncia" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Documento</label>
+                                <input type="date" id="fechaDocumento">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA EMPRESA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Empresa</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Razón Social de la Empresa</label>
+                                <input type="text" id="razonSocialEmpresa" placeholder="Ej: Empresa XYZ Limitada">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Empresa</label>
+                                <input type="text" id="rutEmpresa" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono Empresa</label>
+                                <input type="tel" id="telefonoEmpresa" placeholder="Ej: +56 2 2345 6789">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Empresa</label>
+                                <input type="text" id="domicilioEmpresa" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="text" id="numeroEmpresa" placeholder="Ej: 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpresa" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaEmpleador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL EMPRESA</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoEmpleador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">DOCUMENTOS EMPRESA</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL TRABAJADOR QUE RENUNCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Trabajador que Renuncia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Trabajador</label>
+                                <input type="text" id="nombreTrabajador" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Trabajador</label>
+                                <input type="text" id="rutTrabajador" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="telefonoTrabajador" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Trabajador</label>
+                                <input type="text" id="domicilioTrabajador" placeholder="Ej: Calle Los Aromos 567">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaTrabajador" placeholder="Ej: Ñuñoa">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="regionTrabajador">
+                                    <option value="">Seleccionar Región</option>
+                                    <option value="Arica y Parinacota">Arica y Parinacota</option>
+                                    <option value="Tarapacá">Tarapacá</option>
+                                    <option value="Antofagasta">Antofagasta</option>
+                                    <option value="Atacama">Atacama</option>
+                                    <option value="Coquimbo">Coquimbo</option>
+                                    <option value="Valparaíso">Valparaíso</option>
+                                    <option value="Metropolitana" selected>Metropolitana</option>
+                                    <option value="O'Higgins">O'Higgins</option>
+                                    <option value="Maule">Maule</option>
+                                    <option value="Ñuble">Ñuble</option>
+                                    <option value="Biobío">Biobío</option>
+                                    <option value="Araucanía">Araucanía</option>
+                                    <option value="Los Ríos">Los Ríos</option>
+                                    <option value="Los Lagos">Los Lagos</option>
+                                    <option value="Aysén">Aysén</option>
+                                    <option value="Magallanes">Magallanes</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaTrabajador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoTrabajador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALLES DE LA RENUNCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Detalles de la Renuncia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha Efectiva de la Renuncia</label>
+                                <input type="date" id="fechaEfectivaRenuncia">
+                            </div>
+                            <div class="form-group">
+                                <label>Artículo del Código del Trabajo</label>
+                                <select id="articuloCodigo">
+                                    <option value="159-2">Artículo 159 N° 2 - Renuncia Voluntaria</option>
+                                    <option value="171">Artículo 171 - Desahucio del trabajador</option>
+                                    <option value="177">Artículo 177 - Aviso previo</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Motivos de la Renuncia</label>
+                                <textarea id="motivosRenuncia" rows="4" placeholder="Especifique los motivos de su renuncia voluntaria..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Días de Aviso Previo</label>
+                                <select id="diasAvisoPrevio">
+                                    <option value="30">30 días (Recomendado)</option>
+                                    <option value="15">15 días</option>
+                                    <option value="7">7 días</option>
+                                    <option value="inmediato">Inmediato</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Requiere Ratificación ante Ministro de Fe</label>
+                                <select id="requiereRatificacion">
+                                    <option value="si" selected>Sí, requiere ratificación</option>
+                                    <option value="no">No requiere ratificación</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN LABORAL ACTUAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💼</div>
+                            <h2 class="section-title">Información Laboral Actual</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Cargo o Puesto de Trabajo</label>
+                                <input type="text" id="cargoTrabajador" placeholder="Ej: Ejecutivo de Ventas">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio en la Empresa</label>
+                                <input type="date" id="fechaInicioEmpresa">
+                            </div>
+                            <div class="form-group">
+                                <label>Área o Departamento</label>
+                                <input type="text" id="areaDepartamento" placeholder="Ej: Ventas">
+                            </div>
+                            <div class="form-group">
+                                <label>Jefe Directo</label>
+                                <input type="text" id="jefeDirecto" placeholder="Ej: María González">
+                            </div>
+                            <div class="form-group">
+                                <label>Sueldo Actual (opcional)</label>
+                                <input type="text" id="sueldoActual" placeholder="Ej: $850.000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OBSERVACIONES Y COMENTARIOS ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Observaciones y Comentarios Adicionales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>¿Desea agradecer a la empresa?</label>
+                                <select id="incluyeAgradecimiento">
+                                    <option value="si" selected>Sí, incluir agradecimiento</option>
+                                    <option value="no">No incluir agradecimiento</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2" id="textoAgradecimiento">
+                                <label>Texto de Agradecimiento</label>
+                                <textarea id="textoAgradecimientoPersonalizado" rows="3" placeholder="Ej: Agradezco la oportunidad de haber trabajado en esta empresa y el crecimiento profesional obtenido...">Agradeciendo el haberme permitido laborar en vuestra empresa</textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Comentarios Adicionales</label>
+                                <textarea id="comentariosAdicionales" rows="4" placeholder="Cualquier información adicional que desee incluir en el documento..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Generales</label>
+                                <textarea id="observacionesGenerales" rows="3" placeholder="Observaciones importantes sobre el proceso de renuncia..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">MODELO DE RENUNCIA VOLUNTARIA</div>
+                            <div class="document-subtitle">Conforme al Código del Trabajo</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: right; margin-bottom: 30px; font-weight: 500;">
+                                <span class="highlight" id="prev_ciudadRenuncia">Santiago</span>, <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>
+                            </p>
+                            
+                            <p style="margin-bottom: 20px; font-weight: 600;">
+                                SEÑORES
+                            </p>
+                            
+                            <div style="margin: 20px 0; border: 1px solid rgba(59, 130, 246, 0.3); padding: 20px; border-radius: 8px; background: rgba(59, 130, 246, 0.05);">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px; font-weight: 600; width: 30%;">EMPRESA</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><span class="highlight" id="prev_razonSocialEmpresa">________________</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; font-weight: 600;">RUT</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><span class="highlight" id="prev_rutEmpresa">________________</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; font-weight: 600;">Domicilio</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><span class="highlight" id="prev_domicilioEmpresa">________________</span> Nº <span class="highlight" id="prev_numeroEmpresa">____</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; font-weight: 600;">Comuna</td>
+                                        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><span class="highlight" id="prev_comunaEmpresa">________________</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                De mi consideración:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Por intermedio de la presente comunico a ustedes mi renuncia voluntaria, en conformidad al <span class="highlight" id="prev_articuloCodigo">artículo 159 N° 2</span>, del Código del Trabajo y 177, del mismo cuerpo legal, la cual se hará efectiva a contar del día <span class="highlight" id="prev_fechaEfectivaRenuncia">________________</span>.
+                            </p>
+                            
+                            <div id="agradecimientoSection">
+                                <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                    <span class="highlight" id="prev_textoAgradecimientoPersonalizado">Agradeciendo el haberme permitido laborar en vuestra empresa</span> le comunico que los motivos de mi renuncia son <span class="highlight" id="prev_motivosRenuncia">________________</span>.
+                                </p>
+                            </div>
+                            
+                            <div id="comentariosSection" style="display: none;">
+                                <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                    <strong>Comentarios adicionales:</strong> <span class="highlight" id="prev_comentariosAdicionales">________________</span>
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8;">
+                                Atentamente
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="text-align: center; margin: 0 auto; width: 60%;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderTrabajador">Firma del Trabajador</span>
+                                            <img class="signature-preview" id="signaturePreviewTrabajador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Trabajador">
+                                        </div>
+                                        <div class="signature-name" id="prev_nombreTrabajador" style="margin-top: 15px; font-weight: 600;">________________</div>
+                                        <div class="signature-role" style="margin-top: 5px; color: #666;">TRABAJADOR</div>
+                                        <div class="signature-rut" style="margin-top: 5px;">RUT: <span id="prev_rutTrabajadorFirma">________________</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>NOTAS IMPORTANTES:</strong><br>
+                                1.- La renuncia voluntaria deberá ser ratificada ante ministro de fe.<br>
+                                2.- La renuncia voluntaria se deberá avisar con <span class="highlight" id="prev_diasAvisoPrevio">30</span> días, a lo menos, de anticipación.<br>
+                                <span id="observacionesNotasSection">
+                                    <strong>Observaciones:</strong> <span class="highlight" id="prev_observacionesGenerales">________________</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Documentos</h2>
+                        <p>Fotografíe los documentos necesarios</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el documento en el recuadro</h3>
+                        <p>Asegúrese de que el documento esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del documento</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa del documento">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Documentos capturados correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Documento 1</h4>
+                            <img id="summaryFrente" alt="Documento 1">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Documento 2</h4>
+                            <img id="summaryReverso" alt="Documento 2">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Documentos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

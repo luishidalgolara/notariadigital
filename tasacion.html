@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasaciones de Vehículos SII 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(77, 255, 0, 0.1),
+                0 0 0 1px rgba(77, 255, 0, 0.2);
+            max-width: 100%;
+            overflow-x: auto;
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            background: linear-gradient(45deg, transparent, rgba(77, 255, 0, 0.05), transparent);
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(45deg, #0f1419 0%, #1a2332 50%, #2d3748 100%);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(77, 255, 0, 0.1);
+            border: 2px solid rgba(77, 255, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, rgba(77, 255, 0, 0.2), transparent, rgba(77, 255, 0, 0.2));
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 
+                0 0 5px rgba(255, 255, 255, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .search-container {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 20px;
+            background: rgba(13, 17, 23, 0.8);
+            border-radius: 20px;
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(77, 255, 0, 0.1);
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 25px;
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            border-radius: 30px;
+            font-size: 16px;
+            background: rgba(13, 17, 23, 0.9);
+            color: #4dff00;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input::placeholder {
+            color: rgba(77, 255, 0, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #4dff00;
+            box-shadow: 
+                0 0 20px rgba(77, 255, 0, 0.4),
+                inset 0 0 10px rgba(77, 255, 0, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .filter-select {
+            padding: 15px 25px;
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            border-radius: 30px;
+            font-size: 16px;
+            background: rgba(13, 17, 23, 0.9);
+            color: #4dff00;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-select option {
+            background: #0d1117;
+            color: #4dff00;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #4dff00;
+            box-shadow: 0 0 20px rgba(77, 255, 0, 0.4);
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(77, 255, 0, 0.1);
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            background: rgba(13, 17, 23, 0.8);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(13, 17, 23, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(45deg, #0f1419 0%, #1a2332 50%, #2d3748 100%);
+            color: #4dff00;
+            padding: 18px 12px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.9em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            text-shadow: 0 0 3px rgba(77, 255, 0, 0.3);
+            border-bottom: 2px solid rgba(77, 255, 0, 0.3);
+        }
+        
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid rgba(77, 255, 0, 0.1);
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(13, 17, 23, 0.6);
+        }
+        
+        tr:hover {
+            background: linear-gradient(45deg, rgba(77, 255, 0, 0.03), rgba(77, 255, 0, 0.06));
+            transform: scale(1.005);
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.15),
+                inset 0 0 10px rgba(77, 255, 0, 0.02);
+        }
+        
+        tr:hover td {
+            color: #4dff00;
+            text-shadow: none;
+        }
+        
+        .brand-aston { 
+            background: linear-gradient(45deg, rgba(26, 71, 42, 0.8), rgba(45, 106, 62, 0.8)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-audi { 
+            background: linear-gradient(45deg, rgba(196, 30, 58, 0.3), rgba(231, 76, 60, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-bmw { 
+            background: linear-gradient(45deg, rgba(31, 78, 121, 0.3), rgba(52, 152, 219, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-ferrari { 
+            background: linear-gradient(45deg, rgba(200, 16, 46, 0.3), rgba(231, 76, 60, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-fiat { 
+            background: linear-gradient(45deg, rgba(227, 24, 55, 0.3), rgba(192, 57, 43, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-jaguar { 
+            background: linear-gradient(45deg, rgba(15, 52, 96, 0.3), rgba(44, 62, 80, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        .brand-lamborghini { 
+            background: linear-gradient(45deg, rgba(243, 156, 18, 0.3), rgba(230, 126, 34, 0.3)); 
+            color: #4dff00; 
+            border-left: 3px solid #4dff00;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #4dff00;
+            text-shadow: 0 0 3px rgba(77, 255, 0, 0.3);
+        }
+        
+        .year {
+            font-weight: bold;
+            color: #4dff00;
+            text-shadow: 0 0 2px rgba(77, 255, 0, 0.2);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(45deg, rgba(13, 17, 23, 0.9), rgba(26, 35, 50, 0.9));
+            color: #4dff00;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 160px;
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(77, 255, 0, 0.1);
+            border: 2px solid rgba(77, 255, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.2),
+                0 0 8px rgba(77, 255, 0, 0.15);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            text-shadow: 0 0 5px rgba(77, 255, 0, 0.4);
+        }
+        
+        .stat-card p {
+            opacity: 0.85;
+            color: rgba(77, 255, 0, 0.7);
+        }
+        
+        .export-btn {
+            background: linear-gradient(45deg, rgba(13, 17, 23, 0.9), rgba(26, 35, 50, 0.9));
+            color: #4dff00;
+            padding: 15px 30px;
+            border: 2px solid rgba(77, 255, 0, 0.4);
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            text-shadow: 0 0 5px rgba(77, 255, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .export-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(77, 255, 0, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .export-btn:hover::before {
+            left: 100%;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                0 0 10px rgba(77, 255, 0, 0.2);
+            border-color: #4dff00;
+            text-shadow: 0 0 3px rgba(77, 255, 0, 0.3);
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #4dff00;
+            text-shadow: 0 0 3px rgba(77, 255, 0, 0.3);
+        }
+        
+        .year {
+            font-weight: bold;
+            color: #4dff00;
+            text-shadow: 0 0 2px rgba(77, 255, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tasaciones de Vehículos SII 2025</h1>
+            <p>Servicio de Impuestos Internos - Subdirección de Avaluaciones</p>
+            <p><strong>Resolución Rectificatoria Exenta SII N° 27 del 04 de Marzo de 2025</strong></p>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <h3 id="totalVehicles">63</h3>
+                <p>Total Vehículos</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalBrands">7</h3>
+                <p>Marcas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="avgPrice">$49.2M</h3>
+                <p>Precio Promedio</p>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Buscar por marca, modelo, año...">
+            <select class="filter-select" id="brandFilter">
+                <option value="">Todas las marcas</option>
+            </select>
+            <select class="filter-select" id="yearFilter">
+                <option value="">Todos los años</option>
+            </select>
+            <button class="export-btn" onclick="exportToCSV()">📊 Exportar CSV</button>
+            <button class="export-btn" onclick="exportToJSON()">📋 Exportar JSON</button>
+        </div>
+        
+        <div class="table-wrapper">
+            <table id="vehicleTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código SII</th>
+                        <th>Año</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Versión</th>
+                        <th>Puertas</th>
+                        <th>CC</th>
+                        <th>HP</th>
+                        <th>Combustible</th>
+                        <th>Transmisión</th>
+                        <th>Marchas</th>
+                        <th>Tracción</th>
+                        <th>País</th>
+                        <th>Tasación 2025</th>
+                        <th>Permiso 2025</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const vehicleData = [
+            {codigo: "CB0110001", año: 2018, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DB11", version: "4.0 LTS CONVERTIBLE 2P T/A", puertas: 2, cc: 4000, hp: 510, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 112526650, permiso: 4638897},
+            {codigo: "CB0110001", año: 2019, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DB11", version: "4.0 LTS CONVERTIBLE 2P T/A", puertas: 2, cc: 4000, hp: 510, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 119080932, permiso: 4933839},
+            {codigo: "CB0110001", año: 2020, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DB11", version: "4.0 LTS CONVERTIBLE 2P T/A", puertas: 2, cc: 4000, hp: 510, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 125857306, permiso: 5238776},
+            {codigo: "CB0110001", año: 2021, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DB11", version: "4.0 LTS CONVERTIBLE 2P T/A", puertas: 2, cc: 4000, hp: 510, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 132871353, permiso: 5554408},
+            {codigo: "CB0110002", año: 2022, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DBS SUPERLEGGERA", version: "VOLANTE", puertas: 2, cc: 5200, hp: 715, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 275375792, permiso: 11967108},
+            {codigo: "CB0110002", año: 2024, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "DBS SUPERLEGGERA", version: "VOLANTE", puertas: 2, cc: 5200, hp: 715, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 368930271, permiso: 16177059},
+            {codigo: "CB0110003", año: 2024, tipo: "Cabriolet", marca: "ASTON MARTIN", modelo: "VANTAGE 4.0 LTS ROADSTER", version: "CONVERTIBLE", puertas: 2, cc: 4000, hp: 510, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 168743802, permiso: 7168668},
+            {codigo: "CB0130001", año: 2022, tipo: "Cabriolet", marca: "AUDI", modelo: "A5", version: "NEW A5 CABRIO 40 TFSI", puertas: 2, cc: 2000, hp: 190, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "ALEMANIA", tasacion: 37830888, permiso: 1277587},
+            {codigo: "CB0130001", año: 2023, tipo: "Cabriolet", marca: "AUDI", modelo: "A5", version: "NEW A5 CABRIO 40 TFSI", puertas: 2, cc: 2000, hp: 190, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "ALEMANIA", tasacion: 39867172, permiso: 1369220},
+            {codigo: "CB0130001", año: 2024, tipo: "Cabriolet", marca: "AUDI", modelo: "A5", version: "NEW A5 CABRIO 40 TFSI", puertas: 2, cc: 2000, hp: 190, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "ALEMANIA", tasacion: 45093724, permiso: 1604415}
+        ];
+
+        // Agregar todos los datos BMW y otros...
+        const allVehicleData = [
+            ...vehicleData,
+            // BMW data
+            {codigo: "CB0320001", año: 2019, tipo: "Cabriolet", marca: "BMW", modelo: "430I", version: "CABRIO 4V31", puertas: 2, cc: 2000, hp: 248, combustible: "Bencina", transmision: "Automática", marchas: 6, traccion: "4x2 (2WD)", pais: "ALEMANIA", tasacion: 28101611, permiso: 839770},
+            {codigo: "CB0320001", año: 2020, tipo: "Cabriolet", marca: "BMW", modelo: "430I", version: "CABRIO 4V31", puertas: 2, cc: 2000, hp: 248, combustible: "Bencina", transmision: "Automática", marchas: 6, traccion: "4x2 (2WD)", pais: "ALEMANIA", tasacion: 29700751, permiso: 911731},
+            {codigo: "CB0760001", año: 2024, tipo: "Cabriolet", marca: "FERRARI", modelo: "ROMA", version: "SPIDER", puertas: 2, cc: 3900, hp: 620, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "ITALIA", tasacion: 248480494, permiso: 10756820},
+            {codigo: "CB0770001", año: 2019, tipo: "Cabriolet", marca: "FIAT", modelo: "500", version: "POP 1.2 MT", puertas: 3, cc: 1200, hp: 69, combustible: "Bencina", transmision: "Mecánica", marchas: 5, traccion: "4x2 (2WD)", pais: "ITALIA", tasacion: 5293147, permiso: 65406},
+            {codigo: "CB1180001", año: 2019, tipo: "Cabriolet", marca: "JAGUAR", modelo: "F-TYPE", version: "3.0 V6 S/C R-DYNAMIC CABRIO", puertas: 2, cc: 3000, hp: 380, combustible: "Bencina", transmision: "Automática", marchas: 8, traccion: "4x2 (2WD)", pais: "INGLATERRA", tasacion: 37808196, permiso: 1276566},
+            {codigo: "CB1380001", año: 2018, tipo: "Cabriolet", marca: "LAMBORGHINI", modelo: "HURACAN", version: "SPYDER LP580-2", puertas: 2, cc: 6500, hp: 640, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "ITALIA", tasacion: 94269017, permiso: 3817303},
+            {codigo: "CB1380001", año: 2023, tipo: "Cabriolet", marca: "LAMBORGHINI", modelo: "HURACAN", version: "SPYDER LP580-2", puertas: 2, cc: 6500, hp: 640, combustible: "Bencina", transmision: "Automática", marchas: 7, traccion: "4x2 (2WD)", pais: "ITALIA", tasacion: 123721644, permiso: 5142671}
+        ];
+
+        let filteredData = [...allVehicleData];
+
+        function formatPrice(price) {
+            return '$' + price.toLocaleString('es-CL');
+        }
+
+        function getBrandClass(marca) {
+            return 'brand-' + marca.toLowerCase().replace(' ', '');
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            filteredData.forEach((vehicle, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="year">${index + 1}</td>
+                    <td class="${getBrandClass(vehicle.marca)}">${vehicle.codigo}</td>
+                    <td class="year">${vehicle.año}</td>
+                    <td>${vehicle.tipo}</td>
+                    <td class="${getBrandClass(vehicle.marca)}">${vehicle.marca}</td>
+                    <td><strong>${vehicle.modelo}</strong></td>
+                    <td>${vehicle.version}</td>
+                    <td>${vehicle.puertas}</td>
+                    <td>${vehicle.cc.toLocaleString()}</td>
+                    <td>${vehicle.hp}</td>
+                    <td>${vehicle.combustible}</td>
+                    <td>${vehicle.transmision}</td>
+                    <td>${vehicle.marchas}</td>
+                    <td>${vehicle.traccion}</td>
+                    <td>${vehicle.pais}</td>
+                    <td class="price">${formatPrice(vehicle.tasacion)}</td>
+                    <td class="price">${formatPrice(vehicle.permiso)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function populateFilters() {
+            const brands = [...new Set(allVehicleData.map(v => v.marca))].sort();
+            const years = [...new Set(allVehicleData.map(v => v.año))].sort((a, b) => b - a);
+            
+            const brandFilter = document.getElementById('brandFilter');
+            brands.forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand;
+                option.textContent = brand;
+                brandFilter.appendChild(option);
+            });
+            
+            const yearFilter = document.getElementById('yearFilter');
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearFilter.appendChild(option);
+            });
+        }
+
+        function updateStats() {
+            const totalVehicles = filteredData.length;
+            const totalBrands = new Set(filteredData.map(v => v.marca)).size;
+            const avgPrice = filteredData.reduce((sum, v) => sum + v.tasacion, 0) / totalVehicles;
+            
+            document.getElementById('totalVehicles').textContent = totalVehicles;
+            document.getElementById('totalBrands').textContent = totalBrands;
+            document.getElementById('avgPrice').textContent = '$' + (avgPrice / 1000000).toFixed(1) + 'M';
+        }
+
+        function filterData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const brandFilter = document.getElementById('brandFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            
+            filteredData = allVehicleData.filter(vehicle => {
+                const matchesSearch = searchTerm === '' || 
+                    vehicle.marca.toLowerCase().includes(searchTerm) ||
+                    vehicle.modelo.toLowerCase().includes(searchTerm) ||
+                    vehicle.version.toLowerCase().includes(searchTerm) ||
+                    vehicle.año.toString().includes(searchTerm);
+                
+                const matchesBrand = brandFilter === '' || vehicle.marca === brandFilter;
+                const matchesYear = yearFilter === '' || vehicle.año.toString() === yearFilter;
+                
+                return matchesSearch && matchesBrand && matchesYear;
+            });
+            
+            renderTable();
+            updateStats();
+        }
+
+        function exportToCSV() {
+            let csv = '#,Código SII,Año,Tipo,Marca,Modelo,Versión,Puertas,CC,HP,Combustible,Transmisión,Marchas,Tracción,País,Tasación 2025,Permiso 2025\n';
+            
+            filteredData.forEach((vehicle, index) => {
+                csv += `${index + 1},${vehicle.codigo},${vehicle.año},${vehicle.tipo},"${vehicle.marca}","${vehicle.modelo}","${vehicle.version}",${vehicle.puertas},${vehicle.cc},${vehicle.hp},"${vehicle.combustible}","${vehicle.transmision}",${vehicle.marchas},"${vehicle.traccion}","${vehicle.pais}",${vehicle.tasacion},${vehicle.permiso}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tasaciones_vehiculos_sii_2025.csv';
+            a.click();
+        }
+
+        function exportToJSON() {
+            const blob = new Blob([JSON.stringify(filteredData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tasaciones_vehiculos_sii_2025.json';
+            a.click();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterData);
+        document.getElementById('brandFilter').addEventListener('change', filterData);
+        document.getElementById('yearFilter').addEventListener('change', filterData);
+
+        // Initialize
+        populateFilters();
+        renderTable();
+        updateStats();
+    </script>
+</body>
+</html>

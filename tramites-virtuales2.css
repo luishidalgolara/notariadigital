@@ -1,0 +1,1374 @@
+/* ============================================
+   SERVICIOS VIRTUALES ELEGANTES
+   ============================================ */
+.virtual-services {
+    background: var(--dark-900);
+    padding: 100px 0;
+    position: relative;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+}
+
+.virtual-services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1" fill="rgba(139,92,246,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.3;
+}
+
+.virtual-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.virtual-card {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.virtual-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.1) 0%, 
+        transparent 50%, 
+        rgba(59, 130, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: var(--radius-xl);
+}
+
+.virtual-card:hover::before {
+    opacity: 1;
+}
+
+.virtual-card:hover {
+    background: rgba(30, 41, 59, 0.95);
+    transform: translateY(-15px);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(139, 92, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.virtual-card.featured {
+    background: rgba(139, 92, 246, 0.2);
+    border: 2px solid rgba(139, 92, 246, 0.5);
+    transform: scale(1.03);
+    box-shadow: 
+        0 25px 55px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(139, 92, 246, 0.3);
+}
+
+.virtual-card.featured:hover {
+    background: rgba(139, 92, 246, 0.3);
+    border-color: rgba(139, 92, 246, 0.7);
+}
+
+.virtual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.virtual-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.6));
+    transition: transform 0.3s ease;
+}
+
+.virtual-card:hover .virtual-icon {
+    transform: scale(1.2) rotate(10deg);
+    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.8));
+}
+
+.virtual-badge {
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+}
+
+.virtual-badge.online {
+    background: rgba(16, 185, 129, 0.3);
+    color: var(--virtual-green);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.virtual-badge.popular {
+    background: var(--gradient-virtual);
+    color: var(--white);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.virtual-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.virtual-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.virtual-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(55, 65, 81, 0.5);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.feature:hover {
+    background: rgba(139, 92, 246, 0.2);
+    transform: translateX(8px);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.virtual-pricing {
+    background: rgba(17, 24, 39, 0.8);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.price-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    background: var(--gradient-virtual);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.price-detail {
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.price-discount {
+    font-size: 0.8rem;
+    color: var(--virtual-green);
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.virtual-cta {
+    width: 100%;
+    background: var(--gradient-virtual);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-lg);
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.virtual-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.virtual-cta:hover::before {
+    left: 100%;
+}
+
+.virtual-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+}
+
+.cta-arrow {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.virtual-cta:hover .cta-arrow {
+    transform: translateX(8px);
+}
+
+/* ============================================
+   NUEVA VISTA COMPACT - MOSAICO PEQUEÑO - CORREGIDA
+   ============================================ */
+.virtual-grid.compact-view {
+    display: grid;
+    gap: 1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive para compact view - 10 columnas en pantallas grandes */
+@media (min-width: 1600px) {
+    .virtual-grid.compact-view {
+        grid-template-columns: repeat(10, 1fr);
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .virtual-grid.compact-view {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .virtual-grid.compact-view {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .virtual-grid.compact-view {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.virtual-grid.compact-view .virtual-card {
+    padding: 1rem;
+    min-height: 320px;
+    max-height: 320px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: rgba(30, 41, 59, 0.6);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.virtual-grid.compact-view .virtual-card:hover {
+    transform: translateY(-8px);
+    background: rgba(30, 41, 59, 0.9);
+    max-height: 360px;
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.virtual-grid.compact-view .virtual-header {
+    margin-bottom: 0.8rem;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.virtual-grid.compact-view .virtual-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+}
+
+.virtual-grid.compact-view .virtual-card h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    height: 3.6rem;
+    font-weight: 600;
+}
+
+.virtual-grid.compact-view .virtual-card p {
+    font-size: 0.7rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    flex: 1;
+    height: 2.4rem;
+}
+
+.virtual-grid.compact-view .virtual-pricing {
+    background: rgba(17, 24, 39, 0.6);
+    padding: 0.5rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    flex-shrink: 0;
+}
+
+.virtual-grid.compact-view .price-main {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+.virtual-grid.compact-view .virtual-cta {
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    margin-top: auto;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    min-width: 90px;
+    height: 38px;
+    justify-content: center;
+    gap: 0;
+}
+
+.virtual-grid.compact-view .cta-arrow {
+    display: none;
+}
+
+/* Ocultar elementos no esenciales en vista compacta */
+.virtual-grid.compact-view .virtual-features,
+.virtual-grid.compact-view .virtual-badge,
+.virtual-grid.compact-view .price-detail,
+.virtual-grid.compact-view .price-discount {
+    display: none;
+}
+
+/* ============================================
+   VISTA LISTA MEJORADA - SÍMBOLO - TÍTULO - DESCRIPCIÓN - VALOR - BOTÓN
+   ============================================ */
+.virtual-grid.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.virtual-grid.list-view .virtual-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    padding: 1.5rem;
+    min-height: 90px;
+    max-height: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    gap: 1.5rem;
+}
+
+.virtual-grid.list-view .virtual-card:hover {
+    transform: translateX(8px);
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 1. SÍMBOLO - Primer elemento */
+.virtual-grid.list-view .virtual-header {
+    margin: 0;
+    flex-shrink: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+}
+
+.virtual-grid.list-view .virtual-icon {
+    font-size: 2rem;
+}
+
+/* 2. TÍTULO - Segundo elemento (MÁS VISIBLE) */
+.virtual-grid.list-view .list-title {
+    flex: 1.2;
+    min-width: 0;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.virtual-grid.list-view .list-title h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--white) !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* 3. DESCRIPCIÓN - Tercer elemento (MÁS VISIBLE) */
+.virtual-grid.list-view .list-description {
+    flex: 1.8;
+    min-width: 0;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.virtual-grid.list-view .list-description p {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.9 !important;
+    color: var(--text-secondary) !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+    display: block !important;
+}
+
+/* 4. VALOR - Cuarto elemento */
+.virtual-grid.list-view .virtual-pricing {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    margin-right: 1rem;
+}
+
+.virtual-grid.list-view .price-main {
+    font-size: 1.4rem !important;
+    font-weight: 700;
+    text-align: center;
+    color: var(--white) !important;
+}
+
+.virtual-grid.list-view .virtual-cta {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    min-width: 110px;
+    max-width: 130px;
+    border-radius: var(--radius-md);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 0;
+}
+
+.virtual-grid.list-view .cta-arrow {
+    display: none;
+}
+
+/* Ocultar elementos no necesarios en lista - MEJORADO */
+.virtual-grid.list-view .virtual-features,
+.virtual-grid.list-view .virtual-badge,
+.virtual-grid.list-view .price-detail,
+.virtual-grid.list-view .price-discount {
+    display: none !important;
+}
+
+/* Forzar visibilidad de elementos clave en lista */
+.virtual-grid.list-view .list-title,
+.virtual-grid.list-view .list-description,
+.virtual-grid.list-view .virtual-pricing,
+.virtual-grid.list-view .virtual-cta {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* ============================================
+   BENEFICIOS ELEGANTES
+   ============================================ */
+.virtual-benefits {
+    padding: 100px 0;
+    background: var(--dark-800);
+    background-image: 
+        radial-gradient(circle at 75% 25%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.benefit-card {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 3rem 2.5rem;
+    border-radius: var(--radius-xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.1) 0%, 
+        transparent 50%, 
+        rgba(59, 130, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.benefit-card:hover::before {
+    opacity: 1;
+}
+
+.benefit-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.benefit-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.6));
+}
+
+.benefit-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.benefit-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ============================================
+   PROCESO VIRTUAL
+   ============================================ */
+.virtual-process {
+    padding: 100px 0;
+    background: var(--dark-900);
+    background-image: 
+        linear-gradient(45deg, rgba(139, 92, 246, 0.1) 0%, transparent 25%),
+        linear-gradient(-45deg, rgba(59, 130, 246, 0.1) 0%, transparent 25%);
+    color: var(--white);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-item:hover {
+    background: rgba(30, 41, 59, 0.95);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.step-number {
+    background: var(--gradient-virtual);
+    color: var(--white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.step-content h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.step-content p {
+    opacity: 0.9;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   SECCIÓN DE CONTACTO (NUEVA)
+   ============================================ */
+.virtual-support {
+    padding: 100px 0;
+    background: var(--dark-800);
+    background-image: 
+        radial-gradient(circle at 25% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+}
+
+.support-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.support-text h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.support-text p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.support-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* NUEVOS ESTILOS PARA INFORMACIÓN DE CONTACTO */
+.support-btn.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    color: var(--white);
+    padding: 1.5rem 2.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    cursor: default;
+}
+
+.support-btn.contact-info:hover {
+    background: rgba(139, 92, 246, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.contact-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.contact-value {
+    font-size: 1.1rem;
+    color: var(--white);
+    font-weight: 600;
+}
+
+.support-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
+    flex-shrink: 0;
+}
+
+.support-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem 2rem;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.stat:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+    background: var(--gradient-virtual);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* ============================================
+   FOOTER ELEGANTE
+   ============================================ */
+.footer {
+    background: var(--dark-900);
+    background-image: 
+        linear-gradient(45deg, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        linear-gradient(-45deg, rgba(59, 130, 246, 0.1) 50%, transparent 100%);
+    color: var(--white);
+    padding: 5rem 0 3rem;
+    border-top: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 4rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h4 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    padding: 0.5rem 0;
+    display: block;
+}
+
+.footer-links a:hover {
+    color: var(--white);
+    padding-left: 1rem;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    transition: var(--transition-normal);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.social-link:hover {
+    background: var(--gradient-virtual);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.quick-contact p {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(139, 92, 246, 0.3);
+    padding-top: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ============================================
+   BOTÓN VOLVER ARRIBA
+   ============================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-virtual);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.8rem;
+    display: none;
+    z-index: 999;
+    transition: var(--transition-normal);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+}
+
+.back-to-top.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN REPARADO - VISTAS OPTIMIZADAS
+   ============================================ */
+@media (max-width: 1024px) {
+    .virtual-hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .virtual-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .support-content {
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 var(--space-md);
+        flex-wrap: wrap;
+        gap: 1rem;
+        height: auto;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .search-container {
+        order: 2;
+    }
+    
+    .search-input {
+        width: 200px;
+    }
+    
+    .register-btn {
+        padding: 8px var(--space-sm);
+        font-size: 0.8rem;
+    }
+    
+    .logo-img {
+        height: 45px;
+    }
+    
+    .virtual-hero {
+        padding: 100px 0 50px;
+        min-height: 60vh;
+    }
+    
+    .virtual-hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .features-quick {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    /* ARREGLADO: Vista Grid por defecto */
+    .virtual-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* ARREGLADO: Vista Compacta - mantener estructura sin cambiar contenedores */
+    .virtual-grid.compact-view {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+    }
+    
+    /* ARREGLADO: Vista Lista - mantener horizontal optimizada */
+    .virtual-grid.list-view {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
+    
+    .virtual-grid.list-view .virtual-card {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        padding: 1rem !important;
+        gap: 0.8rem !important;
+        text-align: left !important;
+    }
+    
+    /* NUEVO: Elementos de lista optimizados para móvil */
+    .virtual-grid.list-view .virtual-header {
+        flex: 0 0 60px !important;
+        margin: 0 !important;
+        order: 1 !important;
+    }
+    
+    .virtual-grid.list-view .list-title {
+        flex: 1 1 100% !important;
+        order: 2 !important;
+        margin-bottom: 0.3rem !important;
+    }
+    
+    .virtual-grid.list-view .list-description {
+        flex: 1 1 60% !important;
+        order: 3 !important;
+    }
+    
+    .virtual-grid.list-view .virtual-pricing {
+        flex: 0 0 auto !important;
+        order: 4 !important;
+        margin: 0 !important;
+    }
+    
+    .virtual-grid.list-view .virtual-cta {
+        flex: 0 0 auto !important;
+        order: 5 !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.8rem !important;
+        min-width: 90px !important;
+    }
+    
+    .support-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .support-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    /* MÓVIL: Ajustes para la nueva sección de contacto */
+    .contact-details {
+        gap: 0.2rem;
+    }
+    
+    .contact-value {
+        font-size: 1rem;
+        word-break: break-word;
+    }
+    
+    /* Responsive para modales */
+    .payment-container,
+    .comprobante-container,
+    .verificacion-container {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .payment-header,
+    .payment-content,
+    .payment-actions,
+    .demo-section,
+    .comprobante-header,
+    .comprobante-content,
+    .comprobante-actions,
+    .verificacion-header,
+    .verificacion-content {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .payment-actions {
+        flex-direction: column;
+    }
+    
+    .detalle-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        text-align: left;
+    }
+    
+    .detalle-valor {
+        max-width: 100%;
+        text-align: left;
+    }
+    
+    .codigo-input-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .codigo-input {
+        font-size: 1.8rem;
+        letter-spacing: 8px;
+        padding: 1.2rem;
+    }
+    
+    .btn-verificar-codigo {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* RESPONSIVE PARA VISTA TOGGLE */
+    .view-toggle {
+        order: 3;
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+        padding: 0.4rem;
+    }
+    
+    .toggle-btn {
+        flex: 1;
+        min-width: auto;
+        padding: 0.5rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .toggle-text {
+        font-size: 0.7rem;
+    }
+    
+    .toggle-icon {
+        font-size: 1.1rem;
+    }
+    
+    /* RESPONSIVE PARA ASISTENTE */
+    .asistente-fab {
+        bottom: 4rem;
+        left: 1rem;
+        padding: 0.8rem 1.2rem;
+    }
+    
+    .fab-text {
+        font-size: 0.9rem;
+    }
+    
+    .asistente-container {
+        width: 95%;
+        max-height: 85vh;
+        margin: 1rem;
+    }
+    
+    .asistente-header,
+    .conversation-area,
+    .question-area,
+    .action-area {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .message-content {
+        max-width: 90%;
+    }
+    
+    .conversation-area {
+        max-height: 300px;
+    }
+    
+    /* Responsive para móvil */
+    .services-category-title {
+        font-size: 1.4rem !important;
+        margin: 2rem 0 1.5rem 0;
+    }
+    
+    /* RESPONSIVE PARA CALCULADORA VEHICULAR */
+    .virtual-card.calculator-card {
+        border-width: 1px !important;
+    }
+    
+    .virtual-card.calculator-card .virtual-icon {
+        font-size: 2.5rem;
+    }
+    
+    .virtual-card.calculator-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .virtual-card.calculator-card p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .virtual-hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .virtual-card {
+        padding: 1.5rem;
+    }
+    
+    .price-main {
+        font-size: 2.2rem;
+    }
+    
+    .support-btn.contact-info {
+        padding: 1.2rem 1.5rem;
+    }
+    
+    .contact-value {
+        font-size: 0.9rem;
+    }
+    
+    .view-toggle {
+        gap: 0.2rem;
+        padding: 0.3rem;
+    }
+    
+    .toggle-text {
+        display: none;
+    }
+    
+    .toggle-btn {
+        padding: 0.5rem;
+        min-width: 50px;
+    }
+    
+    .asistente-fab {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 3rem;
+    }
+    
+    .asistente-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .asistente-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .message {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .message.user {
+        align-items: flex-end;
+    }
+    
+    .message-content {
+        max-width: 100%;
+    }
+    
+    /* RESPONSIVE CALCULADORA EN MÓVILES PEQUEÑOS */
+    .virtual-card.calculator-card h3 {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    
+    .virtual-card.calculator-card p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .virtual-card.calculator-card .price-main {
+        font-size: 1.8rem;
+    }
+    
+    .virtual-card.calculator-card .virtual-cta {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animaciones adicionales */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Scroll suave y scrollbar personalizado */
+html {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.7);
+}
+
+/* Estados de focus mejorados para accesibilidad */
+*:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

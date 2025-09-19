@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Mandato para Suscribir y Completar Pagaré</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Mandato para Suscribir y Completar Pagaré</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha del Mandato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadAutorizacion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Mandato</label>
+                                <input type="date" id="fechaAutorizacion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL MANDANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Mandante</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Persona que otorga el mandato</p>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Mandante</label>
+                                <input type="text" id="nombreAutorizante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadMenor">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / RUT</label>
+                                <input type="text" id="rutAutorizante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="viajaConPasaporte">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero/a">Soltero(a)</option>
+                                    <option value="casado/a">Casado(a)</option>
+                                    <option value="viudo/a">Viudo(a)</option>
+                                    <option value="divorciado/a">Divorciado(a)</option>
+                                    <option value="separado/a">Separado(a)</option>
+                                    <option value="conviviente civil">Conviviente Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="relacionMenor" placeholder="Ej: Ingeniero, Comerciante, Empleado">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Mandante</label>
+                                <input type="text" id="domicilioAutorizante" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaAutorizante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoAcompanante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL MANDATARIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos del Mandatario</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Persona autorizada para suscribir el pagaré</p>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Mandatario</label>
+                                <input type="text" id="nombreMenor" placeholder="Ej: María Elena González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad del Mandatario</label>
+                                <select id="paisDestino">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / RUT</label>
+                                <input type="text" id="rutMenor" placeholder="Ej: 98.765.432-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="motivoViaje">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero/a">Soltero(a)</option>
+                                    <option value="casado/a">Casado(a)</option>
+                                    <option value="viudo/a">Viudo(a)</option>
+                                    <option value="divorciado/a">Divorciado(a)</option>
+                                    <option value="separado/a">Separado(a)</option>
+                                    <option value="conviviente civil">Conviviente Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="duracionViaje" placeholder="Ej: Abogado, Contador, Notario">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Mandatario</label>
+                                <input type="text" id="domicilioMenor" placeholder="Ej: Las Condes 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMenor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" id="edadMenor" placeholder="Ej: +56 9 8765 4321">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET MANDATARIO</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE LA DEUDA/SERVICIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Datos de la Deuda y Servicio</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Prestador de Servicios (Nombre/Empresa)</label>
+                                <input type="text" id="nombreAcompanante" placeholder="Nombre de la persona o empresa que prestó los servicios">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT/Cédula del Prestador</label>
+                                <input type="text" id="rutAcompanante" placeholder="Ej: 76.123.456-7 o 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Prestador</label>
+                                <select id="ciudadDestino">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="Persona Natural">Persona Natural</option>
+                                    <option value="Empresa">Empresa</option>
+                                    <option value="Sociedad">Sociedad</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción de los Servicios Prestados</label>
+                                <textarea id="relacionAcompanante" rows="3" placeholder="Describa detalladamente los servicios prestados que generan la deuda..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto Total Adeudado (CLP)</label>
+                                <input type="number" id="fechaNacimientoMenor" min="0" placeholder="Ej: 1500000">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Incluye IVA?</label>
+                                <select id="observacionesAdicionales">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Si, incluye IVA">Sí, incluye IVA</option>
+                                    <option value="No, más IVA">No, más IVA</option>
+                                    <option value="Exento de IVA">Exento de IVA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES DEL PAGARÉ -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Condiciones del Pagaré</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Vencimiento Propuesta</label>
+                                <input type="date" id="direccionDestino">
+                            </div>
+                            <div class="form-group">
+                                <label>Tasa de Interés por Mora (%)</label>
+                                <input type="number" id="medioTransporte" min="0" max="100" step="0.1" placeholder="Ej: 1.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Modalidad de Pago</label>
+                                <select id="aerolinea">
+                                    <option value="">Seleccionar modalidad</option>
+                                    <option value="Pago único">Pago único al vencimiento</option>
+                                    <option value="Cuotas mensuales">Cuotas mensuales</option>
+                                    <option value="Cuotas trimestrales">Cuotas trimestrales</option>
+                                    <option value="Según acuerdo">Según acuerdo posterior</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Cuotas (si aplica)</label>
+                                <input type="number" id="numeroVuelo" min="1" placeholder="Ej: 12">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Relevar de Protesto?</label>
+                                <select id="numeroPasaporte">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Si, relevar de protesto">Sí, relevar de protesto</option>
+                                    <option value="No relevar">No relevar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Incluir Gastos Notariales</label>
+                                <select id="fechaSalida">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Si, incluir gastos">Sí, incluir gastos notariales</option>
+                                    <option value="No incluir gastos">No incluir gastos</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Incluir Impuesto de Timbres</label>
+                                <select id="fechaRegreso">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Si, incluir timbres">Sí, incluir si corresponde</option>
+                                    <option value="No incluir timbres">No incluir</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>¿Es Mandato Gratuito?</label>
+                                <select id="vigenciaPasaporte">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Si, gratuito">Sí, es gratuito</option>
+                                    <option value="No, con remuneración">No, con remuneración</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Condiciones Adicionales del Mandato</label>
+                                <textarea id="observacionesViaje" rows="4" placeholder="Agregue cualquier condición especial, instrucciones adicionales o observaciones sobre el mandato..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">MANDATO PARA SUSCRIBIR Y COMPLETAR PAGARÉ</div>
+                            <div class="document-subtitle">Modelo 2</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadAutorizacion">Santiago</span>, a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">2024</span>, don/doña <span class="highlight" id="prev_nombreAutorizante">.........................</span>, <span class="highlight" id="prev_nacionalidadMenor">.........................</span>, <span class="highlight" id="prev_viajaConPasaporte">.........................</span>, <span class="highlight" id="prev_relacionMenor">.........................</span> con domicilio en calle <span class="highlight" id="prev_domicilioAutorizante">.........................</span>, comuna de <span class="highlight" id="prev_comunaAutorizante">...........</span>, Santiago, en adelante el <strong>Mandante</strong>, confiere mandato especial a don/doña <span class="highlight" id="prev_nombreMenor">.........................</span> <span class="highlight" id="prev_paisDestino">.........................</span>, <span class="highlight" id="prev_motivoViaje">.........................</span>, <span class="highlight" id="prev_duracionViaje">.........................</span> con domicilio en calle <span class="highlight" id="prev_domicilioMenor">.........................</span>, comuna de <span class="highlight" id="prev_comunaMenor">...........</span>, Santiago, en adelante el <strong>Mandatario</strong>, en los siguientes términos:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                A fin de facilitar el cobro y pago de todo o cualquier monto en dinero que el Mandante adeude o llegue a adeudar, y que guarde relación con la prestación de servicios realizada por <span class="highlight" id="prev_nombreAcompanante">.........................</span> <span class="highlight" id="prev_ciudadDestino">.........................</span>, RUT N° <span class="highlight" id="prev_rutAcompanante">................</span>, <span class="highlight" id="prev_observacionesAdicionales">.........................</span>, el Mandante viene en conferir poder especial a don/doña <span class="highlight" id="prev_nombreMenor2">.........................</span>, ya individualizado/a, o a quien sus derechos represente, para que en su nombre y representación, oportunamente, suscriba pagarés, reconocimientos de deuda, establezca montos, fechas de vencimiento y requiera el cobro en caso de mora en el pago íntegro y oportuno de los montos que el Mandante deba pagar por los servicios prestados, <span class="highlight" id="prev_numeroPasaporte">.........................</span>.
+                            </p>
+
+                            <div style="margin: 30px 0; padding: 20px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #3b82f6; text-align: left; font-size: 0.95rem;">
+                                    <strong>DETALLES DE LA DEUDA:</strong><br>
+                                    Servicios prestados: <span class="highlight" id="prev_relacionAcompanante">.........................</span><br>
+                                    Monto adeudado: $<span class="highlight" id="prev_fechaNacimientoMenor">..................</span><br>
+                                    Fecha de vencimiento propuesta: <span class="highlight" id="prev_direccionDestino">.........................</span><br>
+                                    Modalidad de pago: <span class="highlight" id="prev_aerolinea">.........................</span>
+                                </p>
+                            </div>
+
+                            <p style="text-align: justify; margin-bottom: 25px; line-height: 1.8;">
+                                El Mandante instruye a don/doña <span class="highlight" id="prev_nombreMenor3">.........................</span>, ya individualizado, a fin de que éste, en forma previa a la presentación a cobro del pagaré, proceda a incorporar al pagaré los datos relativos a los montos adeudados y fecha de vencimiento, todo ello con la finalidad que el título correspondiente reúna los requisitos legales de conformidad con la Ley 18.092, sobre letra de cambio y pagaré.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 25px; line-height: 1.8;">
+                                El presente mandato autoriza al Mandatario para incluir en la cantidad adeudada e incorporada al pagaré <span class="highlight" id="prev_fechaSalida">los gastos notariales que procedan</span>, por autorización de la firma del suscriptor y los generados en caso de protesto del mismo, así como <span class="highlight" id="prev_fechaRegreso">el Impuesto de Timbres y Estampillas</span> en caso de estar afecto al mismo.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 25px; line-height: 1.8;">
+                                Se deja expresa constancia que el pagaré a que se refiere el presente mandato no constituye novación de las obligaciones que mediante él se documentan de modo alguno. Además, el Mandante declara que el presente mandato <span class="highlight" id="prev_vigenciaPasaporte">.........................</span> y que exime al mandatario de la obligación de rendir cuenta. También se deja constancia que el presente mandato se extinguirá una vez se produzca el pago de la totalidad de los servicios contratados y prestados por el Mandante.
+                            </p>
+
+                            <div style="margin: 30px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #10b981; font-size: 0.9rem;">
+                                    <strong>Condiciones adicionales:</strong> <span class="highlight" id="prev_observacionesViaje">.........................</span>
+                                </p>
+                            </div>
+                            
+                            <div class="signature-section" style="margin-top: 60px;">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAutorizante">Firma del Mandante</span>
+                                        <img class="signature-preview" id="signaturePreviewAutorizante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Mandante">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAutorizante">_______________</div>
+                                    <div class="signature-role">MANDANTE</div>
+                                    <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                        <span class="highlight" id="prev_nombreAutorizante2">.........................</span><br>
+                                        C.I. <span class="highlight" id="prev_rutAutorizante2">................</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder">Firma del Mandatario</span>
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaMandatario">_______________</div>
+                                    <div class="signature-role">MANDATARIO</div>
+                                    <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                        <span class="highlight" id="prev_nombreMenor4">.........................</span><br>
+                                        C.I. <span class="highlight" id="prev_rutMenor2">................</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota Legal:</strong> Este mandato otorga facultades específicas para suscribir y completar pagarés conforme a la Ley 18.092. El mandato se extingue automáticamente con el pago total de la deuda. El incumplimiento puede generar consecuencias legales según la legislación vigente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF del Mandato</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

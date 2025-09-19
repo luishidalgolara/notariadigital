@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <title>Notarías Región del Bío Bío</title>
+    <link rel="stylesheet" href="notarias-biobio1.css">
+    <link rel="stylesheet" href="notarias-biobio2.css">  
+    <link rel="stylesheet" href="notarias-biobio3.css">
+</head>
+<body>
+    <div class="top-header">
+        <div class="header-buttons">
+            <button class="back-btn" onclick="window.location.href='index.html'">← Volver al Buscador</button>
+            <button class="register-btn" onclick="window.location.href='registro.html'">Registrarse</button>
+            <button class="register-notary-btn" onclick="window.location.href='registro-notario.html'">Registrar Notaría</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="logo2.png" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        
+        <div class="header">
+            <h1 id="region-title">Notarías Región del Bío Bío</h1>
+            <p id="region-subtitle">Encuentra la notaría perfecta para tus trámites</p>
+        </div>
+
+        <div class="breadcrumb" id="breadcrumb">
+            <span class="breadcrumb-item" onclick="window.location.href='index.html'">Inicio</span>
+            <span>→</span>
+            <span class="breadcrumb-item" onclick="window.location.href='index.html'">Región del Bío Bío</span>
+        </div>
+
+        <!-- Filtros de Comuna -->
+        <div class="filters-section">
+            <div class="filters-header">
+                <h3>Filtrar por Comuna</h3>
+            </div>
+            <div class="comuna-filters">
+                <button class="filter-btn active" data-comuna="todas" onclick="filterByComuna('todas')">
+                    Todas las Comunas
+                </button>
+                <button class="filter-btn" data-comuna="concepcion" onclick="filterByComuna('concepcion')">
+                    Concepción (9)
+                </button>
+                <button class="filter-btn" data-comuna="sanpedro" onclick="filterByComuna('sanpedro')">
+                    San Pedro de la Paz (1)
+                </button>
+                <button class="filter-btn" data-comuna="talcahuano" onclick="filterByComuna('talcahuano')">
+                    Talcahuano (3)
+                </button>
+                <button class="filter-btn" data-comuna="coronel" onclick="filterByComuna('coronel')">
+                    Coronel (2)
+                </button>
+                <button class="filter-btn" data-comuna="chiguayante" onclick="filterByComuna('chiguayante')">
+                    Chiguayante (1)
+                </button>
+                <button class="filter-btn" data-comuna="hualpen" onclick="filterByComuna('hualpen')">
+                    Hualpén (1)
+                </button>
+                <button class="filter-btn" data-comuna="tome" onclick="filterByComuna('tome')">
+                    Tomé (1)
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de Notarías -->
+        <div class="notarias-list" id="notariasList">
+            <div class="nav-title" id="notariasTitle">Todas las Notarías del Bío Bío</div>
+            <div id="notariasContainer">
+                <!-- Las notarías se generan dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para especificaciones de fotos -->
+    <div class="photo-specs-modal-container">
+        <!-- Se genera dinámicamente -->
+    </div>
+
+    <!-- Modal para visualizar fotos -->
+    <div class="photo-modal-container">
+        <!-- Se genera dinámicamente -->
+    </div>
+
+    <!-- Modal para editor de servicios -->
+    <div class="services-editor-modal-container">
+        <!-- Se genera dinámicamente -->
+    </div>
+
+    <!-- NUEVO: Botón de Scroll Hacia Arriba -->
+    <!-- Este botón se crea dinámicamente desde JavaScript -->
+
+    <!-- Scripts divididos en orden de dependencia -->
+    <script src="precios-notarias.js"></script>
+    <script src="notarias-biobio1.js"></script>
+    <script src="notarias-biobio2.js"></script>
+    <script src="notarias-biobio3.js"></script>
+</body>
+</html>

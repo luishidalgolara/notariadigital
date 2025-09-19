@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Modelo de Testamento Abierto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Modelo de Testamento Abierto</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL TESTAMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏛️</div>
+                            <h2 class="section-title">Datos Generales del Testamento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadTestamento" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaTestamento" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <input type="date" id="fechaTestamento">
+                            </div>
+                            <div class="form-group">
+                                <label>Hora</label>
+                                <input type="time" id="horaTestamento" placeholder="Ej: 14:30">
+                            </div>
+                            <div class="form-group">
+                                <label>Calle del Oficio Notarial</label>
+                                <input type="text" id="calleOficio" placeholder="Ej: Av. Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Número del Oficio</label>
+                                <input type="text" id="numeroOficio" placeholder="Ej: 1234">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL NOTARIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Datos del Notario</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Notario</label>
+                                <input type="text" id="nombreNotario" placeholder="Ej: Juan Carlos Pérez Sánchez">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="regionNotario">
+                                    <option value="">Seleccionar región</option>
+                                    <option value="Metropolitana">Región Metropolitana</option>
+                                    <option value="Primera">Primera Región</option>
+                                    <option value="Segunda">Segunda Región</option>
+                                    <option value="Tercera">Tercera Región</option>
+                                    <option value="Cuarta">Cuarta Región</option>
+                                    <option value="Quinta">Quinta Región</option>
+                                    <option value="Sexta">Sexta Región</option>
+                                    <option value="Séptima">Séptima Región</option>
+                                    <option value="Octava">Octava Región</option>
+                                    <option value="Novena">Novena Región</option>
+                                    <option value="Décima">Décima Región</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS PERSONALES DEL TESTADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos Personales del Testador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Testador</label>
+                                <input type="text" id="nombreTestador" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar de Origen</label>
+                                <input type="text" id="origenTestador" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadTestador">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Edad</label>
+                                <input type="number" id="edadTestador" placeholder="Ej: 65" min="18" max="120">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaTestador" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="profesionTestador" placeholder="Ej: Ingeniero Civil">
+                            </div>
+                        </div>
+
+                        <!-- DOMICILIO DEL TESTADOR -->
+                        <div class="form-grid" style="margin-top: 25px;">
+                            <div class="form-group span-2">
+                                <label>Dirección de Domicilio</label>
+                                <input type="text" id="direccionTestador" placeholder="Ej: Av. Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="text" id="numeroDomicilio" placeholder="Ej: 12345">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad de Domicilio</label>
+                                <input type="text" id="ciudadDomicilio" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de Domicilio</label>
+                                <input type="text" id="comunaDomicilio" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaTestador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoTestador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE NACIMIENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Datos de Nacimiento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad de Nacimiento</label>
+                                <input type="text" id="ciudadNacimiento" placeholder="Ej: Valparaíso">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimiento">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Registro</label>
+                                <input type="text" id="numeroRegistro" placeholder="Ej: 12345">
+                            </div>
+                            <div class="form-group">
+                                <label>Circunscripción</label>
+                                <input type="text" id="circunscripcion" placeholder="Ej: Primera">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DE FILIACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👨‍👩‍👧‍👦</div>
+                            <h2 class="section-title">Datos de Filiación</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Padre</label>
+                                <input type="text" id="nombrePadre" placeholder="Ej: José Luis González Morales">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre de la Madre</label>
+                                <input type="text" id="nombreMadre" placeholder="Ej: Carmen Rosa López Silva">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado de los Padres</label>
+                                <select id="estadoPadres">
+                                    <option value="">Seleccionar estado</option>
+                                    <option value="ambos fallecidos">Ambos fallecidos</option>
+                                    <option value="padre fallecido">Padre fallecido</option>
+                                    <option value="madre fallecida">Madre fallecida</option>
+                                    <option value="ambos vivos">Ambos vivos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ESTADO CIVIL E HIJOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💑</div>
+                            <h2 class="section-title">Estado Civil e Hijos</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivil">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero">Soltero(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="viudo">Viudo(a)</option>
+                                    <option value="divorciado">Divorciado(a)</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre del Cónyuge Actual</label>
+                                <input type="text" id="nombreConyuge" placeholder="Ej: Ana María Rodríguez Vega">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre del Cónyuge Anterior (si aplica)</label>
+                                <input type="text" id="nombreConyugeAnterior" placeholder="Ej: Luis Alberto Sánchez Torres">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombres de Hijos Legítimos (separados por coma)</label>
+                                <textarea id="hijosLegitimos" rows="2" placeholder="Ej: Pedro González López, María González López, Carlos González López"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombres de Hijos Naturales Reconocidos (separados por coma)</label>
+                                <textarea id="hijosNaturales" rows="2" placeholder="Ej: Ana González Morales, Luis González Silva"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BIENES DEL TESTADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Bienes del Testador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Descripción de Bienes Inmuebles</label>
+                                <textarea id="bienesInmuebles" rows="3" placeholder="Ej: Casa habitación ubicada en Av. Las Condes 12345, Santiago; Departamento en calle Pedro de Valdivia 987, Providencia"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción de Bienes Muebles</label>
+                                <textarea id="bienesMuebles" rows="3" placeholder="Ej: Vehículo marca Toyota, modelo Corolla, año 2020, patente ABCD-12; Cuenta corriente Banco de Chile N° 123456789"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Otros Bienes</label>
+                                <textarea id="otrosBienes" rows="2" placeholder="Ej: Acciones, bonos, seguros de vida, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DISPOSICIONES TESTAMENTARIAS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📜</div>
+                            <h2 class="section-title">Disposiciones Testamentarias</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Herederos de la Cuarta de Mejoras</label>
+                                <textarea id="herederosMejoras" rows="2" placeholder="Ej: Pedro González López, María González López"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Porcentaje de Libre Disposición (%)</label>
+                                <input type="number" id="porcentajeLibreDisposicion" placeholder="25" min="0" max="100" step="0.1">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Herederos de Libre Disposición</label>
+                                <textarea id="herederosLibreDisposicion" rows="2" placeholder="Ej: Ana María Rodríguez Vega, Pedro González López"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Herederos Sustitutos</label>
+                                <textarea id="herederosSubstitutos" rows="2" placeholder="Ej: Carlos González López, Luis González Silva"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LEGADOS ESPECÍFICOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🎁</div>
+                            <h2 class="section-title">Legados Específicos</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Legado de Bien Raíz</label>
+                                <textarea id="legadoBienRaiz" rows="3" placeholder="Descripción completa del bien raíz legado, ubicación, inscripción, beneficiario"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Legado de Especies</label>
+                                <textarea id="legadoEspecies" rows="2" placeholder="Descripción de especies o bienes muebles específicos y sus beneficiarios"></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Legado en Dinero</label>
+                                <textarea id="legadoDinero" rows="2" placeholder="Montos específicos en dinero y sus beneficiarios"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DESIGNACIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👨‍💼</div>
+                            <h2 class="section-title">Designaciones</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Albacea Fiduciario</label>
+                                <input type="text" id="albaceaFiduciario" placeholder="Ej: Carlos Alberto Mendoza Ruiz">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Albacea con Tenencia de Bienes</label>
+                                <input type="text" id="albaceaTenencia" placeholder="Ej: María Elena Silva Contreras">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Partidor de la Herencia</label>
+                                <input type="text" id="partidorHerencia" placeholder="Ej: Abogado Juan Carlos Pérez Sánchez">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TESTIGOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos de los Testigos</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Primer Testigo - Nombre</label>
+                                <input type="text" id="nombreTestigo1" placeholder="Ej: Juan Carlos Morales">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula Primer Testigo</label>
+                                <input type="text" id="cedulaTestigo1" placeholder="Ej: 11.222.333-4">
+                            </div>
+                            <div class="form-group">
+                                <label>Domicilio Primer Testigo</label>
+                                <input type="text" id="domicilioTestigo1" placeholder="Ej: Av. Brasil 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Segundo Testigo - Nombre</label>
+                                <input type="text" id="nombreTestigo2" placeholder="Ej: Roberto Silva López">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula Segundo Testigo</label>
+                                <input type="text" id="cedulaTestigo2" placeholder="Ej: 22.333.444-5">
+                            </div>
+                            <div class="form-group">
+                                <label>Domicilio Segundo Testigo</label>
+                                <input type="text" id="domicilioTestigo2" placeholder="Ej: Calle Moneda 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Tercer Testigo - Nombre</label>
+                                <input type="text" id="nombreTestigo3" placeholder="Ej: Patricia Vega Herrera">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula Tercer Testigo</label>
+                                <input type="text" id="cedulaTestigo3" placeholder="Ej: 33.444.555-6">
+                            </div>
+                            <div class="form-group">
+                                <label>Domicilio Tercer Testigo</label>
+                                <input type="text" id="domicilioTestigo3" placeholder="Ej: Pasaje Los Robles 9012">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Testamento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">TESTAMENTO ABIERTO</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                En el oficio de calle <span class="highlight" id="prev_calleOficio">_________________</span> número <span class="highlight" id="prev_numeroOficio">____</span> de la ciudad de <span class="highlight" id="prev_ciudadTestamento">_________________</span>, de la comuna de <span class="highlight" id="prev_comunaTestamento">_________________</span>, siendo las <span class="highlight" id="prev_horaTestamento">____</span> horas, ante mí, <span class="highlight" id="prev_nombreNotario">_________________________</span>, Notario Público de esta comuna, de la <span class="highlight" id="prev_regionNotario">____</span>ª Región, Notario y testigos que se indican al final, compareció don <span class="highlight" id="prev_nombreTestador">_________________________</span>, originario de <span class="highlight" id="prev_origenTestador">_________________</span>, de nacionalidad <span class="highlight" id="prev_nacionalidadTestador">_________________</span>, domiciliado en <span class="highlight" id="prev_direccionTestador">_________________</span> número <span class="highlight" id="prev_numeroDomicilio">____</span>, de la ciudad de <span class="highlight" id="prev_ciudadDomicilio">_________________</span> de la comuna de <span class="highlight" id="prev_comunaDomicilio">_________________</span>, de <span class="highlight" id="prev_edadTestador">____</span> años de edad, de profesión <span class="highlight" id="prev_profesionTestador">_________________</span>, de estado civil <span class="highlight" id="prev_estadoCivil">_________________</span> cédula nacional de identidad y rol único tributario número <span class="highlight" id="prev_cedulaTestador">_________________</span> y expresó que procedía a otorgar su testamento abierto, según las declaraciones y disposiciones que siguen:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>PRIMERO:</strong> Declaro que nací en la ciudad de <span class="highlight" id="prev_ciudadNacimiento">_________________</span> con fecha <span class="highlight" id="prev_fechaNacimiento">__ de ________ de 19__</span> y que mi nacimiento se encuentra inscrito bajo en número <span class="highlight" id="prev_numeroRegistro">________</span> del Libro correspondiente del Registro Civil de la ciudad de <span class="highlight" id="prev_ciudadNacimiento2">_________________</span>, Circunscripción <span class="highlight" id="prev_circunscripcion">_________________</span>, del mismo año.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SEGUNDO:</strong> Declaro que soy hijo legítimo de don <span class="highlight" id="prev_nombrePadre">_________________________</span> y de doña <span class="highlight" id="prev_nombreMadre">_________________________</span> <span class="highlight" id="prev_estadoPadres">ambos fallecidos</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>TERCERO:</strong> Declaro que fui casado en primeras nupcias, con doña <span class="highlight" id="prev_nombreConyuge">_________________________</span>. Del matrimonio nacieron los siguientes hijos: <span class="highlight" id="prev_hijosLegitimos">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>CUARTO:</strong> Declaro que son mis hijos naturales los siguientes: <span class="highlight" id="prev_hijosNaturales">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>QUINTO:</strong> Declaro, como bienes de mi propiedad, todos los que aparezcan como tales a la fecha de mi fallecimiento; y especialmente, los siguientes: <span class="highlight" id="prev_bienesInmuebles">_________________________</span>, <span class="highlight" id="prev_bienesMuebles">_________________________</span>, <span class="highlight" id="prev_otrosBienes">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SEXTO:</strong> Es mi voluntad que la mitad legitimaria de mi herencia, se reparta entre mis hijos legítimos y naturales, en la forma y proporción determinada por la ley, sin perjuicio de los derechos que correspondan a mi cónyuge doña <span class="highlight" id="prev_nombreConyuge2">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SÉPTIMO:</strong> Instituyo herederos en la cuarta parte de mejoras, a mis hijos <span class="highlight" id="prev_herederosMejoras">_________________________</span>, por cabezas, por partes iguales, con derecho de acrecer entre ellos.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>OCTAVO:</strong> Instituyo herederos, de una cuota del <span class="highlight" id="prev_porcentajeLibreDisposicion">25</span>% de mi herencia, con cargo a la cuarta parte de libre disposición, conjuntamente, a <span class="highlight" id="prev_herederosLibreDisposicion">_________________________</span> con derecho de acrecer entre ellos. Para el caso de faltar todos ellos, declaro, como sustitutos, a <span class="highlight" id="prev_herederosSubstitutos">_________________________</span>, sucesivamente.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>NOVENO:</strong> Designo como Albacea fiduciario a <span class="highlight" id="prev_albaceaFiduciario">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>DÉCIMO:</strong> Con cargo a la cuarta parte de libre disposición, instituyo los siguientes legados:
+                            </p>
+                            <div style="margin-left: 20px; margin-bottom: 20px;">
+                                <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                    a) <span class="highlight" id="prev_legadoBienRaiz">_________________________</span>
+                                </p>
+                                <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                    b) <span class="highlight" id="prev_legadoEspecies">_________________________</span>
+                                </p>
+                                <p style="text-align: justify; margin-bottom: 10px; line-height: 1.8;">
+                                    c) <span class="highlight" id="prev_legadoDinero">_________________________</span>
+                                </p>
+                            </div>
+
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>UNDÉCIMO:</strong> Designo albacea, con tenencia y administración de bienes, a <span class="highlight" id="prev_albaceaTenencia">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8;">
+                                <strong>DUODÉCIMO:</strong> Designo partidor de mi herencia al <span class="highlight" id="prev_partidorHerencia">_________________________</span>.
+                            </p>
+
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8;">
+                                El Notario certifica de que el testador se encuentra en su sano y entero juicio y que el testamento anterior fue leído en alta y clara voz por el escribano suscrito, a la vista del testador y de los testigos, en un solo acto, ininterrumpido, siendo testigos don <span class="highlight" id="prev_nombreTestigo1">_________________</span>, cédula nacional de identidad y rol único tributario número <span class="highlight" id="prev_cedulaTestigo1">_________________</span> domiciliado en <span class="highlight" id="prev_domicilioTestigo1">_________________</span>; don <span class="highlight" id="prev_nombreTestigo2">_________________</span> cédula nacional de identidad y rol único tributario número <span class="highlight" id="prev_cedulaTestigo2">_________________</span>, domiciliado en <span class="highlight" id="prev_domicilioTestigo2">_________________</span>, y don <span class="highlight" id="prev_nombreTestigo3">_________________</span>, cédula nacional de identidad y rol único tributario número <span class="highlight" id="prev_cedulaTestigo3">_________________</span>, domiciliado en <span class="highlight" id="prev_domicilioTestigo3">_________________</span>, mayores de edad, hábiles para testificar, conocidos del testador y del Notario autorizante por haber exhibido las respectivas cédulas.
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderTestador">Firma del Testador</span>
+                                            <img class="signature-preview" id="signaturePreviewTestador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Testador">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaTestador">_______________</div>
+                                        <div class="signature-role">TESTADOR</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            C.I.: <span class="highlight" id="prev_cedulaTestador2">___________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p style="text-align: center; margin-top: 40px; line-height: 1.8;">
+                                En comprobante, firman.
+                            </p>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Este testamento debe ser otorgado ante notario público con la presencia de tres testigos mayores de edad, hábiles para testificar. Se recomienda revisar todas las disposiciones antes de la firma y conservar el original en la notaría correspondiente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF del Testamento</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

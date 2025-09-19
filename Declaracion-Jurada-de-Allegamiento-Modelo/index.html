@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada de Allegamiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada de Allegamiento</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DE LA DECLARACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales de la Declaración</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad de la Declaración</label>
+                                <input type="text" id="ciudadDeclaracion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de la Declaración</label>
+                                <input type="date" id="fechaDeclaracion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL DUEÑO DE LA VIVIENDA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos del Dueño de la Vivienda</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Dueño</label>
+                                <input type="text" id="nombreDueno" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Dueño</label>
+                                <input type="text" id="rutDueno" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadDueno" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilDueno">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Ocupación</label>
+                                <input type="text" id="profesionDueno" placeholder="Ej: Contador/a">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoDueno" placeholder="Ej: +56 9 8765 4321">
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico</label>
+                                <input type="email" id="correoDueno" placeholder="Ej: maria.gonzalez@email.com">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaDueno" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoDueno" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA VIVIENDA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏘️</div>
+                            <h2 class="section-title">Datos de la Vivienda</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Dirección Completa de la Vivienda</label>
+                                <input type="text" id="direccionVivienda" placeholder="Ej: Av. Las Condes 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaVivienda" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="regionVivienda">
+                                    <option value="">Seleccionar Región</option>
+                                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                                    <option value="Región de Tarapacá">Región de Tarapacá</option>
+                                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                                    <option value="Región de Atacama">Región de Atacama</option>
+                                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                                    <option value="Región de Valparaíso">Región de Valparaíso</option>
+                                    <option value="Región Metropolitana" selected>Región Metropolitana</option>
+                                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                                    <option value="Región del Maule">Región del Maule</option>
+                                    <option value="Región de Ñuble">Región de Ñuble</option>
+                                    <option value="Región del Biobío">Región del Biobío</option>
+                                    <option value="Región de La Araucanía">Región de La Araucanía</option>
+                                    <option value="Región de Los Ríos">Región de Los Ríos</option>
+                                    <option value="Región de Los Lagos">Región de Los Lagos</option>
+                                    <option value="Región de Aysén">Región de Aysén</option>
+                                    <option value="Región de Magallanes">Región de Magallanes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Vivienda</label>
+                                <select id="tipoVivienda">
+                                    <option value="">Seleccionar</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="departamento">Departamento</option>
+                                    <option value="casa pareada">Casa Pareada</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>¿La vivienda es propia?</label>
+                                <select id="viviendaPropia">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí, es propia</option>
+                                    <option value="no">No, es arrendada</option>
+                                    <option value="familiar">Familiar</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LOS ALLEGADOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos de los Allegados</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Fecha desde que viven como allegados</label>
+                                <input type="date" id="fechaInicioAllegamiento">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Allegado Principal</label>
+                                <input type="text" id="nombreAllegadoPrincipal" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Allegado Principal</label>
+                                <input type="text" id="rutAllegadoPrincipal" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con el Estudiante</label>
+                                <select id="relacionEstudiante">
+                                    <option value="">Seleccionar</option>
+                                    <option value="padre">Padre</option>
+                                    <option value="madre">Madre</option>
+                                    <option value="hermano/a">Hermano/a</option>
+                                    <option value="abuelo/a">Abuelo/a</option>
+                                    <option value="tío/a">Tío/a</option>
+                                    <option value="primo/a">Primo/a</option>
+                                    <option value="otro familiar">Otro Familiar</option>
+                                    <option value="no familiar">No Familiar</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Nombres de todas las personas que viven como allegados</label>
+                                <textarea id="nombresAllegados" rows="4" placeholder="Incluya nombres completos y RUT de cada persona que vive en calidad de allegado, separados por líneas.&#10;&#10;Ejemplo:&#10;- Carlos Antonio Pérez Martínez, RUT: 15.987.654-3&#10;- Ana María Pérez González, RUT: 16.123.456-7&#10;- José Luis Pérez González, RUT: 20.456.789-0"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Número Total de Allegados</label>
+                                <input type="number" id="numeroAllegados" min="1" max="20" placeholder="Ej: 3">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Hay menores de edad?</label>
+                                <select id="menoresEdad">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAllegado" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAllegado" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN COMPLEMENTARIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Información Complementaria</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Motivo del Allegamiento</label>
+                                <select id="motivoAllegamiento">
+                                    <option value="">Seleccionar</option>
+                                    <option value="estudios">Estudios del hijo/a</option>
+                                    <option value="trabajo">Búsqueda de trabajo</option>
+                                    <option value="economico">Problemas económicos</option>
+                                    <option value="familiar">Problemas familiares</option>
+                                    <option value="salud">Problemas de salud</option>
+                                    <option value="otro">Otro motivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción adicional del motivo (opcional)</label>
+                                <textarea id="descripcionMotivo" rows="3" placeholder="Si seleccionó 'Otro motivo' o desea agregar más detalles, descríbalo aquí..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Cualquier información adicional relevante para la declaración..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                    <input type="checkbox" id="declaracionVerdadera" style="transform: scale(1.2);">
+                                    <span>Declaro bajo juramento que la información proporcionada es verídica y autorizo su verificación</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Declaración</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA</div>
+                            <div class="document-subtitle">DE ALLEGAMIENTO</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Yo <strong><span class="highlight" id="prev_nombreDueno">________________</span></strong>, RUT <span class="highlight" id="prev_rutDueno">XX.XXX.XXX-X</span>, con fecha <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> del <span class="highlight" id="prev_anio">202_</span>, declaro bajo juramento que en mi casa ubicada en:
+                            </p>
+                            
+                            <p style="text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-weight: 600; border-left: 4px solid #3b82f6;">
+                                <span class="highlight" id="prev_direccionVivienda">________________</span>, comuna de <span class="highlight" id="prev_comunaVivienda">________</span>, <span class="highlight" id="prev_regionVivienda">________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Vive(n) en calidad de allegado(s):
+                            </p>
+                            
+                            <div style="margin-bottom: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 4px solid #10b981;">
+                                <p style="margin-bottom: 15px; font-weight: 600; color: #059669;">
+                                    <strong>Allegado Principal:</strong> <span class="highlight" id="prev_nombreAllegadoPrincipal">________________</span>, RUT: <span class="highlight" id="prev_rutAllegadoPrincipal">XX.XXX.XXX-X</span>
+                                </p>
+                                <p style="margin-bottom: 15px;">
+                                    <strong>Relación con el estudiante:</strong> <span class="highlight" id="prev_relacionEstudiante">________</span>
+                                </p>
+                                <p style="margin-bottom: 15px;">
+                                    <strong>Todas las personas allegadas:</strong>
+                                </p>
+                                <div style="white-space: pre-line; background: var(--bg-card); padding: 15px; border-radius: 6px; border: 1px solid var(--border-primary);">
+                                    <span class="highlight" id="prev_nombresAllegados">________________</span>
+                                </div>
+                                <p style="margin-top: 15px;">
+                                    <strong>Número total de allegados:</strong> <span class="highlight" id="prev_numeroAllegados">__</span> persona(s)
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Desde <span class="highlight" id="prev_fechaInicioAllegamiento">________________</span> (indicar fecha desde que el grupo familiar se encuentra como allegado).
+                            </p>
+                            
+                            <div style="margin-bottom: 30px; padding: 20px; background: rgba(245, 158, 11, 0.1); border-radius: 8px; border-left: 4px solid #f59e0b;">
+                                <p style="margin-bottom: 10px; font-weight: 600; color: #e8890b;">
+                                    <strong>Motivo del allegamiento:</strong> <span class="highlight" id="prev_motivoAllegamiento">________</span>
+                                </p>
+                                <p id="descripcionMotivoSection" style="display: none; margin-top: 10px;">
+                                    <strong>Descripción:</strong> <span class="highlight" id="prev_descripcionMotivo">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 30px; padding: 15px; background: rgba(139, 92, 246, 0.1); border-radius: 8px; font-style: italic; font-size: 0.9rem; color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">
+                                <strong>Nota:</strong> Se entiende por allegado al grupo familiar que comparte una vivienda que no es propia y es habitada con otras personas o familia.
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8;">
+                                Me hago responsable de la información entregada en este formulario y declaro bajo juramento que es fidedigna, autorizando a la institución solicitante a comprobar y requerir de quien corresponda los antecedentes mencionados.
+                            </p>
+                            
+                            <div id="observacionesSection" style="display: none; margin-bottom: 30px;">
+                                <p style="text-align: justify; margin-bottom: 15px; line-height: 1.8;">
+                                    <strong>OBSERVACIONES ADICIONALES:</strong> <span class="highlight" id="prev_observacionesAdicionales">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center; margin-right: 5%;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderDueno">Firma del Dueño</span>
+                                            <img class="signature-preview" id="signaturePreviewDueno" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Dueño">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaDueno">_______________</div>
+                                        <div class="signature-role">DUEÑO DE LA VIVIENDA</div>
+                                        <div style="font-size: 0.8rem; margin-top: 5px; color: var(--text-secondary);">
+                                            RUT: <span class="highlight" id="prev_rutDueno2">XX.XXX.XXX-X</span>
+                                        </div>
+                                    </div>
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderAllegado">Firma del Allegado</span>
+                                            <img class="signature-preview" id="signaturePreviewAllegado" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Allegado">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaAllegado">_______________</div>
+                                        <div class="signature-role">ALLEGADO PRINCIPAL</div>
+                                        <div style="font-size: 0.8rem; margin-top: 5px; color: var(--text-secondary);">
+                                            RUT: <span class="highlight" id="prev_rutAllegadoPrincipal2">XX.XXX.XXX-X</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta declaración jurada debe ser firmada por el dueño de la vivienda y el allegado principal. Puede requerir legalización notarial según las normativas locales. Se recomienda revisar toda la información antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

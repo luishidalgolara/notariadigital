@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada de Ingresos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada de Ingresos</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS PERSONALES DEL DECLARANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos Personales del Declarante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreCompleto" placeholder="Ej: Juan Carlos Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad (RUT)</label>
+                                <input type="text" id="rutDeclarante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadDeclarante" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioDeclarante" placeholder="Ej: Avenida Libertador Bernardo O'Higgins 1449, Santiago Centro">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaDeclarante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoDeclarante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIÓN DE INGRESOS -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Declaración de Ingresos</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monto de Ingreso Mensual ($)</label>
+                                <input type="number" id="montoIngreso" placeholder="Ej: 850000" step="1" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Moneda</label>
+                                <select id="tipoMoneda">
+                                    <option value="CLP">Pesos Chilenos (CLP)</option>
+                                    <option value="USD">Dólares Americanos (USD)</option>
+                                    <option value="EUR">Euros (EUR)</option>
+                                    <option value="UF">Unidades de Fomento (UF)</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Concepto del Ingreso</label>
+                                <select id="conceptoIngreso">
+                                    <option value="">Seleccione el concepto de sus ingresos</option>
+                                    <option value="Sueldo o salario por trabajo dependiente">Sueldo o salario por trabajo dependiente</option>
+                                    <option value="Honorarios por servicios profesionales">Honorarios por servicios profesionales</option>
+                                    <option value="Ingresos por actividad comercial">Ingresos por actividad comercial</option>
+                                    <option value="Pensión de jubilación">Pensión de jubilación</option>
+                                    <option value="Pensión de invalidez">Pensión de invalidez</option>
+                                    <option value="Arriendo de propiedades">Arriendo de propiedades</option>
+                                    <option value="Dividendos e inversiones">Dividendos e inversiones</option>
+                                    <option value="Subsidio del Estado">Subsidio del Estado</option>
+                                    <option value="Otros ingresos">Otros ingresos</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2" id="otrosIngresosGroup" style="display: none;">
+                                <label>Especifique otros ingresos</label>
+                                <input type="text" id="otrosIngresos" placeholder="Describa el tipo de ingreso">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FECHA Y LUGAR DE LA DECLARACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Fecha y Lugar de la Declaración</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de la Declaración</label>
+                                <input type="date" id="fechaDeclaracion">
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar de la Declaración</label>
+                                <input type="text" id="lugarDeclaracion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACEPTACIÓN Y CONOCIMIENTO DE SANCIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Aceptación y Conocimiento Legal</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="conocimientoSanciones" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro que hago la presente declaración con pleno conocimiento de las sanciones establecidas en el artículo 210 del Código Penal Chileno, que castiga el delito de perjurio.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="veracidadDeclaracion" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro bajo juramento que la información proporcionada en este documento es verdadera y completa, y me hago responsable de su exactitud.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Declaración Jurada</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA DE INGRESOS</div>
+                            <div class="document-subtitle">Bajo las sanciones del artículo 210 del Código Penal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 40px; text-align: justify; line-height: 1.8;">
+                                <p style="margin-bottom: 20px;">
+                                    Comparece don/doña <strong><span id="prev_nombreCompleto" class="highlight">_____________________</span></strong>, 
+                                    cédula de identidad N° <strong><span id="prev_rutDeclarante" class="highlight">______________</span></strong>, 
+                                    con domicilio en <strong><span id="prev_domicilioDeclarante" class="highlight">_________________________________</span></strong>, 
+                                    quien viene por el presente instrumento en declarar bajo juramento y expone:
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Que percibo como ingreso mensual aproximado un monto de 
+                                    <strong><span id="prev_montoIngreso" class="highlight">$______________</span></strong> 
+                                    <strong><span id="prev_tipoMoneda" class="highlight">___</span></strong>, 
+                                    por concepto de <strong><span id="prev_conceptoIngreso" class="highlight">_________________________________</span></strong>.
+                                </p>
+                                
+                                <p style="margin-bottom: 40px;">
+                                    La presente declaración se hace con pleno conocimiento por parte del compareciente, 
+                                    de las sanciones establecidas en el artículo 210 del Código Penal Chileno.
+                                </p>
+                                
+                                <div style="margin-bottom: 60px;">
+                                    <span id="prev_lugarDeclaracion" class="highlight">Santiago</span>, 
+                                    <span id="prev_fechaDeclaracion" class="highlight">__ de _______ del ____</span>.
+                                </div>
+                            </div>
+
+                            <!-- Sección de Firma -->
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 100%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderDeclarante">Firma del Declarante</span>
+                                            <img class="signature-preview" id="signaturePreviewDeclarante" style="display: none; max-width: 100%; max-height: 60px; object-fit: contain;" alt="Firma del Declarante">
+                                        </div>
+                                        <div style="margin-top: 15px;">
+                                            <div class="signature-name" id="prev_nombreCompleto2">_____________________</div>
+                                            <div class="signature-role">DECLARANTE</div>
+                                            <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                                Cédula de identidad N° <span id="prev_rutDeclarante2">______________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

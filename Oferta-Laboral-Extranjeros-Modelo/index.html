@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Oferta Laboral para Extranjeros</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Oferta Laboral para Extranjeros</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DE LA OFERTA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales de la Oferta</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionOferta" placeholder="Ej: Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaOferta" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Fecha de la Oferta</label>
+                                <input type="date" id="fechaOferta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL OFERENTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Oferente (Empleador)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Oferente</label>
+                                <input type="text" id="nombreOferente" placeholder="Ej: Juan Carlos Pérez Silva">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Oferente</label>
+                                <input type="text" id="rutOferente" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre de la Empresa</label>
+                                <input type="text" id="nombreEmpresa" placeholder="Ej: Tecnológica Innovación Ltda.">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaOferente" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA OFERENTE</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoOferente" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL RECEPTOR (EXTRANJERO) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🌍</div>
+                            <h2 class="section-title">Datos del Receptor (Trabajador Extranjero)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Receptor</label>
+                                <input type="text" id="nombreReceptor" placeholder="Ej: María Alejandra González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Pasaporte</label>
+                                <input type="text" id="numeroPasaporte" placeholder="Ej: AB123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadReceptor" placeholder="Ej: Peruana">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoReceptor">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio Actual</label>
+                                <input type="text" id="domicilioReceptor" placeholder="Ej: Av. Los Libertadores 456">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaReceptor" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA RECEPTOR</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoReceptor" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CARGO Y FUNCIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💼</div>
+                            <h2 class="section-title">Cargo y Funciones Laborales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Cargo</label>
+                                <input type="text" id="nombreCargo" placeholder="Ej: Desarrollador de Software">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Funciones a Desempeñar</label>
+                                <textarea id="funcionesDesempenar" rows="4" placeholder="Describa detalladamente las funciones y responsabilidades del cargo..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES LABORALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Condiciones Laborales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Remuneración Mensual ($)</label>
+                                <input type="number" id="remuneracionMensual" placeholder="400000" min="400000">
+                                <small>Monto no puede ser menor al sueldo mínimo</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Contrato</label>
+                                <select id="tipoContrato">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="Indefinido">Indefinido</option>
+                                    <option value="Plazo Fijo">Plazo Fijo</option>
+                                    <option value="Por Obra o Faena">Por Obra o Faena</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Jornada Laboral</label>
+                                <select id="jornadaLaboral">
+                                    <option value="">Seleccionar jornada</option>
+                                    <option value="Completa">Jornada Completa (45 hrs semanales)</option>
+                                    <option value="Parcial">Jornada Parcial</option>
+                                    <option value="Excepcional">Jornada Excepcional</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Horario de Trabajo</label>
+                                <input type="text" id="horarioTrabajo" placeholder="Ej: Lunes a Viernes 09:00 a 18:00">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio Propuesta</label>
+                                <input type="date" id="fechaInicioPropuesta">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración del Contrato</label>
+                                <input type="text" id="duracionContrato" placeholder="Ej: Indefinida / 12 meses">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CLÁUSULA DE VIGENCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Cláusula de Vigencia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <div class="clausula-vigencia">
+                                    <p>
+                                        <strong>Cláusula Legal Obligatoria:</strong> 
+                                        "La obligación de prestar servicios emanada del presente contrato, 
+                                        sólo podrá cumplirse una vez que el trabajador haya obtenido la 
+                                        visación de residencia correspondiente en Chile o el permiso especial 
+                                        de trabajo para extranjeros con visa en trámite".
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales (Opcional)</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Cualquier información adicional relevante para la oferta laboral..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">OFERTA LABORAL</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: right; margin-bottom: 20px; line-height: 1.8;">
+                                <span class="highlight" id="prev_regionOferta">Región XXXX</span>, <span class="highlight" id="prev_comunaOferta">Comuna</span>, <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>
+                            </p>
+                            
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <h2 style="text-decoration: underline; font-size: 18px; font-weight: bold;">OFERTA LABORAL</h2>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Yo, <strong><span class="highlight" id="prev_nombreOferente">NOMBRE DEL QUE OFRECE LA OFERTA</span></strong>, RUT: <strong><span class="highlight" id="prev_rutOferente">xxxxxxxx-x</span></strong>, junto con saludarlo y conforme al análisis de sus antecedentes y a las entrevistas sostenidas tenemos el agrado de ofrecerle la posibilidad a <strong><span class="highlight" id="prev_nombreReceptor">NOMBRE DEL QUE RECIBE LA OFERTA</span></strong> <strong>Número de pasaporte: <span class="highlight" id="prev_numeroPasaporte">XXXXXX</span></strong> de ingresar a nuestra empresa <strong><span class="highlight" id="prev_nombreEmpresa">________________</span></strong> ocupando el cargo de:
+                            </p>
+                            
+                            <div style="text-align: center; margin: 30px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                                <h3 style="margin: 0; font-size: 16px; font-weight: bold;">
+                                    <span class="highlight" id="prev_nombreCargo">NOMBRE DEL CARGO EN EL QUE TRABAJARÁ</span>
+                                </h3>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                para realizar las siguientes funciones/labores:
+                            </p>
+                            
+                            <div style="margin: 20px 0; padding: 20px; background: rgba(34, 197, 94, 0.1); border-radius: 8px; border-left: 4px solid #22c55e;">
+                                <h4 style="margin: 0 0 15px 0; font-weight: bold; color: #059669;">FUNCIONES A DESEMPEÑAR</h4>
+                                <div style="line-height: 1.6;">
+                                    <span class="highlight" id="prev_funcionesDesempenar">FUNCIONES A DESEMPEÑAR</span>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Recibiendo una remuneración mensual de <strong>$ <span class="highlight" id="prev_remuneracionMensual">XXX.XXX</span> pesos</strong> (Nunca menor a sueldo mínimo)
+                            </p>
+                            
+                            <div style="margin: 30px 0; padding: 20px; background: rgba(245, 158, 11, 0.1); border-radius: 8px; border-left: 4px solid #f59e0b;">
+                                <h4 style="margin: 0 0 15px 0; font-weight: bold; color: #d97706;">CONDICIONES ADICIONALES</h4>
+                                <div style="line-height: 1.6;">
+                                    <p style="margin: 5px 0;"><strong>Tipo de Contrato:</strong> <span class="highlight" id="prev_tipoContrato">________________</span></p>
+                                    <p style="margin: 5px 0;"><strong>Jornada Laboral:</strong> <span class="highlight" id="prev_jornadaLaboral">________________</span></p>
+                                    <p style="margin: 5px 0;"><strong>Horario:</strong> <span class="highlight" id="prev_horarioTrabajo">________________</span></p>
+                                    <p style="margin: 5px 0;"><strong>Fecha de Inicio:</strong> <span class="highlight" id="prev_fechaInicio">__ de ________ de 20__</span></p>
+                                    <p style="margin: 5px 0;"><strong>Duración:</strong> <span class="highlight" id="prev_duracionContrato">________________</span></p>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 30px 0; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border-left: 4px solid #ef4444;">
+                                <h4 style="margin: 0 0 15px 0; font-weight: bold; color: #dc2626;">CLÁUSULA DE VIGENCIA</h4>
+                                <p style="margin: 0; line-height: 1.6; font-style: italic;">
+                                    "La obligación de prestar servicios emanada del presente contrato, sólo podrá cumplirse una vez que el trabajador haya obtenido la visación de residencia correspondiente en Chile o el permiso especial de trabajo para extranjeros con visa en trámite".
+                                </p>
+                            </div>
+                            
+                            <div id="observacionesContainer" style="margin: 30px 0; padding: 20px; background: rgba(168, 85, 247, 0.1); border-radius: 8px; border-left: 4px solid #a855f7; display: none;">
+                                <h4 style="margin: 0 0 15px 0; font-weight: bold; color: #7c3aed;">OBSERVACIONES ADICIONALES</h4>
+                                <div style="line-height: 1.6;">
+                                    <span class="highlight" id="prev_observacionesAdicionales">________________</span>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 80px; line-height: 1.8;">
+                                Atentamente,
+                            </p>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div style="display: flex; justify-content: center; max-width: 400px; margin: 0 auto;">
+                                        <div class="signature-box" style="flex: 1; text-align: center;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderOferente">Firma Oferente</span>
+                                                <img class="signature-preview" id="signaturePreviewOferente" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Oferente">
+                                            </div>
+                                            <div style="border-bottom: 2px solid #000; width: 200px; margin: 0 auto 10px auto;"></div>
+                                            <div class="signature-name" style="font-weight: bold;" id="prev_firmaOferente">_______________</div>
+                                            <div style="font-size: 0.8rem; margin-top: 5px; text-align: center;">
+                                                RUT: <span class="highlight" id="prev_rutOferente2">XX.XXX.XXX-X</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <p style="margin: 0 0 10px 0;"><strong>Nota Legal:</strong> Esta oferta laboral está sujeta a la obtención de los permisos de trabajo correspondientes según la legislación chilena vigente.</p>
+                                <p style="margin: 0;"><strong>Importante:</strong> El trabajador extranjero debe cumplir con todos los requisitos migratorios antes de iniciar sus funciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

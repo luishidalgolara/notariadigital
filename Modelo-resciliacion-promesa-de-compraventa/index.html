@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Resciliación de Promesa de Compraventa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Resciliación de Promesa de Compraventa</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL DOCUMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadContrato" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Resciliación</label>
+                                <input type="date" id="fechaContrato">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VENDEDOR ORIGINAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏪</div>
+                            <h2 class="section-title">Datos del Vendedor Original</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Vendedor</label>
+                                <input type="text" id="nombreVendedor" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Vendedor</label>
+                                <input type="text" id="rutVendedor" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadVendedor" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilVendedor">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="profesionVendedor" placeholder="Ej: Ingeniero, Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Vendedor</label>
+                                <input type="text" id="domicilioVendedor" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaVendedor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadVendedor" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaVendedor" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoVendedor" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL COMPRADOR ORIGINAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos del Comprador Original</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Comprador</label>
+                                <input type="text" id="nombreComprador" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Comprador</label>
+                                <input type="text" id="rutComprador" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadComprador" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilComprador">
+                                    <option value="">Seleccionar</option>
+                                    <option value="soltero/a">Soltero/a</option>
+                                    <option value="casado/a">Casado/a</option>
+                                    <option value="viudo/a">Viudo/a</option>
+                                    <option value="divorciado/a">Divorciado/a</option>
+                                    <option value="separado/a">Separado/a</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión/Oficio</label>
+                                <input type="text" id="profesionComprador" placeholder="Ej: Contador, Médico">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Comprador</label>
+                                <input type="text" id="domicilioComprador" placeholder="Ej: Av. Libertador 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaComprador" placeholder="Ej: Ñuñoa">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadComprador" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaComprador" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoComprador" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CONTRATO ORIGINAL A RESCILIAR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Datos del Contrato Original a Resciliar</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha del Contrato Original</label>
+                                <input type="date" id="fechaContratoOriginal">
+                            </div>
+                            <div class="form-group">
+                                <label>Notaría del Contrato Original</label>
+                                <input type="text" id="notariaOriginal" placeholder="Ej: Juan Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Repertorio</label>
+                                <input type="text" id="numeroRepertorio" placeholder="Ej: 1234-2024">
+                            </div>
+                            <div class="form-group">
+                                <label>Libro/Folio</label>
+                                <input type="text" id="libroFolio" placeholder="Ej: Libro 298, Folio 109">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Precio del Contrato Original</label>
+                                <input type="text" id="precioOriginal" placeholder="Ej: $150.000.000 o 3500 UF">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Forma de Pago Original</label>
+                                <textarea id="formaPagoOriginal" rows="2" placeholder="Describe cómo se pactó el pago en el contrato original..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA PROPIEDAD -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Propiedad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Inmueble</label>
+                                <select id="tipoInmueble">
+                                    <option value="">Seleccionar</option>
+                                    <option value="departamento">Departamento</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="oficina">Oficina</option>
+                                    <option value="local comercial">Local Comercial</option>
+                                    <option value="bodega">Bodega</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="lote">Lote</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ubicación/Dirección</label>
+                                <input type="text" id="direccionInmueble" placeholder="Ej: Av. Las Condes 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaInmueble" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Provincia/Región</label>
+                                <input type="text" id="regionInmueble" placeholder="Ej: Santiago, Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Fojas de Inscripción</label>
+                                <input type="text" id="fojasInscripcion" placeholder="Ej: 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Inscripción</label>
+                                <input type="text" id="numeroInscripcion" placeholder="Ej: 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Inscripción</label>
+                                <input type="number" id="anioInscripcion" placeholder="Ej: 2020" min="1900" max="2030">
+                            </div>
+                            <div class="form-group">
+                                <label>Conservador de Bienes Raíces</label>
+                                <input type="text" id="conservadorBienes" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Plano</label>
+                                <input type="text" id="numeroPlano" placeholder="Ej: 1863">
+                            </div>
+                            <div class="form-group">
+                                <label>Polígono/Marco de Referencia</label>
+                                <input type="text" id="poligonoReferencia" placeholder="Ej: E-F-I-J-E">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DESLINDES DE LA PROPIEDAD -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🗺️</div>
+                            <h2 class="section-title">Deslindes de la Propiedad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Al Norte</label>
+                                <input type="text" id="deslindeNorte" placeholder="Ej: Con lote 15">
+                            </div>
+                            <div class="form-group">
+                                <label>Al Sur</label>
+                                <input type="text" id="deslindeSur" placeholder="Ej: Con calle principal">
+                            </div>
+                            <div class="form-group">
+                                <label>Al Este</label>
+                                <input type="text" id="deslindeEste" placeholder="Ej: Con propiedad vecina">
+                            </div>
+                            <div class="form-group">
+                                <label>Al Oeste</label>
+                                <input type="text" id="deslindeOeste" placeholder="Ej: Con área verde">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Otros Deslindes</label>
+                                <textarea id="otrosDeslindes" rows="2" placeholder="Descripción adicional de deslindes..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONDICIONES DE LA RESCILIACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Condiciones de la Resciliación</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>¿Existían Cláusulas Penales?</label>
+                                <select id="existeClausulaPenal">
+                                    <option value="no">No</option>
+                                    <option value="si">Sí</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto de Cláusula Penal (si existe)</label>
+                                <input type="text" id="montoClausulaPenal" placeholder="Ej: $5.000.000">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>¿Se Entregaron Documentos/Cheques?</label>
+                                <textarea id="documentosEntregados" rows="2" placeholder="Describe si se entregaron cheques, documentos o garantías que deben ser devueltos..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Motivo de la Resciliación</label>
+                                <textarea id="motivoResciliacion" rows="3" placeholder="Explique brevemente el motivo de la resciliación (ej: por mutuo acuerdo, incumplimiento de condiciones, etc.)..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>¿Se Realizó Entrega Material?</label>
+                                <select id="entregaMaterial">
+                                    <option value="no">No se realizó entrega material</option>
+                                    <option value="parcial">Se realizó entrega parcial</option>
+                                    <option value="si">Se realizó entrega material completa</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FINIQUITO Y OBSERVACIONES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Finiquito y Observaciones</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>¿Las Partes se Otorgan Finiquito Recíproco?</label>
+                                <select id="finiquitoReciproco">
+                                    <option value="si">Sí, finiquito completo</option>
+                                    <option value="parcial">Finiquito parcial</option>
+                                    <option value="no">No aplica finiquito</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Instrucciones Notariales Relacionadas</label>
+                                <textarea id="instruccionesNotariales" rows="2" placeholder="Detalle de instrucciones notariales previas que deben dejarse sin efecto..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Acuerdos de Restitución</label>
+                                <textarea id="acuerdosRestitucion" rows="3" placeholder="Detalle de documentos, dineros o bienes que deben ser restituidos a cada parte..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Especiales</label>
+                                <textarea id="observacionesEspeciales" rows="4" placeholder="Condiciones especiales, acuerdos adicionales, restricciones..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">RESCILIACIÓN DE CONTRATO DE PROMESA DE COMPRAVENTA</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: center; margin-bottom: 30px; font-weight: bold; font-size: 1.1rem;">
+                                <span class="highlight" id="prev_nombreVendedor">________________</span>
+                                <br>A<br>
+                                <span class="highlight" id="prev_nombreComprador">________________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadContrato">Santiago</span>, República de Chile, a <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">________</span> de <span class="highlight" id="prev_anio">20__</span>, comparecen; por una parte, como vendedor/vendedora, don/doña <span class="highlight" id="prev_nombreVendedor2">________________</span>, <span class="highlight" id="prev_nacionalidadVendedor">chilena</span>, <span class="highlight" id="prev_estadoCivilVendedor">________</span>, <span class="highlight" id="prev_profesionVendedor">________</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutVendedor">xxxxxx</span>, domiciliado en <span class="highlight" id="prev_domicilioVendedor">________________</span>, de la ciudad de <span class="highlight" id="prev_ciudadVendedor">________</span>; y, por la otra, como compradora, don/doña <span class="highlight" id="prev_nombreComprador2">________________</span>, <span class="highlight" id="prev_nacionalidadComprador">chilena</span>, <span class="highlight" id="prev_estadoCivilComprador">________</span>, <span class="highlight" id="prev_profesionComprador">________</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutComprador">xxxxxx</span>, domiciliada en <span class="highlight" id="prev_domicilioComprador">________________</span> de la Comuna de <span class="highlight" id="prev_comunaComprador">________</span>, de paso en esta; Los comparecientes chilenos, mayores de edad, de paso en esta ciudad, quienes acreditan la identidad con la cédula respectiva que me exhiben, y exponen:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>PRIMERO:</strong> Por promesa de compraventa de fecha <span class="highlight" id="prev_fechaContratoOriginal">________</span>, otorgada en la <span class="highlight" id="prev_notariaOriginal">________</span>, Repertorio número <span class="highlight" id="prev_numeroRepertorio">________</span>, los comparecientes celebraron un contrato de compraventa de bien inmueble, mediante el cual don/doña <span class="highlight" id="prev_nombreVendedor3">________________</span>, vendía, cedía y transfería a <span class="highlight" id="prev_nombreComprador3">________________</span>, quien compraba, aceptaba y adquiría para sí, el inmueble actualmente inscrito a fojas <span class="highlight" id="prev_fojasInscripcion">____</span>, número <span class="highlight" id="prev_numeroInscripcion">____</span>, del año <span class="highlight" id="prev_anioInscripcion">____</span>, correspondiente al Registro de Propiedad del <span class="highlight" id="prev_conservadorBienes">________</span>, ubicado en la Comuna de <span class="highlight" id="prev_comunaInmueble">________</span>, provincia <span class="highlight" id="prev_regionInmueble">________</span>, consistente en <span class="highlight" id="prev_tipoInmueble">________</span>, ubicado en <span class="highlight" id="prev_direccionInmueble">________________</span>, que según plano archivado bajo el número <span class="highlight" id="prev_numeroPlano">________</span> en el Registro de Propiedad, este <span class="highlight" id="prev_tipoInmueble2">inmueble</span> se encuentra enmarcado en el polígono <span class="highlight" id="prev_poligonoReferencia">________</span>, deslinda: <strong>AL NORTE:</strong> <span class="highlight" id="prev_deslindeNorte">________</span>; <strong>AL SUR:</strong> <span class="highlight" id="prev_deslindeSur">________</span>; <strong>AL ESTE:</strong> <span class="highlight" id="prev_deslindeEste">________</span>; <strong>AL OESTE:</strong> <span class="highlight" id="prev_deslindeOeste">________</span>. <span class="highlight" id="prev_otrosDeslindes">________</span> Las partes dejan expresa constancia que el precio de la compraventa prometida (el "Precio") se pactó en la suma de <span class="highlight" id="prev_precioOriginal">________</span>, <span class="highlight" id="prev_formaPagoOriginal">________</span>. <span class="highlight" id="prev_motivoResciliacion">________</span>
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>SEGUNDO:</strong> Por el presente instrumento, los comparecientes, ya nombrados, vienen en resciliar en todas sus partes, el contrato de promesa de compraventa, señalado en la cláusula primera de este instrumento; por mutuo acuerdo de las partes. En consecuencia, el referido contrato queda sin efecto.
+                            </p>
+                            
+                            <div id="clausulaPenalSection" style="display: none;">
+                                <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                    <strong>TERCERO:</strong> Las mismas partes, con fecha <span class="highlight" id="prev_fechaContratoOriginal2">________</span>, suscribieron promesa de compraventa, en la cual el/la Promitente Vendedor/Vendedora prometió vender, ceder y transferir el inmueble ya individualizado en la cláusula primera de este instrumento a el/la Promitente Comprador/Compradora, quien prometió comprar, aceptar y adquirir para sí. En dicha promesa se estableció una avaluación anticipada de perjuicios en la suma de <span class="highlight" id="prev_montoClausulaPenal">________</span>. <span class="highlight" id="prev_documentosEntregados">________</span> Las partes de común acuerdo vienen en dejar sin efecto también dichas instrucciones notariales: <span class="highlight" id="prev_instruccionesNotariales">________</span>. <span class="highlight" id="prev_acuerdosRestitucion">________</span>
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                <strong>CUARTO:</strong> Las partes se otorgan recíprocamente el más amplio y completo finiquito respecto de las obligaciones y cualesquiera acciones, administrativas y judiciales, derechos y pagos que pudiesen emanar en el futuro, directa o indirectamente relacionadas con el objeto de la compraventa y promesa de compraventa ya individualizadas en la cláusula primera de este instrumento, declarando expresamente que nada se adeudan por concepto alguno. <span class="highlight" id="prev_finiquitoReciproco">________</span>
+                            </p>
+                            
+                            <div style="margin-top: 20px;">
+                                <p style="text-align: justify; line-height: 1.8;">
+                                    <strong>OBSERVACIONES ESPECIALES:</strong> <span class="highlight" id="prev_observacionesEspeciales">________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center; margin-right: 5%;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderVendedor">Firma Vendedor</span>
+                                            <img class="signature-preview" id="signaturePreviewVendedor" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Vendedor">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaVendedor">_______________</div>
+                                        <div class="signature-role">VENDEDOR</div>
+                                        <div class="signature-rut">RUT: <span id="prev_rutVendedorFirma">_______________</span></div>
+                                    </div>
+                                    <div class="signature-box" style="display: inline-block; width: 45%; text-align: center;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderComprador">Firma Comprador</span>
+                                            <img class="signature-preview" id="signaturePreviewComprador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Comprador">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaComprador">_______________</div>
+                                        <div class="signature-role">COMPRADOR</div>
+                                        <div class="signature-rut">RUT: <span id="prev_rutCompradorFirma">_______________</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta resciliación de promesa de compraventa debe ser firmada por ambas partes y puede requerir legalización notarial según las normativas locales. Se recomienda revisar todas las cláusulas antes de la firma y mantener una copia del documento firmado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

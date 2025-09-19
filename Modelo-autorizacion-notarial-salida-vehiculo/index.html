@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Autorización Notarial de Salida de Vehículo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Autorización Notarial de Salida de Vehículo</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL DOCUMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Documento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad del Documento</label>
+                                <input type="text" id="ciudadCarta" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Documento</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL AUTORIZANTE (PROPIETARIO) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Autorizante (Propietario del Vehículo)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Autorizante</label>
+                                <input type="text" id="nombresInvitante" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula Nacional de Identidad</label>
+                                <input type="text" id="runInvitante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitante" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio Completo del Autorizante</label>
+                                <input type="text" id="domicilioInvitante" placeholder="Ej: Calle Los Álamos N° 1234, Comuna de Las Condes, Región Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="ocupacionInvitante" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="telefonoInvitante" placeholder="Ej: Metropolitana">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaInvitante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoInvitante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL AUTORIZADO (QUIEN VIAJA) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🧳</div>
+                            <h2 class="section-title">Datos del Autorizado (Persona que Viajará)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Autorizado</label>
+                                <input type="text" id="nombresInvitado" placeholder="Ej: Carlos Antonio Pérez Martínez">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula Nacional de Identidad</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 15.987.654-3">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadInvitado" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VEHÍCULO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🚗</div>
+                            <h2 class="section-title">Datos del Vehículo</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Vehículo</label>
+                                <select id="tipoVehiculo">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="AUTOMÓVIL">AUTOMÓVIL</option>
+                                    <option value="CAMIONETA">CAMIONETA</option>
+                                    <option value="CAMIÓN">CAMIÓN</option>
+                                    <option value="FURGÓN">FURGÓN</option>
+                                    <option value="MOTOCICLETA">MOTOCICLETA</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Marca del Vehículo</label>
+                                <input type="text" id="marcaVehiculo" placeholder="Ej: Toyota, Chevrolet, Ford">
+                            </div>
+                            <div class="form-group">
+                                <label>Modelo del Vehículo</label>
+                                <input type="text" id="modeloVehiculo" placeholder="Ej: Corolla, Spark, Focus">
+                            </div>
+                            <div class="form-group">
+                                <label>Año del Vehículo</label>
+                                <input type="number" id="anioVehiculo" placeholder="Ej: 2020" min="1980" max="2025">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Chasis</label>
+                                <input type="text" id="numeroChasis" placeholder="Ej: JT2AE91A8M0123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Color del Vehículo</label>
+                                <input type="text" id="colorVehiculo" placeholder="Ej: Blanco, Negro, Gris">
+                            </div>
+                            <div class="form-group">
+                                <label>Patente/Placa</label>
+                                <input type="text" id="patenteVehiculo" placeholder="Ej: ABCD-12">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VIAJE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🌎</div>
+                            <h2 class="section-title">Detalles del Viaje</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>País de Destino</label>
+                                <select id="razonSocialEmpresa">
+                                    <option value="">Seleccionar país</option>
+                                    <option value="República Argentina">República Argentina</option>
+                                    <option value="República Oriental del Uruguay">República Oriental del Uruguay</option>
+                                    <option value="República del Paraguay">República del Paraguay</option>
+                                    <option value="Estado Plurinacional de Bolivia">Estado Plurinacional de Bolivia</option>
+                                    <option value="República del Perú">República del Perú</option>
+                                    <option value="República de Colombia">República de Colombia</option>
+                                    <option value="República Bolivariana de Venezuela">República Bolivariana de Venezuela</option>
+                                    <option value="República Federativa del Brasil">República Federativa del Brasil</option>
+                                    <option value="República del Ecuador">República del Ecuador</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Viaje</label>
+                                <select id="rutEmpresa">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="viaje y posteriormente regrese a Chile">Viaje de ida y vuelta</option>
+                                    <option value="viaje con retorno programado">Viaje con retorno programado</option>
+                                    <option value="viaje temporal">Viaje temporal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Vigencia de la Autorización</label>
+                                <select id="duracionEstancia">
+                                    <option value="">Seleccionar vigencia</option>
+                                    <option value="plazo indefinido">Plazo indefinido</option>
+                                    <option value="30 días">30 días</option>
+                                    <option value="60 días">60 días</option>
+                                    <option value="90 días">90 días</option>
+                                    <option value="6 meses">6 meses</option>
+                                    <option value="1 año">1 año</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Inicio de Vigencia</label>
+                                <input type="date" id="fechaInicioArriendo">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones o Condiciones Especiales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier condición especial de la autorización..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">AUTORIZACIÓN NOTARIAL DE SALIDA DE VEHÍCULO</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8; font-size: 14px;">
+                                Por el presente instrumento yo, <strong><span class="highlight" id="prev_nombresInvitante">_________________________</span></strong>, Cédula Nacional de Identidad <strong>N° <span class="highlight" id="prev_runInvitante">___________</span></strong>, domiciliado en <span class="highlight" id="prev_domicilioInvitante">_________________________</span>, comuna de <span class="highlight" id="prev_ocupacionInvitante">___________</span>, región <span class="highlight" id="prev_telefonoInvitante">___________</span>, autorizo a don <strong><span class="highlight" id="prev_nombresInvitado">_________________________</span></strong> Cédula Nacional de Identidad <strong>N° <span class="highlight" id="prev_rutRepresentante">___________</span></strong> para que <span class="highlight" id="prev_rutEmpresa">viaje y posteriormente regrese a Chile</span> a <span class="highlight" id="prev_razonSocialEmpresa">___________</span>, en el siguiente vehículo de mi propiedad:
+                            </p>
+                            
+                            <div style="margin: 40px 0; padding: 30px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; border-left: 4px solid var(--accent-primary);">
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>TIPO:</strong> <span class="highlight" id="prev_tipoVehiculo">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>MARCA:</strong> <span class="highlight" id="prev_marcaVehiculo">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>MODELO:</strong> <span class="highlight" id="prev_modeloVehiculo">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>CHASIS N°:</strong> <span class="highlight" id="prev_numeroChasis">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>COLOR:</strong> <span class="highlight" id="prev_colorVehiculo">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>AÑO:</strong> <span class="highlight" id="prev_anioVehiculo">___________</span></p>
+                                <p style="margin: 8px 0; line-height: 1.6; font-size: 14px;"><strong>PATENTE:</strong> <span class="highlight" id="prev_patenteVehiculo">___________</span></p>
+                            </div>
+                            
+                            <p style="text-align: justify; margin-bottom: 40px; line-height: 1.8; font-size: 14px;">
+                                La presente autorización la otorgo por <span class="highlight" id="prev_duracionEstancia">___________</span> a contar de esta fecha <span class="highlight" id="prev_dia">__</span>/<span class="highlight" id="prev_mes">__</span>/<span class="highlight" id="prev_anio">____</span>.
+                            </p>
+                            
+                            <div id="observaciones-section" style="margin-bottom: 40px; display: none;">
+                                <p style="text-align: justify; line-height: 1.8; font-size: 14px;">
+                                    <strong>Observaciones:</strong> <span class="highlight" id="prev_observacionesAdicionales">___________</span>
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 80px;">
+                                <div class="signature-section">
+                                    <div class="signature-box" style="margin: 0 auto; max-width: 400px;">
+                                        <div class="signature-line">
+                                            <span class="signature-placeholder" id="signaturePlaceholderInvitante">Firma del Autorizante</span>
+                                            <img class="signature-preview" id="signaturePreviewInvitante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Autorizante">
+                                        </div>
+                                        <div class="signature-name" id="prev_firmaInvitante">_______________</div>
+                                        <div class="signature-role">AUTORIZANTE</div>
+                                        <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                            C.I. N°: <span class="highlight" id="prev_runInvitante2">___________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta autorización debe ser firmada ante notario público y puede requerir legalización consular según el país de destino. Se recomienda verificar los requisitos específicos de cada país antes del viaje.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

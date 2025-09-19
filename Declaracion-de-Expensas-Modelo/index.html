@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración de Expensas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración de Expensas</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de Comparecencia</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad de Comparecencia</label>
+                                <input type="text" id="ciudadAutorizacion" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Comparecencia</label>
+                                <input type="date" id="fechaAutorizacion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL DECLARANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Declarante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Declarante</label>
+                                <input type="text" id="nombreAutorizante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <select id="nacionalidadMenor">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / Pasaporte</label>
+                                <input type="text" id="rutAutorizante" placeholder="Ej: 12.345.678-9 o AA1234567">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Residencia</label>
+                                <select id="relacionMenor">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="definitiva">Residencia Definitiva</option>
+                                    <option value="temporal">Residencia Temporal</option>
+                                    <option value="estudiante">Visa de Estudiante</option>
+                                    <option value="trabajo">Visa de Trabajo</option>
+                                    <option value="turistico">Turístico</option>
+                                    <option value="refugiado">Refugiado</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="viajaConPasaporte">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero">Soltero(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="viudo">Viudo(a)</option>
+                                    <option value="divorciado">Divorciado(a)</option>
+                                    <option value="separado">Separado(a)</option>
+                                    <option value="conviviente civil">Conviviente Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Declarante</label>
+                                <input type="text" id="domicilioAutorizante" placeholder="Ej: Av. Providencia 1234, Depto. 56">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaAutorizante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoAcompanante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL/LOS BENEFICIARIO(S) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos del/los Beneficiario(s) de Expensas</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Beneficiario Principal</label>
+                                <input type="text" id="nombreMenor" placeholder="Ej: María Elena González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad del Beneficiario</label>
+                                <select id="paisDestino">
+                                    <option value="">Seleccionar nacionalidad</option>
+                                    <option value="chilena">Chilena</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="boliviana">Boliviana</option>
+                                    <option value="brasileña">Brasileña</option>
+                                    <option value="colombiana">Colombiana</option>
+                                    <option value="ecuatoriana">Ecuatoriana</option>
+                                    <option value="paraguaya">Paraguaya</option>
+                                    <option value="peruana">Peruana</option>
+                                    <option value="uruguaya">Uruguaya</option>
+                                    <option value="venezolana">Venezolana</option>
+                                    <option value="española">Española</option>
+                                    <option value="italiana">Italiana</option>
+                                    <option value="francesa">Francesa</option>
+                                    <option value="alemana">Alemana</option>
+                                    <option value="estadounidense">Estadounidense</option>
+                                    <option value="canadiense">Canadiense</option>
+                                    <option value="china">China</option>
+                                    <option value="japonesa">Japonesa</option>
+                                    <option value="coreana">Coreana</option>
+                                    <option value="haitiana">Haitiana</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / Pasaporte</label>
+                                <input type="text" id="rutMenor" placeholder="Ej: 98.765.432-1 o BB9876543">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con el Declarante</label>
+                                <select id="motivoViaje">
+                                    <option value="">Seleccionar relación</option>
+                                    <option value="cónyuge">Cónyuge</option>
+                                    <option value="hijo/hija">Hijo/Hija</option>
+                                    <option value="padre">Padre</option>
+                                    <option value="madre">Madre</option>
+                                    <option value="hermano/hermana">Hermano/Hermana</option>
+                                    <option value="abuelo/abuela">Abuelo/Abuela</option>
+                                    <option value="nieto/nieta">Nieto/Nieta</option>
+                                    <option value="tío/tía">Tío/Tía</option>
+                                    <option value="sobrino/sobrina">Sobrino/Sobrina</option>
+                                    <option value="primo/prima">Primo/Prima</option>
+                                    <option value="yerno/nuera">Yerno/Nuera</option>
+                                    <option value="suegro/suegra">Suegro/Suegra</option>
+                                    <option value="cuñado/cuñada">Cuñado/Cuñada</option>
+                                    <option value="concubino/concubina">Concubino/Concubina</option>
+                                    <option value="otro familiar">Otro Familiar</option>
+                                    <option value="no familiar">No Familiar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Período de Permanencia</label>
+                                <select id="duracionViaje">
+                                    <option value="">Seleccionar período</option>
+                                    <option value="indefinido">Indefinido</option>
+                                    <option value="1 mes">1 Mes</option>
+                                    <option value="2 meses">2 Meses</option>
+                                    <option value="3 meses">3 Meses</option>
+                                    <option value="6 meses">6 Meses</option>
+                                    <option value="1 año">1 Año</option>
+                                    <option value="2 años">2 Años</option>
+                                    <option value="3 años">3 Años</option>
+                                    <option value="5 años">5 Años</option>
+                                    <option value="otro">Otro período</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Edad del Beneficiario</label>
+                                <input type="number" id="edadMenor" min="0" max="120" placeholder="Ej: 25">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO BENEFICIARIO</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BENEFICIARIOS ADICIONALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👨‍👩‍👧‍👦</div>
+                            <h2 class="section-title">Beneficiarios Adicionales (Opcional)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre del Segundo Beneficiario</label>
+                                <input type="text" id="nombreAcompanante" placeholder="Opcional - Solo si son varios beneficiarios">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="ciudadDestino" placeholder="Nacionalidad del segundo beneficiario">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula/Pasaporte</label>
+                                <input type="text" id="rutAcompanante" placeholder="Documento del segundo beneficiario">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con Declarante</label>
+                                <input type="text" id="relacionAcompanante" placeholder="Ej: Hijo, Cónyuge, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Edad</label>
+                                <input type="number" id="fechaNacimientoMenor" min="0" max="120" placeholder="Edad del segundo beneficiario">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Beneficiarios Adicionales (Más de 2)</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Liste aquí los nombres, nacionalidades y relaciones de beneficiarios adicionales si son más de dos personas..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DOMICILIO DE RESIDENCIA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Domicilio de Residencia en Chile</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Dirección Completa donde Residirán</label>
+                                <input type="text" id="domicilioMenor" placeholder="Ej: Av. Las Condes 5678, Depto. 123">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMenor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="direccionDestino">
+                                    <option value="">Seleccionar región</option>
+                                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                                    <option value="Región de Tarapacá">Región de Tarapacá</option>
+                                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                                    <option value="Región de Atacama">Región de Atacama</option>
+                                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                                    <option value="Región de Valparaíso">Región de Valparaíso</option>
+                                    <option value="Región Metropolitana">Región Metropolitana</option>
+                                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                                    <option value="Región del Maule">Región del Maule</option>
+                                    <option value="Región de Ñuble">Región de Ñuble</option>
+                                    <option value="Región del Biobío">Región del Biobío</option>
+                                    <option value="Región de La Araucanía">Región de La Araucanía</option>
+                                    <option value="Región de Los Ríos">Región de Los Ríos</option>
+                                    <option value="Región de Los Lagos">Región de Los Lagos</option>
+                                    <option value="Región de Aysén">Región de Aysén</option>
+                                    <option value="Región de Magallanes">Región de Magallanes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Vivienda</label>
+                                <select id="medioTransporte">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="casa propia">Casa Propia</option>
+                                    <option value="departamento propio">Departamento Propio</option>
+                                    <option value="casa arrendada">Casa Arrendada</option>
+                                    <option value="departamento arrendado">Departamento Arrendado</option>
+                                    <option value="casa familiar">Casa Familiar</option>
+                                    <option value="pensión">Pensión</option>
+                                    <option value="residencial">Residencial</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>¿Es el mismo domicilio del declarante?</label>
+                                <select id="aerolinea">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí, es el mismo domicilio</option>
+                                    <option value="no">No, es un domicilio diferente</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Código Postal</label>
+                                <input type="text" id="numeroVuelo" placeholder="Ej: 7550000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACIÓN ECONÓMICA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Información Económica y Responsabilidad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ingreso Mensual del Declarante</label>
+                                <input type="number" id="numeroPasaporte" min="0" placeholder="Ej: 1500000">
+                            </div>
+                            <div class="form-group">
+                                <label>Ocupación/Profesión</label>
+                                <input type="text" id="fechaSalida" placeholder="Ej: Ingeniero, Comerciante, Empleado">
+                            </div>
+                            <div class="form-group">
+                                <label>Empresa/Empleador</label>
+                                <input type="text" id="fechaRegreso" placeholder="Nombre de la empresa donde trabaja">
+                            </div>
+                            <div class="form-group">
+                                <label>Costo Estimado Mensual por Beneficiario</label>
+                                <input type="number" id="vigenciaPasaporte" min="0" placeholder="Ej: 300000">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Tipo de Gastos que Cubrirá</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="alimentacion" style="margin: 0;">
+                                        <span>Alimentación</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="vivienda" style="margin: 0;">
+                                        <span>Vivienda</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="vestimenta" style="margin: 0;">
+                                        <span>Vestimenta</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="salud" style="margin: 0;">
+                                        <span>Salud</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="educacion" style="margin: 0;">
+                                        <span>Educación</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 0;">
+                                        <input type="checkbox" id="transporte" style="margin: 0;">
+                                        <span>Transporte</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales sobre la Declaración</label>
+                                <textarea id="observacionesViaje" rows="4" placeholder="Agregue cualquier información adicional relevante sobre la declaración de expensas, condiciones especiales, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN DE EXPENSAS</div>
+                            <div class="document-subtitle">Modelo 2</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadAutorizacion">.........................</span>, a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">20..</span>, comparece: Don/a <span class="highlight" id="prev_nombreAutorizante">.........................</span>, de nacionalidad <span class="highlight" id="prev_nacionalidadMenor">.........................</span>, cédula de identidad para extranjeros N° <span class="highlight" id="prev_rutAutorizante">................</span>, con residencia <span class="highlight" id="prev_relacionMenor">.........................</span>, <span class="highlight" id="prev_viajaConPasaporte">.........................</span>, con domicilio en <span class="highlight" id="prev_domicilioAutorizante">.........................</span>, comuna de <span class="highlight" id="prev_comunaAutorizante">..........</span>, y de paso por esta; mayor de edad, quien acredita su identidad con su mencionada cédula y declara:
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Que asumiré todos los costos de mantención en Chile, de <span class="highlight" id="prev_motivoViaje">.........................</span>, <span class="highlight" id="prev_nombreMenor">.........................</span>, de nacionalidad <span class="highlight" id="prev_paisDestino">.........................</span>, cédula de identidad o pasaporte N° <span class="highlight" id="prev_rutMenor">................</span>, por un período de permanencia <span class="highlight" id="prev_duracionViaje">.........................</span>, quien vive a mis expensas y en mi mismo domicilio, ubicado en <span class="highlight" id="prev_domicilioMenor">.........................</span>, comuna de <span class="highlight" id="prev_comunaMenor">..........</span>.
+                            </p>
+
+                            <div id="beneficiariosAdicionales" style="margin-bottom: 30px; display: none;">
+                                <p style="text-align: justify; line-height: 1.8;">
+                                    <strong>Beneficiarios Adicionales:</strong> También me hago responsable de los gastos de mantención de <span class="highlight" id="prev_nombreAcompanante">.........................</span>, de nacionalidad <span class="highlight" id="prev_ciudadDestino">.........................</span>, cédula de identidad o pasaporte N° <span class="highlight" id="prev_rutAcompanante">................</span>, <span class="highlight" id="prev_relacionAcompanante">.........................</span> <span class="highlight" id="prev_observacionesAdicionales">.........................</span>.
+                                </p>
+                            </div>
+
+                            <div style="margin: 40px 0; padding: 20px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #3b82f6; text-align: center; font-size: 1rem;">
+                                    <strong>INFORMACIÓN ECONÓMICA:</strong><br>
+                                    Ingreso mensual declarado: $<span class="highlight" id="prev_numeroPasaporte">..................</span><br>
+                                    Ocupación: <span class="highlight" id="prev_fechaSalida">.........................</span><br>
+                                    Costo estimado por beneficiario: $<span class="highlight" id="prev_vigenciaPasaporte">..................</span> mensuales
+                                </p>
+                            </div>
+
+                            <div style="margin: 30px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #10b981; font-size: 0.9rem;">
+                                    <strong>Gastos que cubrirá:</strong> <span id="gastosCubiertos">Se especificarán según selección</span><br>
+                                    <strong>Observaciones:</strong> <span class="highlight" id="prev_observacionesViaje">.........................</span>
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: center; margin: 40px 0 60px 0; line-height: 1.8; font-weight: bold;">
+                                Para constancia firma,
+                            </p>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box" style="margin: 0 auto; max-width: 300px;">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAutorizante">Firma del Declarante</span>
+                                        <img class="signature-preview" id="signaturePreviewAutorizante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma del Declarante">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAutorizante">_______________</div>
+                                    <div class="signature-role">DECLARANTE</div>
+                                    <div style="font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                        <span class="highlight" id="prev_nombreAutorizante2">.........................</span><br>
+                                        <span class="highlight" id="prev_rutAutorizante2">................</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; text-align: center;">
+                                <div style="border-top: 2px solid #3b82f6; width: 200px; margin: 0 auto;"></div>
+                                <div style="margin-top: 10px; font-weight: bold; color: var(--text-accent);">
+                                    NOTARIO
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota Legal:</strong> Esta declaración de expensas tiene validez legal y constituye un compromiso formal del declarante de asumir todos los gastos de manutención del o los beneficiarios indicados durante su permanencia en Chile. El incumplimiento de esta declaración puede tener consecuencias legales y migratorias.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF de Declaración</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

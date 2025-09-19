@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de RUT Chileno</title>
+    <style>
+        /* style.css - Estilos para el validador de RUT */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+        }
+
+        input.valid {
+            border-color: #28a745;
+            background-color: #f8fff9;
+        }
+
+        input.invalid {
+            border-color: #dc3545;
+            background-color: #fff8f8;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .result.valid {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.invalid {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result.neutral {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3ff;
+            border-left: 4px solid #667eea;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+
+        .info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info ul {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .example {
+            font-family: monospace;
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- index.html - Estructura del formulario -->
+    <div class="container">
+        <h1>🇨🇱 Validador de RUT Chileno</h1>
+        
+        <form id="rutForm">
+            <div class="form-group">
+                <label for="rutInput">Ingresa tu RUT:</label>
+                <input 
+                    type="text" 
+                    id="rutInput" 
+                    name="rut" 
+                    placeholder="Ej: 12.345.678-5"
+                    maxlength="12"
+                    autocomplete="off"
+                >
+            </div>
+            
+            <button type="button" id="validateBtn" class="btn">Validar RUT</button>
+            <button type="button" id="clearBtn" class="btn" style="background: #6c757d;">Limpiar</button>
+        </form>
+
+        <div id="result" class="result neutral">
+            Ingresa un RUT para validar
+        </div>
+
+        <div class="info">
+            <h3>ℹ️ Información</h3>
+            <ul>
+                <li>Formato válido: <span class="example">12.345.678-5</span> o <span class="example">12345678-5</span></li>
+                <li>El dígito verificador puede ser un número (0-9) o la letra K</li>
+                <li>La validación ocurre automáticamente mientras escribes</li>
+                <li>Utiliza el algoritmo módulo 11 estándar chileno</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // script.js - Lógica de validación del RUT chileno usando módulo 11
+        
+        /**
+         * Limpia el RUT removiendo puntos, guiones y espacios
+         * @param {string} rut - RUT a limpiar
+         * @returns {string} RUT limpio
+         */
+        function limpiarRut(rut) {
+            // Remover puntos, guiones y espacios, convertir a mayúscula
+            return rut.replace(/[\.\-\s]/g, '').toUpperCase();
+        }
+
+        /**
+         * Valida el formato básico del RUT
+         * @param {string} rut - RUT limpio a validar
+         * @returns {boolean} true si el formato es válido
+         */
+        function validarFormato(rut) {
+            // El RUT debe tener entre 8 y 9 caracteres (7-8 números + 1 DV)
+            if (rut.length < 8 || rut.length > 9) {
+                return false;
+            }
+            
+            // Los primeros caracteres deben ser números y el último puede ser número o K
+            const cuerpo = rut.slice(0, -1);
+            const dv = rut.slice(-1);
+            
+            return /^\d+$/.test(cuerpo) && /^[0-9K]$/.test(dv);
+        }
+
+        /**
+         * Calcula el dígito verificador usando el algoritmo módulo 11
+         * @param {string} rutSinDv - RUT sin el dígito verificador
+         * @returns {string} Dígito verificador calculado
+         */
+        function calcularDigitoVerificador(rutSinDv) {
+            // Secuencia de multiplicadores para el algoritmo módulo 11
+            const secuencia = [2, 3, 4, 5, 6, 7];
+            let suma = 0;
+            let multiplicadorIndex = 0;
+
+            // Recorrer el RUT de derecha a izquierda
+            for (let i = rutSinDv.length - 1; i >= 0; i--) {
+                // Multiplicar cada dígito por el multiplicador correspondiente
+                suma += parseInt(rutSinDv[i]) * secuencia[multiplicadorIndex];
+                
+                // Ciclar a través de la secuencia de multiplicadores
+                multiplicadorIndex = (multiplicadorIndex + 1) % secuencia.length;
+            }
+
+            // Calcular el módulo 11
+            const resto = suma % 11;
+            const dv = 11 - resto;
+
+            // Casos especiales del algoritmo chileno
+            if (dv === 11) return '0';  // Si el resultado es 11, el DV es 0
+            if (dv === 10) return 'K';  // Si el resultado es 10, el DV es K
+            
+            return dv.toString();
+        }
+
+        /**
+         * Valida completamente un RUT chileno
+         * @param {string} rut - RUT a validar
+         * @returns {object} Objeto con resultado de la validación
+         */
+        function validarRut(rut) {
+            // Si está vacío, retornar estado neutral
+            if (!rut.trim()) {
+                return {
+                    valido: null,
+                    mensaje: 'Ingresa un RUT para validar',
+                    clase: 'neutral'
+                };
+            }
+
+            // Limpiar el RUT
+            const rutLimpio = limpiarRut(rut);
+
+            // Validar formato básico
+            if (!validarFormato(rutLimpio)) {
+                return {
+                    valido: false,
+                    mensaje: '❌ Formato de RUT inválido',
+                    clase: 'invalid'
+                };
+            }
+
+            // Separar el cuerpo del dígito verificador
+            const cuerpo = rutLimpio.slice(0, -1);
+            const dvIngresado = rutLimpio.slice(-1);
+
+            // Calcular el dígito verificador correcto
+            const dvCalculado = calcularDigitoVerificador(cuerpo);
+
+            // Comparar el DV ingresado con el calculado
+            if (dvIngresado === dvCalculado) {
+                return {
+                    valido: true,
+                    mensaje: `✅ RUT válido (${formatearRut(rutLimpio)})`,
+                    clase: 'valid'
+                };
+            } else {
+                return {
+                    valido: false,
+                    mensaje: `❌ RUT inválido (DV correcto: ${dvCalculado})`,
+                    clase: 'invalid'
+                };
+            }
+        }
+
+        /**
+         * Formatea un RUT limpio al formato estándar chileno
+         * @param {string} rutLimpio - RUT sin formato
+         * @returns {string} RUT formateado
+         */
+        function formatearRut(rutLimpio) {
+            const cuerpo = rutLimpio.slice(0, -1);
+            const dv = rutLimpio.slice(-1);
+            
+            // Agregar puntos cada 3 dígitos desde la derecha
+            const cuerpoFormateado = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            
+            return `${cuerpoFormateado}-${dv}`;
+        }
+
+        /**
+         * Actualiza la interfaz con el resultado de la validación
+         * @param {object} resultado - Resultado de la validación
+         */
+        function actualizarResultado(resultado) {
+            const resultadoDiv = document.getElementById('result');
+            const input = document.getElementById('rutInput');
+            
+            // Actualizar el mensaje
+            resultadoDiv.textContent = resultado.mensaje;
+            
+            // Actualizar las clases CSS
+            resultadoDiv.className = `result ${resultado.clase}`;
+            
+            // Actualizar el estilo del input
+            input.className = resultado.valido === true ? 'valid' : 
+                             resultado.valido === false ? 'invalid' : '';
+        }
+
+        // Eventos del DOM - Configurar la interactividad
+        document.addEventListener('DOMContentLoaded', function() {
+            const rutInput = document.getElementById('rutInput');
+            const validateBtn = document.getElementById('validateBtn');
+            const clearBtn = document.getElementById('clearBtn');
+
+            // Validación en tiempo real mientras el usuario escribe
+            rutInput.addEventListener('input', function(e) {
+                const rut = e.target.value;
+                const resultado = validarRut(rut);
+                actualizarResultado(resultado);
+            });
+
+            // Validación al hacer clic en el botón
+            validateBtn.addEventListener('click', function() {
+                const rut = rutInput.value;
+                const resultado = validarRut(rut);
+                actualizarResultado(resultado);
+                
+                // Enfocar el input después de validar
+                rutInput.focus();
+            });
+
+            // Limpiar formulario
+            clearBtn.addEventListener('click', function() {
+                rutInput.value = '';
+                rutInput.className = '';
+                actualizarResultado({
+                    valido: null,
+                    mensaje: 'Ingresa un RUT para validar',
+                    clase: 'neutral'
+                });
+                rutInput.focus();
+            });
+
+            // Validar al presionar Enter
+            rutInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const resultado = validarRut(rutInput.value);
+                    actualizarResultado(resultado);
+                }
+            });
+
+            // Formatear automáticamente mientras se escribe (opcional)
+            rutInput.addEventListener('blur', function(e) {
+                const rut = e.target.value.trim();
+                if (rut) {
+                    const rutLimpio = limpiarRut(rut);
+                    if (validarFormato(rutLimpio)) {
+                        e.target.value = formatearRut(rutLimpio);
+                    }
+                }
+            });
+        });
+
+        // Funciones adicionales para testing (opcional)
+        window.validadorRut = {
+            validar: validarRut,
+            limpiar: limpiarRut,
+            formatear: formatearRut,
+            calcularDV: calcularDigitoVerificador
+        };
+    </script>
+</body>
+</html>

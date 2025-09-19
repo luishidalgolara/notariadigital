@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada No Parentesco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada No Parentesco</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS GENERALES DEL DOCUMENTO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Datos Generales del Documento</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadDocumento" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Documento</label>
+                                <input type="date" id="fechaDocumento">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL PRIMER FIRMANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Primer Firmante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreFirmante1" placeholder="Ej: Juan Carlos Pérez Silva">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutFirmante1" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / Pasaporte</label>
+                                <input type="text" id="cedulaFirmante1" placeholder="Ej: 12.345.678-9 o AB123456">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadFirmante1" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoFirmante1">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioFirmante1" placeholder="Ej: Av. Los Libertadores 456, N° 123">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaFirmante1" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA FIRMANTE 1</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoFirmante1" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL SEGUNDO FIRMANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Datos del Segundo Firmante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreFirmante2" placeholder="Ej: María Alejandra González Rodríguez">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutFirmante2" placeholder="Ej: 18.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad / Pasaporte</label>
+                                <input type="text" id="cedulaFirmante2" placeholder="Ej: 18.123.456-7 o CD789012">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadFirmante2" placeholder="Ej: Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoFirmante2">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioFirmante2" placeholder="Ej: Calle Las Flores 789, N° 45">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaFirmante2" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA FIRMANTE 2</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoFirmante2" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN LEGAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Información Legal</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <div class="info-box">
+                                    <h4>Declaración de No Parentesco:</h4>
+                                    <p>Los firmantes declaran bajo juramento que no existe entre ellos parentesco por consanguinidad o afinidad, en línea recta hasta el segundo grado inclusive, en línea colateral hasta el cuarto grado inclusive.</p>
+                                </div>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales (Opcional)</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Cualquier observación adicional relevante para la declaración..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA NO PARENTESCO</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 20px; line-height: 1.8;">
+                                Por la presente, los abajo firmantes declaran bajo juramento que no existe entre ellos parentesco por consanguinidad o afinidad, en línea recta hasta el segundo grado inclusive, en línea colateral hasta el cuarto grado inclusive. Los interesados formulan la presente declaración jurada.
+                            </p>
+                            
+                            <div style="margin: 60px 0;">
+                                <div class="signature-section">
+                                    <div style="display: flex; justify-content: space-between; max-width: 700px; margin: 0 auto;">
+                                        <div class="signature-box" style="flex: 1; text-align: center; margin: 0 20px;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderFirmante1">Firma Firmante 1</span>
+                                                <img class="signature-preview" id="signaturePreviewFirmante1" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Firmante 1">
+                                            </div>
+                                            <div style="border-bottom: 2px solid #000; width: 200px; margin: 0 auto 15px auto;"></div>
+                                            <div class="signature-name" style="font-weight: bold; margin-bottom: 5px;" id="prev_nombreFirmante1">_______________</div>
+                                            <div style="font-size: 0.9rem; margin-bottom: 3px;">RUT: <span class="highlight" id="prev_rutFirmante1">XX.XXX.XXX-X</span></div>
+                                            <div style="font-size: 0.85rem; color: #666;">Firmante 1</div>
+                                        </div>
+                                        
+                                        <div class="signature-box" style="flex: 1; text-align: center; margin: 0 20px;">
+                                            <div class="signature-line">
+                                                <span class="signature-placeholder" id="signaturePlaceholderFirmante2">Firma Firmante 2</span>
+                                                <img class="signature-preview" id="signaturePreviewFirmante2" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Firmante 2">
+                                            </div>
+                                            <div style="border-bottom: 2px solid #000; width: 200px; margin: 0 auto 15px auto;"></div>
+                                            <div class="signature-name" style="font-weight: bold; margin-bottom: 5px;" id="prev_nombreFirmante2">_______________</div>
+                                            <div style="font-size: 0.9rem; margin-bottom: 3px;">RUT: <span class="highlight" id="prev_rutFirmante2">XX.XXX.XXX-X</span></div>
+                                            <div style="font-size: 0.85rem; color: #666;">Firmante 2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 40px;">
+                                <p style="margin: 0; font-style: italic;">
+                                    <span class="highlight" id="prev_ciudadDocumento">_______</span>, <span class="highlight" id="prev_fechaDocumento">___________</span>
+                                </p>
+                            </div>
+
+                            <div id="observacionesAdicionalesContainer" style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 4px solid #3b82f6; display: none;">
+                                <h4 style="margin: 0 0 15px 0; font-weight: bold; color: #2563eb;">OBSERVACIONES ADICIONALES</h4>
+                                <div style="line-height: 1.6;">
+                                    <span class="highlight" id="prev_observacionesAdicionales">_________________</span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <p style="margin: 0 0 10px 0;"><strong>Nota Legal:</strong> Esta declaración jurada tiene validez legal según la normativa chilena vigente.</p>
+                                <p style="margin: 0;"><strong>Importante:</strong> La falsedad de esta declaración puede acarrear sanciones legales conforme al Código Penal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF de la Declaración</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

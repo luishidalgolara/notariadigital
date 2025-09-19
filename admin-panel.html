@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Notarías Digitales</title>
+    <style>
+        /* ============================================
+           CSS INTEGRADO DIRECTAMENTE
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Century Gothic', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+            min-height: 100vh;
+            color: #e1e5e9;
+            line-height: 1.7;
+        }
+
+        /* LOGIN STYLES */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .login-card {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            border-radius: 25px;
+            padding: 50px 40px;
+            box-shadow: 
+                0 25px 60px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .login-logo {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .login-title {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .login-subtitle {
+            color: #a8b2d1;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #e1e5e9;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.2),
+                0 8px 25px rgba(102, 126, 234, 0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .form-group input::placeholder {
+            color: #6c7293;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            margin-top: 25px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .quick-access-info {
+            margin-top: 35px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            font-size: 0.95rem;
+            color: #a8b2d1;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quick-access-info h4 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .quick-access-info p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .quick-access-info code {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 3px 8px;
+            border-radius: 6px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* ADMIN PANEL STYLES */
+        .admin-panel {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+            width: 100%;
+            min-width: 1800px;
+        }
+
+        .admin-header {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            padding: 25px 0;
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            width: 100%;
+        }
+
+        .admin-nav {
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .admin-logo h1 {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .admin-logo span {
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.1rem;
+            color: #a8b2d1;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        .admin-content {
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            width: 100%;
+        }
+
+        /* STATUS SECTION */
+        .status-section {
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .status-card {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .status-info {
+            flex: 1;
+        }
+
+        .status-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .status-message {
+            color: #a8b2d1;
+            font-size: 1rem;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+            min-height: 250px;
+            width: 100%;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.3),
+                0 0 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            color: #a8b2d1;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-trend {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .trend-up {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .trend-down {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-stat {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 10px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quick-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .quick-stat-label {
+            font-size: 0.8rem;
+            color: #a8b2d1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        /* FILTERS SECTION */
+        .filters-section {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            padding: 35px 40px;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+
+        .search-box {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 60px 20px 25px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.2),
+                0 8px 25px rgba(102, 126, 234, 0.3);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .search-input::placeholder {
+            color: #6c7293;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            align-items: end;
+            margin-bottom: 30px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #e1e5e9;
+            font-size: 1.1rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 16px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .filter-group option {
+            background: #2a2d3a;
+            color: #ffffff;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn, .refresh-btn {
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .filter-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .filter-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .filter-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #e1e5e9;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .filter-btn.secondary:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(23, 162, 184, 0.4);
+        }
+
+        /* SALES SECTION */
+        .sales-section {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+
+        .section-header {
+            padding: 35px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(40, 167, 69, 0.5);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            color: #a8b2d1;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .empty-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .test-btn {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+        }
+
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 193, 7, 0.5);
+        }
+
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+            padding: 0 20px 20px 20px;
+        }
+
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1400px;
+            table-layout: fixed;
+        }
+
+        .sales-table th:nth-child(1), .sales-table td:nth-child(1) { width: 140px; }
+        .sales-table th:nth-child(2), .sales-table td:nth-child(2) { width: 160px; }
+        .sales-table th:nth-child(3), .sales-table td:nth-child(3) { width: 200px; }
+        .sales-table th:nth-child(4), .sales-table td:nth-child(4) { width: 180px; }
+        .sales-table th:nth-child(5), .sales-table td:nth-child(5) { width: 200px; }
+        .sales-table th:nth-child(6), .sales-table td:nth-child(6) { width: 200px; }
+        .sales-table th:nth-child(7), .sales-table td:nth-child(7) { width: 140px; }
+        .sales-table th:nth-child(8), .sales-table td:nth-child(8) { width: 80px; }
+        .sales-table th:nth-child(9), .sales-table td:nth-child(9) { width: 180px; }
+        .sales-table th:nth-child(10), .sales-table td:nth-child(10) { width: 100px; }
+        .sales-table th:nth-child(11), .sales-table td:nth-child(11) { width: 120px; }
+        .sales-table th:nth-child(12), .sales-table td:nth-child(12) { width: 100px; }
+
+        .sales-table th,
+        .sales-table td {
+            padding: 18px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 60px;
+        }
+
+        .sales-table tbody tr {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid rgba(255,255,255,0.05);
+            position: relative;
+            min-height: 60px;
+        }
+
+        .sales-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.1) !important;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .sales-table tbody tr::after {
+            content: '👁️ Ver detalles';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sales-table tbody tr:hover::after {
+            opacity: 1;
+        }
+
+        .sales-table th {
+            background: rgba(0,0,0,0.2);
+            font-weight: 700;
+            color: #ffffff;
+            position: sticky;
+            top: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+
+        .sales-table td {
+            color: #e1e5e9;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            width: 100px;
+        }
+
+        .status-completed {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .status-demo {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .notary-badge {
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            max-width: 300px;
+            white-space: normal !important;
+            word-wrap: break-word;
+            line-height: 1.2;
+        }
+
+        .amount {
+            font-weight: 700;
+            color: #28a745;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .client-info {
+            font-weight: 600;
+            color: #ffffff;
+            white-space: normal !important;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .payment-method {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            color: #a8b2d1;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            width: 130px;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            padding: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            color: #e1e5e9;
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* MODAL DE DETALLES */
+        .sale-details-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .sale-details-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #2a2d3a 0%, #1e2029 100%);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 
+                0 25px 60px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .modal-title .icon {
+            font-size: 2rem;
+            color: #667eea;
+        }
+
+        .modal-close {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 107, 107, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .detail-section {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: #a8b2d1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 600;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .detail-value.highlight {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        .detail-value.success {
+            color: #28a745;
+            font-weight: 700;
+        }
+
+        .detail-value.amount {
+            color: #28a745;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .status-detail {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-detail.completed {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .status-detail.demo {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .notary-detail {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .service-detail {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            font-weight: 600;
+        }
+
+        .payment-detail {
+            background: rgba(40, 167, 69, 0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border-left: 4px solid #28a745;
+            font-weight: 600;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modal-content {
+                padding: 25px;
+                margin: 20px;
+                max-height: 85vh;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
+            }
+            
+            .detail-section {
+                padding: 20px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <!-- ============================================
+         SECCIÓN DE LOGIN
+         ============================================ -->
+    <div class="login-container" id="loginSection">
+        <div class="login-card">
+            <div class="login-logo">🏛️</div>
+            <h1 class="login-title">Panel de Administración</h1>
+            <p class="login-subtitle">Sistema de Monitoreo de Ventas en Tiempo Real</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span id="loginText">Acceder al Panel</span>
+                    <span id="loginLoading" style="display: none;">
+                        <span class="loading-spinner"></span>
+                        Verificando...
+                    </span>
+                </button>
+                
+                <div class="error-message" id="errorMessage">
+                    ❌ Credenciales incorrectas. Intenta nuevamente.
+                </div>
+            </form>
+            
+            <div class="quick-access-info">
+                <h4>💡 Acceso Rápido</h4>
+                <p><strong>Usuario:</strong> <code>admin</code></p>
+                <p><strong>Contraseña:</strong> <code>notaria2025</code></p>
+                <p>O busca el botón de "Acceso Rápido" en la esquina superior derecha</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         PANEL DE ADMINISTRACIÓN PRINCIPAL
+         ============================================ -->
+    <div class="admin-panel" id="adminPanel">
+        <!-- Header del Admin -->
+        <header class="admin-header">
+            <nav class="admin-nav">
+                <div class="admin-logo">
+                    <span>🏛️</span>
+                    <h1>Panel de Administración</h1>
+                </div>
+                <div class="admin-user">
+                    <span>👤 Administrador</span>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Contenido Principal -->
+        <main class="admin-content">
+            <!-- Sección de Estado del Sistema -->
+            <section class="status-section">
+                <div class="status-card">
+                    <div class="status-icon">🟢</div>
+                    <div class="status-info">
+                        <div class="status-title">Estado del Sistema</div>
+                        <div class="status-message" id="systemStatus">🟡 Esperando pagos de usuarios...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Estadísticas Principales -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number" id="totalSales">$0</div>
+                    <div class="stat-label">Total Recaudado</div>
+                    <div class="stat-trend trend-up">+0% vs mes anterior</div>
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="todayEarnings">$0</div>
+                            <div class="quick-stat-label">Hoy</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="weekEarnings">$0</div>
+                            <div class="quick-stat-label">Semana</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-number" id="totalTransactions">0</div>
+                    <div class="stat-label">Total Transacciones</div>
+                    <div class="stat-trend trend-up">+0% vs mes anterior</div>
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="completedTx">0</div>
+                            <div class="quick-stat-label">Completadas</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="pendingTx">0</div>
+                            <div class="quick-stat-label">Pendientes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏛️</div>
+                    <div class="stat-number" id="topNotary">-</div>
+                    <div class="stat-label">Notaría Top</div>
+                    <div class="stat-trend trend-up">Mayor volumen</div>
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="avgPerNotary">$0</div>
+                            <div class="quick-stat-label">Promedio</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="hourlyAvg">$0</div>
+                            <div class="quick-stat-label">Por Hora</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-number" id="todaySales">$0</div>
+                    <div class="stat-label">Ventas de Hoy</div>
+                    <div class="stat-trend trend-up">+0% vs ayer</div>
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <div class="quick-stat-value" id="bestService">-</div>
+                            <div class="quick-stat-label">Top Servicio</div>
+                        </div>
+                        <div class="quick-stat">
+                            <div class="quick-stat-value">En Vivo</div>
+                            <div class="quick-stat-label">Estado</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Filtros -->
+            <section class="filters-section">
+                <div class="search-box">
+                    <input type="text" id="globalSearch" class="search-input" placeholder="Buscar por cliente, email, ID de transacción, notaría...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="notaryFilter">🏛️ Notaría</label>
+                        <select id="notaryFilter">
+                            <option value="">Todas las notarías</option>
+                            <option value="san pedro">San Pedro de la Paz</option>
+                            <option value="concepcion">Concepción</option>
+                            <option value="talcahuano">Talcahuano</option>
+                            <option value="coronel">Coronel</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="serviceFilter">📄 Tipo de Trámite</label>
+                        <select id="serviceFilter">
+                            <option value="">Todos los trámites</option>
+                            <option value="declaraciones">Declaraciones Juradas</option>
+                            <option value="poderes">Poderes Digitales</option>
+                            <option value="certificaciones">Certificaciones</option>
+                            <option value="escrituras">Escrituras</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="dateFrom">📅 Fecha Desde</label>
+                        <input type="date" id="dateFrom">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="dateTo">📅 Fecha Hasta</label>
+                        <input type="date" id="dateTo">
+                    </div>
+                </div>
+
+                <div class="filter-actions">
+                    <button class="filter-btn primary" onclick="applyFilters()">🔍 Filtrar Datos</button>
+                    <button class="filter-btn secondary" onclick="clearFilters()">🧹 Limpiar Filtros</button>
+                    <button class="refresh-btn" onclick="refreshData()">
+                        <span id="refreshIcon">🔄</span> Actualizar
+                    </button>
+                </div>
+            </section>
+
+            <!-- Sección de Tabla de Ventas -->
+            <section class="sales-section">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Registro de Ventas en Tiempo Real</h2>
+                    <div class="header-actions">
+                        <button class="export-btn" onclick="exportData()">📥 Exportar a Excel</button>
+                        <div class="live-indicator">
+                            <span class="live-dot"></span>
+                            EN VIVO
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado Vacío -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">📭</div>
+                    <h3>No hay ventas registradas aún</h3>
+                    <p>Las ventas aparecerán aquí automáticamente cuando los usuarios completen sus pagos en el sistema de trámites virtuales.</p>
+                    <div class="empty-actions">
+                        <button class="test-btn" onclick="createTestTransaction()">🧪 Crear Transacción de Prueba</button>
+                        <button class="refresh-btn" onclick="refreshData()">🔄 Actualizar Panel</button>
+                    </div>
+                </div>
+
+                <!-- Contenedor de la Tabla -->
+                <div class="table-container" id="tableContainer" style="display: none;">
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th>🆔 ID</th>
+                                <th>📅 FECHA/HORA</th>
+                                <th>🏛️ NOTARÍA</th>
+                                <th>👨‍💼 NOTARIO</th>
+                                <th>👤 CLIENTE</th>
+                                <th>📧 EMAIL</th>
+                                <th>📞 TELÉFONO</th>
+                                <th>🆔 RUT</th>
+                                <th>📄 TRÁMITE</th>
+                                <th>💰 MONTO</th>
+                                <th>💳 MÉTODO PAGO</th>
+                                <th>✅ ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            <!-- Los datos se cargan dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- Los botones de paginación se generan dinámicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ============================================
+         MODAL DE DETALLES DE VENTA
+         ============================================ -->
+    <div id="saleDetailsModal" class="sale-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span class="icon">📋</span>
+                    <span>Detalles Completos de la Venta</span>
+                </div>
+                <button class="modal-close" onclick="closeSaleDetailsModal()">×</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Información del Cliente -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <span>👤</span>
+                        Información del Cliente
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nombre Completo</div>
+                        <div class="detail-value highlight" id="modalClientName">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email de Contacto</div>
+                        <div class="detail-value" id="modalClientEmail">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Teléfono</div>
+                        <div class="detail-value" id="modalClientPhone">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">RUT/Identificación</div>
+                        <div class="detail-value" id="modalClientRut">-</div>
+                    </div>
+                </div>
+                
+                <!-- Información de la Notaría -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <span>🏛️</span>
+                        Información de la Notaría
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Notaría</div>
+                        <div class="detail-value notary-detail" id="modalNotaryName">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Notario a Cargo</div>
+                        <div class="detail-value" id="modalNotaryOwner">-</div>
+                    </div>
+                </div>
+                
+                <!-- Información del Trámite -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <span>📄</span>
+                        Información del Trámite
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Servicio Solicitado</div>
+                        <div class="detail-value service-detail" id="modalService">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">ID de Transacción</div>
+                        <div class="detail-value" id="modalTransactionId">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Fecha y Hora Completa</div>
+                        <div class="detail-value" id="modalDateTime">-</div>
+                    </div>
+                </div>
+                
+                <!-- Información de Pago -->
+                <div class="detail-section">
+                    <div class="section-title">
+                        <span>💳</span>
+                        Información de Pago
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Monto Total Pagado</div>
+                        <div class="detail-value amount" id="modalAmount">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Método de Pago</div>
+                        <div class="detail-value payment-detail" id="modalPaymentMethod">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Estado del Pago</div>
+                        <div class="detail-value" id="modalPaymentStatus">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS INTEGRADOS DIRECTAMENTE
+         ============================================ -->
+    <script>
+        /* ============================================
+           ADMIN PANEL JAVASCRIPT - SISTEMA COMPLETO
+           ============================================ */
+
+        // Variables globales
+        let salesData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const recordsPerPage = 10;
+
+        // Hacer variables disponibles globalmente
+        window.filteredData = [];
+        window.salesData = [];
+
+        // ============================================
+        // AUTO-ACCESS Y LOGIN
+        // ============================================
+        function checkAutoAccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoAccess = urlParams.get('admin');
+            const directAccess = urlParams.get('direct');
+            
+            if (autoAccess === 'true' || directAccess === 'access') {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                initializeDashboard();
+                showNotification('🎯 Acceso Automático Activado - Sistema en Vivo', 'success');
+                return true;
+            }
+            return false;
+        }
+
+        function addQuickAccessButton() {
+            const quickAccessBtn = document.createElement('button');
+            quickAccessBtn.innerHTML = '⚡ Acceso Rápido Admin';
+            quickAccessBtn.className = 'quick-access-btn';
+            quickAccessBtn.style.cssText = `
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+                color: white;
+                border: none;
+                padding: 15px 25px;
+                border-radius: 30px;
+                cursor: pointer;
+                font-weight: 700;
+                font-size: 1rem;
+                box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+                transition: all 0.4s ease;
+                z-index: 1000;
+                opacity: 0.8;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            `;
+            
+            quickAccessBtn.onmouseover = () => {
+                quickAccessBtn.style.opacity = '1';
+                quickAccessBtn.style.transform = 'translateY(-3px)';
+                quickAccessBtn.style.boxShadow = '0 12px 35px rgba(255, 107, 107, 0.6)';
+            };
+            
+            quickAccessBtn.onmouseout = () => {
+                quickAccessBtn.style.opacity = '0.8';
+                quickAccessBtn.style.transform = 'translateY(0)';
+                quickAccessBtn.style.boxShadow = '0 8px 25px rgba(255, 107, 107, 0.4)';
+            };
+            
+            quickAccessBtn.onclick = () => {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                initializeDashboard();
+                showNotification('🚀 Panel de Administración Activado - Modo En Vivo', 'success');
+                quickAccessBtn.remove();
+            };
+            
+            document.body.appendChild(quickAccessBtn);
+        }
+
+        // ============================================
+        // LOGIN FUNCTIONALITY
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    const loginText = document.getElementById('loginText');
+                    const loginLoading = document.getElementById('loginLoading');
+                    const errorMessage = document.getElementById('errorMessage');
+                    
+                    loginText.style.display = 'none';
+                    loginLoading.style.display = 'inline';
+                    
+                    setTimeout(() => {
+                        if (username === 'admin' && password === 'notaria2025') {
+                            document.getElementById('loginSection').style.display = 'none';
+                            document.getElementById('adminPanel').style.display = 'block';
+                            initializeDashboard();
+                            showNotification('✅ Bienvenido - Sistema de Monitoreo Activado', 'success');
+                        } else {
+                            errorMessage.style.display = 'block';
+                            loginText.style.display = 'inline';
+                            loginLoading.style.display = 'none';
+                            showNotification('❌ Credenciales incorrectas', 'error');
+                        }
+                    }, 1500);
+                });
+            }
+
+            if (!checkAutoAccess()) {
+                addQuickAccessButton();
+            }
+        });
+
+        function logout() {
+            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('loginSection').style.display = 'flex';
+                document.getElementById('loginForm').reset();
+                document.getElementById('errorMessage').style.display = 'none';
+                showNotification('👋 Sesión cerrada - Sistema desconectado', 'info');
+            }
+        }
+
+        // ============================================
+        // CARGAR VENTAS DESDE LOCALSTORAGE
+        // ============================================
+        function loadVentasFromLocalStorage() {
+            try {
+                const ventasGuardadas = localStorage.getItem('adminVentas');
+                
+                if (ventasGuardadas) {
+                    const ventasArray = JSON.parse(ventasGuardadas);
+                    
+                    if (Array.isArray(ventasArray) && ventasArray.length > 0) {
+                        salesData = ventasArray;
+                        filteredData = [...salesData];
+                        
+                        window.salesData = salesData;
+                        window.filteredData = filteredData;
+                        
+                        console.log(`💾 ✅ ${salesData.length} ventas cargadas desde localStorage`);
+                        return true;
+                    }
+                }
+                
+                console.log('📭 No hay ventas guardadas en localStorage');
+                salesData = [];
+                filteredData = [];
+                
+                window.salesData = salesData;
+                window.filteredData = filteredData;
+                
+                return false;
+                
+            } catch (error) {
+                console.error('❌ Error al cargar ventas desde localStorage:', error);
+                salesData = [];
+                filteredData = [];
+                
+                window.salesData = salesData;
+                window.filteredData = filteredData;
+                
+                return false;
+            }
+        }
+
+        // ============================================
+        // MONITOREO AUTOMÁTICO
+        // ============================================
+        function startVentasMonitoring() {
+            setInterval(() => {
+                const currentCount = salesData.length;
+                loadVentasFromLocalStorage();
+                
+                if (salesData.length > currentCount) {
+                    const newSales = salesData.length - currentCount;
+                    console.log(`🆕 ${newSales} nueva(s) venta(s) detectada(s)`);
+                    
+                    updateStatistics();
+                    renderSalesTable();
+                    updateSystemStatus();
+                    
+                    showNotification(`🆕 ${newSales} nueva(s) venta(s) registrada(s)`, 'success');
+                }
+            }, 2000);
+            
+            console.log('👁️ Monitoreo automático de ventas iniciado (cada 2 segundos)');
+        }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        function initializeDashboard() {
+            console.log('🚀 Inicializando Panel de Administración con Sistema de Modal...');
+            
+            loadVentasFromLocalStorage();
+            createModalIfNotExists();
+            startVentasMonitoring();
+            
+            updateStatistics();
+            renderSalesTable();
+            setupDateFilters();
+            setupGlobalSearch();
+            updateSystemStatus();
+            
+            console.log('✅ Panel listo - Monitoreando localStorage["adminVentas"]');
+            console.log('🖱️ Sistema de modal activado - Haz clic en cualquier fila para ver detalles');
+        }
+
+        // ============================================
+        // CREAR MODAL
+        // ============================================
+        function createModalIfNotExists() {
+            if (document.getElementById('saleDetailsModal')) {
+                console.log('📋 Modal ya existe, reutilizando...');
+                return;
+            }
+            
+            console.log('📋 Modal de detalles creado correctamente');
+        }
+
+        // ============================================
+        // RENDERIZAR TABLA
+        // ============================================
+        function renderSalesTable() {
+            const tbody = document.getElementById('salesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const tableContainer = document.getElementById('tableContainer');
+            const pagination = document.getElementById('pagination');
+            
+            if (filteredData.length === 0) {
+                emptyState.style.display = 'block';
+                tableContainer.style.display = 'none';
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tableContainer.style.display = 'block';
+            pagination.style.display = 'flex';
+            
+            const startIndex = (currentPage - 1) * recordsPerPage;
+            const endIndex = startIndex + recordsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            tbody.innerHTML = pageData.map((venta, index) => `
+                <tr onclick="window.openSaleDetailsModal(${startIndex + index})" class="sale-row" data-sale-index="${startIndex + index}" style="cursor: pointer;">
+                    <td><strong>${venta.venta_id}</strong></td>
+                    <td>${venta.fecha_pago}</td>
+                    <td><span class="notary-badge">${truncateText(venta.notaria, 20)}</span></td>
+                    <td>${truncateText(venta.notario, 15)}</td>
+                    <td class="client-info">${truncateText(venta.cliente, 20)}</td>
+                    <td>${truncateText(venta.email, 25)}</td>
+                    <td>${truncateText(venta.telefono, 15)}</td>
+                    <td>-</td>
+                    <td>${truncateText(venta.servicio, 20)}</td>
+                    <td class="amount">${venta.monto.toLocaleString()}</td>
+                    <td><span class="payment-method">${truncateText(venta.metodo_pago, 12)}</span></td>
+                    <td><span class="status-badge status-completed">✅ ${venta.estado}</span></td>
+                </tr>
+            `).join('');
+
+            renderPagination();
+            
+            window.filteredData = filteredData;
+            window.salesData = salesData;
+            
+            if (pageData.length > 0) {
+                addClickHint();
+            }
+            
+            console.log('📊 Tabla renderizada con', pageData.length, 'filas clickeables');
+        }
+
+        // ============================================
+        // FUNCIONES AUXILIARES
+        // ============================================
+        function truncateText(text, maxLength) {
+            if (!text) return '-';
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength) + '...';
+        }
+
+        function addClickHint() {
+            const tableContainer = document.getElementById('tableContainer');
+            
+            const existingHint = document.querySelector('.click-hint');
+            if (existingHint) {
+                existingHint.remove();
+            }
+            
+            const hint = document.createElement('div');
+            hint.className = 'click-hint';
+            hint.textContent = '👆 Haz clic en cualquier fila para ver detalles completos';
+            hint.style.cssText = `
+                position: absolute;
+                top: -35px;
+                right: 20px;
+                background: rgba(102, 126, 234, 0.9);
+                color: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                animation: bounce 2s infinite;
+            `;
+            
+            tableContainer.style.position = 'relative';
+            tableContainer.appendChild(hint);
+            
+            setTimeout(() => {
+                if (hint.parentElement) {
+                    hint.remove();
+                }
+            }, 10000);
+        }
+
+        // ============================================
+        // FUNCIONES GLOBALES PARA MODAL
+        // ============================================
+        window.openSaleDetailsModal = function(saleIndex) {
+            try {
+                console.log('🖱️ Click detectado en fila:', saleIndex);
+                
+                const venta = window.filteredData[saleIndex];
+                if (!venta) {
+                    console.error('❌ No se encontró la venta en índice:', saleIndex);
+                    showNotification('❌ Error al cargar los detalles de la venta', 'error');
+                    return;
+                }
+                
+                console.log('📋 Abriendo modal para venta:', venta.venta_id);
+                
+                window.populateSaleDetailsModal(venta);
+                
+                const modal = document.getElementById('saleDetailsModal');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                console.log('✅ Modal abierto correctamente');
+                
+            } catch (error) {
+                console.error('❌ Error al abrir modal:', error);
+                showNotification('❌ Error al mostrar los detalles', 'error');
+            }
+        };
+
+        window.closeSaleDetailsModal = function() {
+            try {
+                const modal = document.getElementById('saleDetailsModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    console.log('📋 Modal cerrado correctamente');
+                }
+            } catch (error) {
+                console.error('❌ Error al cerrar modal:', error);
+            }
+        };
+
+        window.populateSaleDetailsModal = function(venta) {
+            try {
+                console.log('📝 Llenando modal con datos:', venta);
+                
+                const elements = {
+                    modalClientName: document.getElementById('modalClientName'),
+                    modalClientEmail: document.getElementById('modalClientEmail'),
+                    modalClientPhone: document.getElementById('modalClientPhone'),
+                    modalClientRut: document.getElementById('modalClientRut'),
+                    modalNotaryName: document.getElementById('modalNotaryName'),
+                    modalNotaryOwner: document.getElementById('modalNotaryOwner'),
+                    modalService: document.getElementById('modalService'),
+                    modalTransactionId: document.getElementById('modalTransactionId'),
+                    modalDateTime: document.getElementById('modalDateTime'),
+                    modalAmount: document.getElementById('modalAmount'),
+                    modalPaymentMethod: document.getElementById('modalPaymentMethod'),
+                    modalPaymentStatus: document.getElementById('modalPaymentStatus')
+                };
+                
+                if (elements.modalClientName) elements.modalClientName.textContent = venta.cliente || 'No especificado';
+                if (elements.modalClientEmail) elements.modalClientEmail.textContent = venta.email || 'No especificado';
+                if (elements.modalClientPhone) elements.modalClientPhone.textContent = venta.telefono || 'No especificado';
+                if (elements.modalClientRut) elements.modalClientRut.textContent = venta.rut || 'No especificado';
+                if (elements.modalNotaryName) elements.modalNotaryName.textContent = venta.notaria || 'No especificado';
+                if (elements.modalNotaryOwner) elements.modalNotaryOwner.textContent = venta.notario || 'No especificado';
+                if (elements.modalService) elements.modalService.textContent = venta.servicio || 'No especificado';
+                if (elements.modalTransactionId) elements.modalTransactionId.textContent = venta.venta_id || 'No especificado';
+                if (elements.modalDateTime) elements.modalDateTime.textContent = venta.fecha_pago || 'No especificado';
+                if (elements.modalAmount) elements.modalAmount.textContent = `${venta.monto ? venta.monto.toLocaleString() : '0'}`;
+                if (elements.modalPaymentMethod) elements.modalPaymentMethod.textContent = venta.metodo_pago || 'No especificado';
+                
+                if (elements.modalPaymentStatus) {
+                    const isDemo = venta.cliente?.includes('DEMO') || venta.servicio?.includes('DEMO');
+                    elements.modalPaymentStatus.innerHTML = `<span class="status-detail ${venta.estado === 'PAGADO' ? (isDemo ? 'demo' : 'completed') : 'demo'}">${venta.estado || 'PENDIENTE'}</span>`;
+                }
+                
+                console.log('✅ Modal llenado correctamente');
+                
+            } catch (error) {
+                console.error('❌ Error al llenar modal:', error);
+                showNotification('❌ Error al cargar los datos del modal', 'error');
+            }
+        };
+
+        // ============================================
+        // OTRAS FUNCIONES NECESARIAS
+        // ============================================
+        function updateStatistics() {
+            const totalSales = salesData.reduce((sum, venta) => sum + venta.monto, 0);
+            const totalTransactions = salesData.length;
+            const today = new Date().toLocaleDateString('es-CL');
+            const todaySales = salesData
+                .filter(venta => venta.fecha_pago.includes(today.split('-').reverse().join('/')))
+                .reduce((sum, venta) => sum + venta.monto, 0);
+            
+            updateElementText('totalSales', `${totalSales.toLocaleString()}`);
+            updateElementText('totalTransactions', totalTransactions);
+            updateElementText('todaySales', `${todaySales.toLocaleString()}`);
+            updateElementText('todayEarnings', `${todaySales}`);
+            updateElementText('weekEarnings', `${totalSales}`);
+            updateElementText('completedTx', totalTransactions);
+            updateElementText('pendingTx', 0);
+            updateElementText('topNotary', salesData.length > 0 ? 'San Pedro' : '-');
+            updateElementText('avgPerNotary', `${Math.round(totalSales / Math.max(1, totalTransactions))}`);
+            updateElementText('hourlyAvg', `${Math.round(todaySales / 24)}`);
+            updateElementText('bestService', salesData.length > 0 ? 'Declaraciones' : '-');
+        }
+
+        function updateSystemStatus() {
+            const statusElement = document.getElementById('systemStatus');
+            if (!statusElement) return;
+            
+            if (salesData.length > 0) {
+                statusElement.innerHTML = `🟢 Sistema activo - ${salesData.length} ventas registradas`;
+            } else {
+                statusElement.innerHTML = '🟡 Esperando pagos de usuarios...';
+            }
+        }
+
+        function updateElementText(id, text) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = text;
+            }
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / recordsPerPage);
+            const paginationContainer = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+            
+            paginationContainer.style.display = 'flex';
+            let paginationHTML = '';
+            
+            if (currentPage > 1) {
+                paginationHTML += `<button onclick="changePage(${currentPage - 1})">‹ Anterior</button>`;
+            }
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+                    paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<button disabled>...</button>`;
+                }
+            }
+            
+            if (currentPage < totalPages) {
+                paginationHTML += `<button onclick="changePage(${currentPage + 1})">Siguiente ›</button>`;
+            }
+            
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderSalesTable();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setupGlobalSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            let searchTimeout;
+            
+            if (!searchInput) return;
+            
+            searchInput.addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    
+                    if (searchTerm === '') {
+                        filteredData = [...salesData];
+                    } else {
+                        filteredData = salesData.filter(venta => 
+                            venta.venta_id.toLowerCase().includes(searchTerm) ||
+                            venta.cliente.toLowerCase().includes(searchTerm) ||
+                            venta.email.toLowerCase().includes(searchTerm) ||
+                            venta.telefono.includes(searchTerm) ||
+                            venta.notaria.toLowerCase().includes(searchTerm) ||
+                            venta.servicio.toLowerCase().includes(searchTerm)
+                        );
+                    }
+                    
+                    currentPage = 1;
+                    renderSalesTable();
+                    
+                    if (searchTerm !== '') {
+                        showNotification(`🔍 ${filteredData.length} resultados encontrados`, 'info');
+                    }
+                }, 300);
+            });
+        }
+
+        function setupDateFilters() {
+            const today = new Date().toISOString().split('T')[0];
+            const dateToElement = document.getElementById('dateTo');
+            const dateFromElement = document.getElementById('dateFrom');
+            
+            if (dateToElement) dateToElement.value = today;
+            
+            if (dateFromElement) {
+                const lastWeek = new Date();
+                lastWeek.setDate(lastWeek.getDate() - 7);
+                dateFromElement.value = lastWeek.toISOString().split('T')[0];
+            }
+        }
+
+        function applyFilters() {
+            const notaryFilter = document.getElementById('notaryFilter').value;
+            const serviceFilter = document.getElementById('serviceFilter').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            filteredData = salesData.filter(venta => {
+                let match = true;
+
+                if (notaryFilter && !venta.notaria.toLowerCase().includes(notaryFilter)) {
+                    match = false;
+                }
+
+                if (serviceFilter && !venta.servicio.toLowerCase().includes(serviceFilter)) {
+                    match = false;
+                }
+
+                if (dateFrom && venta.fecha_pago < dateFrom) {
+                    match = false;
+                }
+
+                if (dateTo && venta.fecha_pago > dateTo) {
+                    match = false;
+                }
+
+                return match;
+            });
+
+            currentPage = 1;
+            renderSalesTable();
+            
+            const resultCount = filteredData.length;
+            showNotification(`🔍 Filtros aplicados - ${resultCount} resultados encontrados`, 'success');
+        }
+
+        function clearFilters() {
+            const elements = ['notaryFilter', 'serviceFilter', 'dateFrom', 'dateTo', 'globalSearch'];
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.value = '';
+            });
+            
+            filteredData = [...salesData];
+            currentPage = 1;
+            renderSalesTable();
+            
+            showNotification('🧹 Filtros limpiados - Mostrando todas las ventas', 'info');
+        }
+
+        function refreshData() {
+            const refreshIcon = document.getElementById('refreshIcon');
+            if (refreshIcon) refreshIcon.innerHTML = '<span class="loading-spinner"></span>';
+            
+            showNotification('🔄 Actualizando panel...', 'info');
+            
+            setTimeout(() => {
+                loadVentasFromLocalStorage();
+                updateStatistics();
+                renderSalesTable();
+                updateSystemStatus();
+                
+                if (refreshIcon) refreshIcon.innerHTML = '🔄';
+                showNotification(`✅ Panel actualizado - ${salesData.length} ventas totales`, 'success');
+            }, 1500);
+        }
+
+        function exportData() {
+            if (filteredData.length === 0) {
+                showNotification('⚠️ No hay ventas para exportar', 'warning');
+                return;
+            }
+            
+            showNotification('📊 Preparando exportación...', 'info');
+            
+            setTimeout(() => {
+                const headers = [
+                    'ID Venta',
+                    'Fecha Pago',
+                    'Notaría',
+                    'Notario',
+                    'Cliente',
+                    'Email',
+                    'Teléfono',
+                    'Servicio',
+                    'Monto ($)',
+                    'Método Pago',
+                    'Estado'
+                ];
+                
+                const csvContent = [
+                    headers.join(','),
+                    ...filteredData.map(venta => [
+                        venta.venta_id,
+                        venta.fecha_pago,
+                        `"${venta.notaria}"`,
+                        `"${venta.notario}"`,
+                        `"${venta.cliente}"`,
+                        venta.email,
+                        venta.telefono,
+                        `"${venta.servicio}"`,
+                        venta.monto,
+                        `"${venta.metodo_pago}"`,
+                        venta.estado
+                    ].join(','))
+                ].join('\n');
+
+                const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                const filename = `ventas_notarias_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                showNotification(`📥 Reporte descargado - ${filteredData.length} ventas exportadas`, 'success');
+            }, 1500);
+        }
+
+        function createTestTransaction() {
+            const testSale = {
+                venta_id: `TXN-${Date.now().toString().slice(-6)}-${Math.random().toString(36).substr(2, 3).toUpperCase()}`,
+                fecha_pago: new Date().toLocaleString('es-CL'),
+                notaria: 'Novena Notaría de Concepción - San Pedro de la Paz',
+                notario: 'Rodrigo Rojas Castillo',
+                cliente: 'Cliente de Prueba',
+                email: 'prueba@notariadigital.com',
+                telefono: '+56 9 1234 5678',
+                servicio: 'Declaraciones Juradas (PRUEBA)',
+                monto: 15,
+                metodo_pago: 'Tarjeta de Crédito',
+                estado: 'PAGADO',
+                timestamp: Date.now()
+            };
+            
+            const existingVentas = JSON.parse(localStorage.getItem('adminVentas') || '[]');
+            existingVentas.unshift(testSale);
+            localStorage.setItem('adminVentas', JSON.stringify(existingVentas));
+            
+            loadVentasFromLocalStorage();
+            updateStatistics();
+            renderSalesTable();
+            updateSystemStatus();
+            
+            showNotification('🧪 Pago de prueba registrado exitosamente', 'warning');
+        }
+
+        function showNotification(message, type = 'info') {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${getNotificationIcon(type)}</span>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            const bgColor = type === 'success' ? 'rgba(40, 167, 69, 0.9)' : 
+                           type === 'error' ? 'rgba(220, 53, 69, 0.9)' : 
+                           type === 'warning' ? 'rgba(255, 193, 7, 0.9)' : 'rgba(23, 162, 184, 0.9)';
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: ${bgColor};
+                color: white;
+                padding: 20px 30px;
+                border-radius: 15px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+                max-width: 420px;
+                font-family: 'Century Gothic', sans-serif;
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        function getNotificationIcon(type) {
+            switch (type) {
+                case 'success': return '✅';
+                case 'error': return '❌';
+                case 'warning': return '⚠️';
+                default: return 'ℹ️';
+            }
+        }
+
+        // Eventos globales para cerrar modal
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('saleDetailsModal');
+            if (e.target === modal && modal?.classList.contains('active')) {
+                window.closeSaleDetailsModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('saleDetailsModal');
+            if (e.key === 'Escape' && modal?.classList.contains('active')) {
+                window.closeSaleDetailsModal();
+            }
+        });
+
+        console.log('🏛️ Admin Panel COMPLETO cargado correctamente');
+        console.log('💾 Sistema lee ventas desde localStorage["adminVentas"]');
+        console.log('🖱️ Sistema de modal completamente funcional');
+    </script>
+</body>
+</html>

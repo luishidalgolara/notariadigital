@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Aviso de Término de Contrato de Trabajo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Aviso de Término de Contrato</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha del Aviso</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadAviso" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Aviso</label>
+                                <input type="date" id="fechaAviso">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL EMPLEADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Empleador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Razón Social / Nombre</label>
+                                <input type="text" id="nombreEmpleador" placeholder="Ej: Empresa ABC S.A.">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutEmpleador" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioEmpleador" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaEmpleador" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadEmpleador" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Representante Legal</label>
+                                <input type="text" id="representanteLegal" placeholder="Ej: Juan Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT Representante</label>
+                                <input type="text" id="rutRepresentante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaEmpleador">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoEmpleador">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL TRABAJADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Trabajador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreTrabajador" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutTrabajador" placeholder="Ej: 23.456.789-0">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioTrabajador" placeholder="Ej: Las Condes 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaTrabajador" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadTrabajador" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo</label>
+                                <input type="text" id="cargoTrabajador" placeholder="Ej: Vendedor, Contador, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Área/Departamento</label>
+                                <input type="text" id="areaTrabajador" placeholder="Ej: Ventas, Contabilidad, etc.">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaTrabajador">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoTrabajador">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📋</div>
+                            <h2 class="section-title">Datos del Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Inicio</label>
+                                <input type="date" id="fechaInicioContrato">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Contrato</label>
+                                <select id="tipoContrato">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="Indefinido">Contrato Indefinido</option>
+                                    <option value="Plazo Fijo">Contrato a Plazo Fijo</option>
+                                    <option value="Por Obra">Contrato por Obra o Faena</option>
+                                    <option value="Temporal">Contrato Temporal</option>
+                                    <option value="Aprendizaje">Contrato de Aprendizaje</option>
+                                    <option value="Honorarios">Contrato a Honorarios</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Jornada Laboral</label>
+                                <select id="jornadaLaboral">
+                                    <option value="">Seleccionar jornada</option>
+                                    <option value="Completa">Jornada Completa (45 horas)</option>
+                                    <option value="Parcial">Jornada Parcial</option>
+                                    <option value="Flexible">Jornada Flexible</option>
+                                    <option value="Turno">Sistema de Turnos</option>
+                                    <option value="Otra">Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sueldo Base</label>
+                                <input type="number" id="sueldoBase" min="0" placeholder="Ej: 500000">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones del Contrato</label>
+                                <textarea id="observacionesContrato" rows="3" placeholder="Describa cualquier detalle relevante del contrato de trabajo..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MOTIVO DEL TÉRMINO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Motivo del Término</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de Término</label>
+                                <input type="date" id="fechaTermino">
+                            </div>
+                            <div class="form-group">
+                                <label>Artículo del Código del Trabajo</label>
+                                <select id="articuloCodigo">
+                                    <option value="">Seleccionar artículo</option>
+                                    <option value="159">Art. 159 - Mutuo acuerdo</option>
+                                    <option value="160">Art. 160 - Vencimiento del plazo</option>
+                                    <option value="161">Art. 161 - Necesidades de la empresa</option>
+                                    <option value="162">Art. 162 - Desahucio del empleador</option>
+                                    <option value="163">Art. 163 - Renuncia del trabajador</option>
+                                    <option value="164">Art. 164 - Muerte del trabajador</option>
+                                    <option value="165">Art. 165 - Caso fortuito o fuerza mayor</option>
+                                    <option value="Otro">Otro artículo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número o Inciso</label>
+                                <input type="text" id="numeroInciso" placeholder="Ej: número 1, inciso 2, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Causal</label>
+                                <select id="tipoCausal">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="Mutuo acuerdo">Mutuo acuerdo</option>
+                                    <option value="Renuncia">Renuncia del trabajador</option>
+                                    <option value="Vencimiento">Vencimiento del plazo</option>
+                                    <option value="Necesidades empresa">Necesidades de la empresa</option>
+                                    <option value="Desahucio">Desahucio</option>
+                                    <option value="Falta grave">Falta grave</option>
+                                    <option value="Abandono trabajo">Abandono del trabajo</option>
+                                    <option value="Caso fortuito">Caso fortuito o fuerza mayor</option>
+                                    <option value="Otra">Otra causal</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción de la Causal</label>
+                                <textarea id="descripcionCausal" rows="3" placeholder="Describa brevemente la causal invocada para el término del contrato..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Hechos que Fundamentan la Causal</label>
+                                <textarea id="hechosFundamento" rows="4" placeholder="Describa detalladamente los hechos en que se funda la causal invocada..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN ADICIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📄</div>
+                            <h2 class="section-title">Información Adicional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Estado Cotizaciones</label>
+                                <select id="estadoCotizaciones">
+                                    <option value="">Seleccionar estado</option>
+                                    <option value="Al día">Cotizaciones al día</option>
+                                    <option value="Con deuda">Con deuda pendiente</option>
+                                    <option value="En proceso">En proceso de regularización</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Certificado Cotizaciones</label>
+                                <select id="certificadoCotizaciones">
+                                    <option value="">Tipo de certificado</option>
+                                    <option value="Adjunto">Se adjunta certificado</option>
+                                    <option value="Planillas">Se adjuntan planillas</option>
+                                    <option value="Se enviará">Se enviará posteriormente</option>
+                                    <option value="No aplica">No aplica</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de Entrega</label>
+                                <select id="formaEntrega">
+                                    <option value="">Seleccionar forma</option>
+                                    <option value="Personal">Entrega personal</option>
+                                    <option value="Correo certificado">Correo certificado</option>
+                                    <option value="Email">Correo electrónico</option>
+                                    <option value="Otro">Otro medio</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Inspección del Trabajo</label>
+                                <select id="inspeccionTrabajo">
+                                    <option value="">Envío a inspección</option>
+                                    <option value="Se enviará">Se enviará copia</option>
+                                    <option value="Ya enviado">Ya fue enviado</option>
+                                    <option value="No requerido">No requerido</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier observación adicional relevante..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">AVISO DE TÉRMINO DE CONTRATO DE TRABAJO</div>
+                            <div class="document-subtitle">Notificación Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: right; margin-bottom: 20px;">
+                                <span class="highlight" id="prev_ciudadAviso">...........</span>, <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">20..</span>
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <strong>SEÑOR(A):</strong><br>
+                                <span class="highlight" id="prev_nombreTrabajador">.........................</span><br>
+                                <strong>PRESENTE</strong>
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">Estimado señor(a):</p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                Nos permitimos comunicar que, con esta fecha, <span class="highlight" id="prev_fechaTermino2">....... de ................. de 2.....</span>, se ha resuelto poner término al contrato de trabajo que lo vincula con la empresa, por la causal del artículo <span class="highlight" id="prev_articuloCodigo">......</span>, <span class="highlight" id="prev_numeroInciso">.................</span>, del Código del Trabajo, esto es, <span class="highlight" id="prev_tipoCausal">.........................</span>
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <span class="highlight" id="prev_descripcionCausal">................................................................................................................................</span>
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                Los hechos en que se funda la causal invocada consisten en que:
+                            </p>
+                            
+                            <p style="margin-bottom: 20px;">
+                                <span class="highlight" id="prev_hechosFundamento">................................................................................................................................................................................................................................................................................................................................................................................................</span>
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                Informo que sus cotizaciones previsionales <span class="highlight" id="prev_estadoCotizaciones">........................</span>. Además, <span class="highlight" id="prev_certificadoCotizaciones">........................</span> de las entidades de previsión a las que se encuentra afiliado, que dan cuenta que las cotizaciones previsionales, del período trabajado, se encuentran pagadas.
+                            </p>
+                            
+                            <p style="margin-bottom: 25px;">Saluda a usted,</p>
+                            
+                            <br><br>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderEmpleador">Firma Digital</span>
+                                        <img class="signature-preview" id="signaturePreviewEmpleador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Empleador">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaEmpleador">_______________</div>
+                                    <div class="signature-role">EMPLEADOR</div>
+                                    <div style="font-size: 0.8rem; margin-top: 4px;">
+                                        <span class="highlight" id="prev_nombreEmpleador2">.........................</span><br>
+                                        RUT: <span class="highlight" id="prev_rutEmpleador2">................</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderTrabajador">Firma Digital</span>
+                                        <img class="signature-preview" id="signaturePreviewTrabajador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Trabajador">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaTrabajador">_______________</div>
+                                    <div class="signature-role">TRABAJADOR</div>
+                                    <div style="font-size: 0.8rem; margin-top: 4px;">
+                                        Recibí copia de la presente carta
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 25px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; font-size: 0.7rem; color: #94a3b8; line-height: 1.3;">
+                                <strong>Nota:</strong> Este aviso debe entregarse personalmente al trabajador, quien deberá firmar una copia del mismo, o enviarse por Correo Certificado al último domicilio que tiene registrado la empresa, en el plazo de tres días hábiles, o seis días hábiles cuando se invoque causa fortuita o fuerza mayor, ambos contado desde que deja de pertenecer a la empresa, considerándose el sábado como día hábil, o de treinta días a lo menos cuando sea aplicada como causal las señaladas en el Artículo 161 del Código del Trabajo. Copia de este aviso debe remitirse a la Inspección del Trabajo, en los mismos plazos señalados.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="window.location.href='../tramites-virtuales.html'">
+                <span class="btn-icon">←</span>
+                <span class="btn-text">Volver a Trámites</span>
+            </button>
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS - ORDEN CORRECTO PARA EVITAR CONDICIONES DE CARRERA -->
+    <!-- 1. Cargar jsPDF PRIMERO (crítico para PDF) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- 2. Cargar configuración (requerida por script principal) -->
+    <script src="config.js"></script>
+    
+    <!-- 3. Cargar script principal (depende de config y jsPDF) -->
+    <script src="script.js"></script>
+    
+    <!-- 4. Cargar verificación facial (auto-contenido, se inicializa solo) -->
+    <script src="face-verification.js"></script>
+
+    <!-- SCRIPT DE VERIFICACIÓN DE CARGA FINAL -->
+    <script>
+        // Toggle del tema
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Cargar tema guardado
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            body.setAttribute('data-theme', savedTheme);
+            
+            // Toggle del tema
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Efecto de transición
+                body.classList.add('theme-transition');
+                setTimeout(() => {
+                    body.classList.remove('theme-transition');
+                }, 300);
+            });
+        });
+
+        // Verificación final para asegurar que todo se cargó correctamente
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                // Verificar elementos críticos después de carga completa
+                const criticalElements = [
+                    'firmaModalOverlay', 'photoModalOverlay', 
+                    'firmaEmpleador', 'firmaTrabajador',
+                    'photoEmpleador', 'photoTrabajador',
+                    'progressFill', 'progressText'
+                ];
+                
+                const missingElements = criticalElements.filter(id => !document.getElementById(id));
+                
+                if (missingElements.length > 0) {
+                    console.error('❌ Elementos críticos faltantes después de carga completa:', missingElements);
+                    
+                    // Intentar recargar sistemas si faltan elementos
+                    if (window.avisoTerminoSystem && typeof window.avisoTerminoSystem.handleInitializationError === 'function') {
+                        console.log('🔄 Activando recuperación automática...');
+                        window.avisoTerminoSystem.handleInitializationError(new Error('Elementos críticos faltantes'));
+                    }
+                } else {
+                    console.log('✅ Todos los elementos críticos verificados después de carga completa');
+                }
+                
+                // Verificar que los sistemas estén funcionando
+                const systemChecks = {
+                    avisoTerminoSystem: !!window.avisoTerminoSystem,
+                    firmaProcessor: !!window.firmaProcessor,
+                    photoProcessor: !!window.photoProcessor,
+                    faceVerification: !!window.faceVerificationSystem,
+                    jsPDF: !!window.jspdf,
+                    CONFIG: !!window.CONFIG
+                };
+                
+                console.log('🔍 Estado de sistemas:', systemChecks);
+                
+                // Si algún sistema crítico falla, mostrar advertencia
+                if (!systemChecks.avisoTerminoSystem || !systemChecks.jsPDF || !systemChecks.CONFIG) {
+                    console.warn('⚠️ Sistemas críticos no están completamente cargados');
+                    
+                    // Crear notificación de advertencia
+                    const warning = document.createElement('div');
+                    warning.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: linear-gradient(135deg, #3b82f6, #1e40af);
+                        color: white;
+                        padding: 15px 25px;
+                        border-radius: 12px;
+                        z-index: 9999;
+                        font-weight: 600;
+                        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+                        text-align: center;
+                        max-width: 400px;
+                    `;
+                    warning.innerHTML = '⚠️ Algunos sistemas se están cargando. Si experimenta problemas, recargue la página.';
+                    document.body.appendChild(warning);
+                    
+                    // Remover advertencia después de 10 segundos
+                    setTimeout(() => {
+                        if (warning.parentNode) {
+                            warning.parentNode.removeChild(warning);
+                        }
+                    }, 10000);
+                }
+            }, 2000); // Verificar 2 segundos después de carga completa
+        });
+        
+        // Manejar errores de script
+        window.addEventListener('error', function(event) {
+            console.error('❌ Error de script detectado:', event.error);
+            
+            // Si es un error crítico, intentar recuperación
+            if (event.filename && (event.filename.includes('script.js') || event.filename.includes('config.js'))) {
+                console.log('🚨 Error crítico detectado, activando modo de recuperación...');
+                
+                setTimeout(() => {
+                    if (!window.avisoTerminoSystem) {
+                        console.log('🔄 Reintentando inicialización del sistema...');
+                        // Recargar la página como último recurso
+                        if (confirm('El sistema ha encontrado un error. ¿Desea recargar la página para solucionarlo?')) {
+                            window.location.reload();
+                        }
+                    }
+                }, 3000);
+            }
+        });
+        
+        console.log('🛡️ Sistema de verificación y recuperación activado');
+    </script>
+</body>
+</html>

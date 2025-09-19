@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Pagaré Modelo Firma Presencial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Pagaré Modelo Firma Presencial</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DE LA SOCIEDAD ACREEDORA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos de la Sociedad Acreedora</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre de la Sociedad</label>
+                                <input type="text" id="nombreSociedad" placeholder="Ej: Sociedad Comercial Ltda.">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Sociedad</label>
+                                <input type="text" id="rutSociedad" placeholder="Ej: 76.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Giro de la Sociedad</label>
+                                <input type="text" id="giroSociedad" placeholder="Ej: Comercio al por menor">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Sociedad</label>
+                                <input type="text" id="domicilioSociedad" placeholder="Ej: Av. Providencia 1234, Oficina 567">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaSociedad" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadSociedad" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REPRESENTANTE LEGAL DE LA SOCIEDAD -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Representante Legal de la Sociedad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Representante</label>
+                                <input type="text" id="nombreRepresentante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadRepresentante" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="estadoCivilRepresentante">
+                                    <option value="">Seleccione estado civil</option>
+                                    <option value="soltero">Soltero</option>
+                                    <option value="casado">Casado</option>
+                                    <option value="viudo">Viudo</option>
+                                    <option value="divorciado">Divorciado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión</label>
+                                <input type="text" id="profesionRepresentante" placeholder="Ej: Ingeniero Comercial">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaRepresentante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL PAGARÉ -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Información del Pagaré</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monto en Números ($)</label>
+                                <input type="number" id="montoNumeros" placeholder="Ej: 1500000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Monto en Letras</label>
+                                <input type="text" id="montoLetras" placeholder="Ej: Un millón quinientos mil pesos" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Día de Pago</label>
+                                <input type="number" id="diaPago" placeholder="Ej: 15" min="1" max="31">
+                            </div>
+                            <div class="form-group">
+                                <label>Mes de Pago</label>
+                                <select id="mesPago">
+                                    <option value="">Seleccione mes</option>
+                                    <option value="enero">Enero</option>
+                                    <option value="febrero">Febrero</option>
+                                    <option value="marzo">Marzo</option>
+                                    <option value="abril">Abril</option>
+                                    <option value="mayo">Mayo</option>
+                                    <option value="junio">Junio</option>
+                                    <option value="julio">Julio</option>
+                                    <option value="agosto">Agosto</option>
+                                    <option value="septiembre">Septiembre</option>
+                                    <option value="octubre">Octubre</option>
+                                    <option value="noviembre">Noviembre</option>
+                                    <option value="diciembre">Diciembre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Pago</label>
+                                <input type="number" id="anoPago" placeholder="Ej: 2025" min="2024" max="2030">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna de Pago</label>
+                                <input type="text" id="comunaPago" placeholder="Ej: Santiago Centro">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATOS DEL SUSCRIPTOR/DEUDOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📝</div>
+                            <h2 class="section-title">Datos del Suscriptor/Deudor</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Suscriptor</label>
+                                <input type="text" id="nombreSuscriptor" placeholder="Ej: María Elena Rodríguez Silva">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Suscriptor</label>
+                                <input type="text" id="rutSuscriptor" placeholder="Ej: 15.678.901-2">
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión del Suscriptor</label>
+                                <input type="text" id="profesionSuscriptor" placeholder="Ej: Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Suscriptor</label>
+                                <input type="text" id="domicilioSuscriptor" placeholder="Ej: Las Condes 1234, Depto. 56">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaSuscriptor" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoSuscriptor" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REPRESENTANTES LEGALES DEL SUSCRIPTOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Representantes Legales del Suscriptor (Opcional)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Primer Representante Legal - Nombre Completo</label>
+                                <input type="text" id="nombreRep1" placeholder="Ej: Carlos Alberto Morales López (Opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaRep1" placeholder="Ej: 18.123.456-7">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo o Función</label>
+                                <input type="text" id="cargoRep1" placeholder="Ej: Gerente General">
+                            </div>
+                            
+                            <div class="form-group span-2">
+                                <label>Segundo Representante Legal - Nombre Completo</label>
+                                <input type="text" id="nombreRep2" placeholder="Ej: Ana María Flores Castillo (Opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label>Cédula de Identidad</label>
+                                <input type="text" id="cedulaRep2" placeholder="Ej: 19.234.567-8">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo o Función</label>
+                                <input type="text" id="cargoRep2" placeholder="Ej: Gerente Financiero">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FECHA Y LUGAR DE SUSCRIPCIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Fecha y Lugar de Suscripción</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad de Suscripción</label>
+                                <input type="text" id="ciudadSuscripcion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Suscripción</label>
+                                <input type="date" id="fechaSuscripcion">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales (Opcional)</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Cualquier información adicional relevante para el pagaré..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIONES LEGALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✅</div>
+                            <h2 class="section-title">Declaraciones Legales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionVeracidad" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro bajo fe de juramento que la información proporcionada en este pagaré es verdadera, completa y exacta. Acepto las responsabilidades legales que implica este documento.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionPago" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Confirmo expresamente mi compromiso de pago en la fecha establecida y acepto las condiciones de mora establecidas en el presente pagaré.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionCompetencia" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Acepto someterme a la competencia de los Tribunales Ordinarios de Justicia de Santiago y a las condiciones legales establecidas en el presente documento.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Pagaré</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">PAGARÉ</div>
+                            <div class="document-subtitle">(EN PESOS)</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 30px; text-align: justify; line-height: 1.8;">
+                                <p style="margin-bottom: 20px;">
+                                    Debo y pagaré a la vista de la Sociedad 
+                                    <strong><span id="prev_nombreSociedad" class="highlight">_____________________</span></strong>, 
+                                    del giro de su denominación, rol único tributario número 
+                                    <strong><span id="prev_rutSociedad" class="highlight">_____________________</span></strong>, 
+                                    representada por don 
+                                    <strong><span id="prev_nombreRepresentante" class="highlight">_____________________</span></strong>, 
+                                    <strong><span id="prev_nacionalidadRepresentante" class="highlight">_____________________</span></strong>, 
+                                    <strong><span id="prev_estadoCivilRepresentante" class="highlight">_____________________</span></strong>, 
+                                    <strong><span id="prev_profesionRepresentante" class="highlight">_____________________</span></strong>, 
+                                    cédula de identidad número 
+                                    <strong><span id="prev_cedulaRepresentante" class="highlight">_____________________</span></strong>, 
+                                    ambos domiciliados en 
+                                    <strong><span id="prev_domicilioSociedad" class="highlight">_____________________</span></strong>, 
+                                    comuna de 
+                                    <strong><span id="prev_comunaSociedad" class="highlight">_____________________</span></strong>, 
+                                    ciudad de 
+                                    <strong><span id="prev_ciudadSociedad" class="highlight">Santiago</span></strong>, 
+                                    la cantidad de <strong>$<span id="prev_montoNumeros" class="highlight">__.______._____</span>.- 
+                                    (<span id="prev_montoLetras" class="highlight">monto en letras</span>).</strong>
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Las sumas que debo serán pagadas en el domicilio de la sociedad señalada, 
+                                    ubicadas en <strong><span id="prev_domicilioSociedadPago" class="highlight">_____________________</span></strong>, 
+                                    comuna de <strong><span id="prev_comunaPago" class="highlight">_____________________</span></strong>, 
+                                    ciudad de Santiago, el día <strong><span id="prev_diaPago" class="highlight">__</span></strong> 
+                                    del mes de <strong><span id="prev_mesPago" class="highlight">_______</span></strong> 
+                                    del año <strong><span id="prev_anoPago" class="highlight">____</span></strong>
+                                </p>
+                                
+                                <p style="margin-bottom: 20px; font-size: 11px;">
+                                    En caso de mora o simple atraso en el pago de una cualquiera de las cuotas en que se divide 
+                                    el importe de este pagaré, el acreedor tendrá el derecho a hacer exigible el monto total insoluto, 
+                                    como si se tratare de una obligación de plazo vencido, en los términos previstos en el artículo 105 
+                                    inciso 2º de la Ley Nº 18.092.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px; font-size: 11px;">
+                                    Asimismo, en el evento de mora o simple atraso en el pago de una cualquiera de las cuotas en que 
+                                    se divide el importe de este pagaré, se devengará un interés penal moratorio equivalente al 
+                                    <strong>máximo convencional para operaciones no reajustables en moneda nacional</strong>, 
+                                    el que se calculará entre el día de mora o simple atraso y hasta el día de pago efectivo, 
+                                    sobre la cuota de que se trate o sobre la totalidad del importe, en su caso.
+                                </p>
+                                
+                                <div id="observacionesSection" style="margin-bottom: 20px; display: none;">
+                                    <p style="margin-bottom: 15px; font-size: 11px;">
+                                        <strong>Observaciones adicionales:</strong> <span id="prev_observacionesAdicionales" class="highlight">_____________________</span>
+                                    </p>
+                                </div>
+                                
+                                <p style="margin-bottom: 40px; font-size: 11px;">
+                                    El presente Pagaré se suscribe con cláusula "sin protesto". La obligación de este pagaré es indivisible. 
+                                    Los impuestos, derechos notariales y cualquier otro gasto serán de exclusivo cargo del suscriptor.
+                                </p>
+                            </div>
+
+                            <!-- Sección de Firmas -->
+                            <div style="margin-top: 60px;">
+                                <div style="text-align: center; margin-bottom: 80px;">
+                                    <div class="signature-line" style="display: inline-block; width: 300px; margin: 0 auto;">
+                                        <span class="signature-placeholder" id="signaturePlaceholderSuscriptor">Firma del Suscriptor</span>
+                                        <img class="signature-preview" id="signaturePreviewSuscriptor" style="display: none; max-width: 100%; max-height: 80px; object-fit: contain;" alt="Firma del Suscriptor">
+                                    </div>
+                                    <div style="margin-top: 15px; border-top: 2px solid var(--text-primary); padding-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">
+                                        <div class="signature-name" id="prev_nombreSuscriptorFirma">SUSCRIPTOR</div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            <span id="prev_nombreSuscriptor">_____________________</span>
+                                        </div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            RUT N° <span id="prev_rutSuscriptor">______________</span>
+                                        </div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            DOMICILIO: <span id="prev_domicilioSuscriptor">_____________________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Representantes Legales (Opcional) -->
+                                <div id="representantesSection" style="display: none;">
+                                    <div style="text-align: center; margin-bottom: 60px;">
+                                        <div class="signature-line" style="display: inline-block; width: 250px; margin: 0 20px;">
+                                            <span class="signature-placeholder">Representante Legal 1</span>
+                                        </div>
+                                        <div class="signature-line" style="display: inline-block; width: 250px; margin: 0 20px;">
+                                            <span class="signature-placeholder">Representante Legal 2</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; justify-content: center; gap: 40px;">
+                                        <div style="text-align: center; border-top: 2px solid var(--text-primary); padding-top: 15px; width: 250px;">
+                                            <div class="signature-name" id="prev_nombreRep1">_____________________</div>
+                                            <div class="signature-role" style="font-size: 11px; margin-top: 3px;">
+                                                CI N° <span id="prev_cedulaRep1">_____________________</span>
+                                            </div>
+                                            <div class="signature-role" style="font-size: 11px; margin-top: 3px;">
+                                                <span id="prev_cargoRep1">_____________________</span>
+                                            </div>
+                                        </div>
+                                        <div style="text-align: center; border-top: 2px solid var(--text-primary); padding-top: 15px; width: 250px;">
+                                            <div class="signature-name" id="prev_nombreRep2">_____________________</div>
+                                            <div class="signature-role" style="font-size: 11px; margin-top: 3px;">
+                                                CI N° <span id="prev_cedulaRep2">_____________________</span>
+                                            </div>
+                                            <div class="signature-role" style="font-size: 11px; margin-top: 3px;">
+                                                <span id="prev_cargoRep2">_____________________</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="text-align: center; margin-top: 40px; border: 2px solid var(--text-primary); padding: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                                        <div style="font-weight: bold; font-size: 14px;">
+                                            pp. <span id="prev_nombreSociedadFinal">_____________________</span>
+                                        </div>
+                                        <div style="font-weight: bold; margin-top: 10px;">
+                                            SUSCRIPTORA
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="text-align: center; margin-top: 50px; font-size: 12px;">
+                                    <span id="prev_ciudadSuscripcion">Santiago</span>, 
+                                    <span id="prev_fechaSuscripcion">__ de _______ de ____</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

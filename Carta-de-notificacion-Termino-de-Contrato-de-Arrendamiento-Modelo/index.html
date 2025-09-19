@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Carta de No Renovación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- ESTILOS FIRMA DIGITAL INTEGRADOS -->
+    <style>
+        /* ===== MODAL PROCESADOR DE FIRMAS DIGITALES ===== */
+        .firma-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 20, 25, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .firma-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .firma-modal-container {
+            background: rgba(26, 32, 44, 0.95);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(74, 85, 104, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transform: scale(0.9) translateY(50px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .firma-modal-overlay.active .firma-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .firma-modal-header {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            padding: 32px 40px;
+            border-bottom: 1px solid rgba(74, 85, 104, 0.3);
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .firma-modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(49, 130, 206, 0.1) 0%, transparent 50%);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .firma-modal-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .firma-modal-icon {
+            font-size: 2.5rem;
+            padding: 16px;
+            background: linear-gradient(135deg, #3182ce, #4299e1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(49, 130, 206, 0.3);
+        }
+
+        .firma-modal-text h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+
+        .firma-modal-text p {
+            font-size: 1rem;
+            color: #a0aec0;
+            font-weight: 400;
+        }
+
+        .firma-modal-close {
+            background: rgba(74, 85, 104, 0.3);
+            border: 2px solid rgba(74, 85, 104, 0.4);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .firma-modal-close:hover {
+            background: rgba(74, 85, 104, 0.5);
+            border-color: rgba(74, 85, 104, 0.6);
+            transform: scale(1.05);
+        }
+
+        .firma-modal-content {
+            padding: 40px;
+            position: relative;
+        }
+
+        .firma-upload-area {
+            border: 3px dashed rgba(74, 85, 104, 0.4);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            background: rgba(45, 55, 72, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .firma-upload-area:hover {
+            border-color: rgba(49, 130, 206, 0.6);
+            background: rgba(49, 130, 206, 0.05);
+        }
+
+        .firma-upload-area.dragover {
+            border-color: #4299e1;
+            background: rgba(66, 153, 225, 0.1);
+            transform: scale(1.02);
+        }
+
+        .firma-upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .firma-upload-area h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .firma-upload-area p {
+            font-size: 1rem;
+            color: #a0aec0;
+            margin-bottom: 24px;
+        }
+
+        .firma-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: 2px solid;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .firma-btn-primary {
+            background: linear-gradient(135deg, #3182ce, #4299e1);
+            border-color: rgba(66, 153, 225, 0.3);
+            color: white;
+            box-shadow: 0 4px 16px rgba(49, 130, 206, 0.25);
+        }
+
+        .firma-btn-primary:hover {
+            background: linear-gradient(135deg, #2c5282, #3182ce);
+            border-color: rgba(66, 153, 225, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(49, 130, 206, 0.35);
+        }
+
+        .firma-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 32, 44, 0.95);
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .firma-loading.active {
+            display: flex;
+        }
+
+        .firma-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(74, 85, 104, 0.3);
+            border-top: 4px solid #4299e1;
+            border-radius: 50%;
+            animation: firma-spin 1s linear infinite;
+        }
+
+        @keyframes firma-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .firma-loading p {
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .firma-alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid;
+            display: none;
+            font-weight: 500;
+        }
+
+        .firma-alert.success {
+            background: rgba(72, 187, 120, 0.1);
+            border-color: rgba(72, 187, 120, 0.3);
+            color: #48bb78;
+        }
+
+        .firma-alert.error {
+            background: rgba(245, 101, 101, 0.1);
+            border-color: rgba(245, 101, 101, 0.3);
+            color: #f56565;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">📋</div>
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Carta de No Renovación</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL ARRENDADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏠</div>
+                            <h2 class="section-title">Datos del Arrendador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreArrendador" placeholder="Ej: Juan Carlos Pérez García">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutArrendador" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn-digital-signature" id="firmaArrendador">
+                                    <span class="signature-icon">✍️</span>
+                                    <span class="signature-text">FIRMA DIGITAL</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ARRENDATARIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Arrendatario</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreArrendatario" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutArrendatario" placeholder="Ej: 23.456.789-0">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Dirección del Arrendatario</label>
+                                <input type="text" id="direccionArrendatario" placeholder="Ej: Av. Providencia 1234">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna del Arrendatario</label>
+                                <input type="text" id="comunaArrendatario" placeholder="Ej: Providencia">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL INMUEBLE Y CONTRATO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏢</div>
+                            <h2 class="section-title">Datos del Inmueble y Contrato</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Dirección del Inmueble Arrendado</label>
+                                <input type="text" id="direccionInmueble" placeholder="Ej: Av. Las Condes 12345, Depto 802">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna del Inmueble</label>
+                                <input type="text" id="comunaInmueble" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="regionInmueble" placeholder="Ej: Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Contrato Original</label>
+                                <input type="date" id="fechaContratoOriginal">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Vencimiento del Contrato</label>
+                                <input type="date" id="fechaVencimiento">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FECHA DE LA CARTA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Fecha de la Carta</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Fecha de la Carta</label>
+                                <input type="date" id="fechaCarta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CARTA DE NO RENOVACIÓN DE CONTRATO DE ARRENDAMIENTO</div>
+                            <div class="document-subtitle">Documento Legal Oficial</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div class="fecha-lugar">
+                                <p>Santiago, <span class="highlight" id="prev_dia">__</span> de <span class="highlight" id="prev_mes">_____</span> de <span class="highlight" id="prev_anio">____</span></p>
+                            </div>
+                            
+                            <div class="destinatario" style="margin: 30px 0;">
+                                <p><strong>Nombre de Arrendatario: <span class="highlight" id="prev_nombreArrendatario">_____________</span></strong></p>
+                                <p>Dirección Arrendatario: <span class="highlight" id="prev_direccionArrendatario">_____________</span></p>
+                                <p>Comuna: <span class="highlight" id="prev_comunaArrendatario">_____________</span></p>
+                                <p><strong>PRESENTE</strong></p>
+                            </div>
+                            
+                            <div class="titulo-carta" style="text-align: center; margin: 30px 0;">
+                                <h3><strong>CARTA DE NO RENOVACIÓN DE CONTRATO DE ARRENDAMIENTO</strong></h3>
+                            </div>
+                            
+                            <div class="contenido-carta">
+                                <p><strong>Nombre Arrendador: <span class="highlight" id="prev_nombreArrendador">_____________</span></strong>, chilena, cédula nacional de identidad N° <span class="highlight" id="prev_rutArrendador">_____________</span> en su calidad de arrendadora respecto del inmueble de su propiedad, ubicado en <span class="highlight" id="prev_direccionInmueble">_____________</span>, comuna de <span class="highlight" id="prev_comunaInmueble">_____________</span>, Región <span class="highlight" id="prev_regionInmueble">_____________</span>, según consta en Contrato de Arrendamiento de fecha <span class="highlight" id="prev_fechaContratoOriginal">_____________</span>, suscrito con don Arrendatario <span class="highlight" id="prev_nombreArrendatario2">_____________</span>, cédula nacional de identidad <span class="highlight" id="prev_rutArrendatario">_____________</span>, en calidad de arrendatario, venimos en comunicar lo siguiente:</p>
+                                
+                                <p style="margin-top: 20px;">Que, en virtud de lo establecido en la Cláusula Tercera del Contrato de Arrendamiento referido, manifestamos al arrendatario, y con la anticipación establecida en ella, nuestra intención expresa de <strong>no renovar, automática y tácitamente</strong>, dicho Contrato para el período siguiente de un año. Por lo anterior, el arrendatario deberá restituir el inmueble en los términos estipulados en la Cláusula Duodécima, en la fecha acordada como término del Contrato, es decir, en el plazo que <strong>vence el día <span class="highlight" id="prev_diaVencimiento">__</span> de <span class="highlight" id="prev_mesVencimiento">_____</span> del año <span class="highlight" id="prev_anioVencimiento">____</span></strong>.</p>
+                                
+                                <p style="margin-top: 20px;">Asimismo, se comunica que, previa coordinación entre las partes, se deberá permitir el ingreso a la <strong>PARTE ARRENDADORA</strong> al menos una vez a la semana para efectos de proceder a mostrar el inmueble por motivos de venta.</p>
+                            </div>
+                            
+                            <div class="signature-section" style="margin-top: 80px;">
+                                <div class="signature-box" style="margin: 0 auto; max-width: 300px;">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderArrendador">Firma Digital</span>
+                                        <img class="signature-preview" id="signaturePreviewArrendador" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Arrendador">
+                                    </div>
+                                    <div class="signature-info" style="text-align: center;">
+                                        <div class="signature-name" id="prev_firmaArrendador" style="font-weight: bold;"><span class="highlight" id="prev_nombreArrendadorFirma">_______________</span></div>
+                                        <div class="signature-rut">RUT: <span class="highlight" id="prev_rutArrendadorFirma">_______________</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS INTEGRADO -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- JAVASCRIPT FIRMA DIGITAL INTEGRADO -->
+    <script>
+    // Procesador de Firmas Digitales
+    class FirmaDigitalProcessor {
+        constructor() {
+            this.processedImageData = null;
+            this.currentType = null;
+            this.firmasDigitales = {
+                arrendador: null,
+                arrendatario: null
+            };
+            this.init();
+        }
+
+        init() {
+            this.setupEventListeners();
+            this.setupDragDrop();
+            console.log('🖋️ Procesador de Firmas Digitales inicializado');
+        }
+
+        setupEventListeners() {
+            document.getElementById('firmaModalClose').addEventListener('click', () => this.closeModal());
+            document.getElementById('firmaFileInput').addEventListener('change', (e) => {
+                if (e.target.files[0]) this.handleFile(e.target.files[0]);
+            });
+            
+            document.getElementById('firmaModalOverlay').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) this.closeModal();
+            });
+        }
+
+        setupDragDrop() {
+            const uploadArea = document.getElementById('firmaUploadArea');
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                if (e.dataTransfer.files[0]) this.handleFile(e.dataTransfer.files[0]);
+            });
+            uploadArea.addEventListener('click', () => {
+                document.getElementById('firmaFileInput').click();
+            });
+        }
+
+        openModal(type) {
+            console.log(`🖋️ Abriendo modal para: ${type}`);
+            
+            // Validar que todos los datos estén completos
+            if (!this.validateUserData(type)) {
+                return;
+            }
+            
+            this.currentType = type;
+            
+            // Asegurar que el modal esté limpio antes de abrir
+            this.resetModal();
+            
+            // Mostrar modal con delay para asegurar que se renderice
+            setTimeout(() => {
+                const modalOverlay = document.getElementById('firmaModalOverlay');
+                if (modalOverlay) {
+                    modalOverlay.classList.add('active');
+                    console.log('✅ Modal abierto correctamente');
+                } else {
+                    console.error('❌ No se encontró el modal overlay');
+                }
+            }, 50);
+        }
+
+        validateUserData(type) {
+            if (type === 'arrendador') {
+                const requiredFields = ['nombreArrendador', 'rutArrendador'];
+                const emptyFields = [];
+                
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (!field || !field.value.trim()) {
+                        emptyFields.push(fieldId);
+                    }
+                });
+
+                if (emptyFields.length > 0) {
+                    showNotification('Complete los datos del arrendador antes de firmar.', 'warning');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        closeModal() {
+            document.getElementById('firmaModalOverlay').classList.remove('active');
+        }
+
+        resetModal() {
+            this.hideAlert();
+            this.hideLoading();
+            document.getElementById('firmaFileInput').value = '';
+        }
+
+        handleFile(file) {
+            console.log('📁 Procesando archivo:', file.name, file.type, file.size);
+            
+            if (!file.type.startsWith('image/')) {
+                this.showAlert('Por favor selecciona una imagen válida (PNG, JPG, JPEG)', 'error');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                this.showAlert('La imagen es muy grande. Máximo 5MB', 'error');
+                return;
+            }
+
+            this.showLoading();
+            console.log('⏳ Iniciando lectura de archivo...');
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                console.log('✅ Archivo leído exitosamente');
+                this.processImage(e.target.result);
+            };
+            reader.onerror = (e) => {
+                console.error('❌ Error leyendo archivo:', e);
+                this.hideLoading();
+                this.showAlert('Error al leer el archivo', 'error');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        processImage(dataURL) {
+            console.log('🖼️ Procesando imagen...');
+            const img = new Image();
+            img.onload = () => {
+                console.log(`📐 Dimensiones: ${img.width}x${img.height}`);
+                try {
+                    const canvas = this.removeWhiteBackground(img);
+                    this.processedImageData = canvas.toDataURL('image/png');
+                    console.log('✅ Imagen procesada exitosamente');
+                    
+                    this.hideLoading();
+                    this.applySignature();
+                } catch (error) {
+                    console.error('❌ Error procesando imagen:', error);
+                    this.hideLoading();
+                    this.showAlert('Error procesando imagen: ' + error.message, 'error');
+                }
+            };
+            img.onerror = () => {
+                console.error('❌ Error cargando imagen');
+                this.hideLoading();
+                this.showAlert('Error cargando la imagen', 'error');
+            };
+            img.src = dataURL;
+        }
+
+        removeWhiteBackground(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i], g = data[i + 1], b = data[i + 2];
+                
+                const luminosity = 0.299 * r + 0.587 * g + 0.114 * b;
+                const average = (r + g + b) / 3;
+                const maxColor = Math.max(r, g, b);
+                const minColor = Math.min(r, g, b);
+                const colorDiff = maxColor - minColor;
+                const saturation = maxColor > 0 ? (maxColor - minColor) / maxColor : 0;
+                
+                const isWhitish = luminosity > 160;
+                const isGrayish = average > 140 && colorDiff < 40;
+                const isLightColor = minColor > 120;
+                const isNearWhite = r > 180 && g > 180 && b > 180;
+                const isLowSaturation = saturation < 0.15 && average > 130;
+                const isBeige = r > 150 && g > 145 && b > 130 && Math.abs(r-g) < 30;
+                const isPaper = luminosity > 140 && colorDiff < 50;
+                const isYellowish = r > 160 && g > 150 && b < 140 && r > b;
+                
+                if (isWhitish || isGrayish || isLightColor || isNearWhite || isLowSaturation || isBeige || isPaper || isYellowish) {
+                    data[i + 3] = 0;
+                } else {
+                    const factor = 1.8;
+                    const darkness = 0.6;
+                    
+                    data[i] = Math.max(0, Math.min(255, data[i] * factor * darkness));
+                    data[i + 1] = Math.max(0, Math.min(255, data[i + 1] * factor * darkness));
+                    data[i + 2] = Math.max(0, Math.min(255, data[i + 2] * factor * darkness));
+                    data[i + 3] = 255;
+                }
+            }
+            
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i + 3] > 0) {
+                    const r = data[i], g = data[i + 1], b = data[i + 2];
+                    const luminosity = 0.299 * r + 0.587 * g + 0.114 * b;
+                    const average = (r + g + b) / 3;
+                    
+                    if (luminosity > 80 || average > 90) {
+                        data[i + 3] = 0;
+                    } else {
+                        if (luminosity < 40) {
+                            data[i] = Math.min(data[i], 50);
+                            data[i + 1] = Math.min(data[i + 1], 50);
+                            data[i + 2] = Math.min(data[i + 2], 50);
+                        }
+                        data[i + 3] = 255;
+                    }
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            return this.cleanImageBordersAdvanced(canvas);
+        }
+
+        cleanImageBordersAdvanced(canvas) {
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const index = (y * width + x) * 4;
+                    
+                    if (data[index + 3] > 0) {
+                        let visibleNeighbors = 0;
+                        let darkNeighbors = 0;
+                        
+                        for (let dy = -2; dy <= 2; dy++) {
+                            for (let dx = -2; dx <= 2; dx++) {
+                                if (dx === 0 && dy === 0) continue;
+                                if (y + dy >= 0 && y + dy < height && x + dx >= 0 && x + dx < width) {
+                                    const neighborIndex = ((y + dy) * width + (x + dx)) * 4;
+                                    if (data[neighborIndex + 3] > 0) {
+                                        visibleNeighbors++;
+                                        const nLum = 0.299 * data[neighborIndex] + 0.587 * data[neighborIndex + 1] + 0.114 * data[neighborIndex + 2];
+                                        if (nLum < 60) darkNeighbors++;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if (visibleNeighbors < 3 || darkNeighbors < 2) {
+                            data[index + 3] = 0;
+                        }
+                    }
+                }
+            }
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const index = (y * width + x) * 4;
+                    
+                    if (data[index + 3] > 0) {
+                        const r = data[index], g = data[index + 1], b = data[index + 2];
+                        const luminosity = 0.299 * r + 0.587 * g + 0.114 * b;
+                        
+                        if (luminosity > 70) {
+                            data[index + 3] = 0;
+                        }
+                    }
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            return canvas;
+        }
+
+        applySignature() {
+            if (this.currentType && this.processedImageData) {
+                this.firmasDigitales[this.currentType] = this.processedImageData;
+                
+                if (typeof firmasEstado !== 'undefined') {
+                    firmasEstado[this.currentType] = true;
+                }
+                
+                const button = document.getElementById(`firma${this.currentType.charAt(0).toUpperCase() + this.currentType.slice(1)}`);
+                if (button) {
+                    button.classList.add('signed');
+                    button.querySelector('.signature-text').textContent = 'FIRMADO DIGITALMENTE';
+                }
+                
+                this.updateSignaturePreview(this.currentType, this.processedImageData);
+                
+                if (typeof updateProgress === 'function') {
+                    updateProgress();
+                }
+                
+                this.closeModal();
+                showNotification(`Firma digital de ${this.currentType} aplicada correctamente`, 'success');
+            }
+        }
+
+        updateSignaturePreview(type, signatureData) {
+            try {
+                const placeholder = document.getElementById(`signaturePlaceholder${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                const preview = document.getElementById(`signaturePreview${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                
+                if (placeholder && preview) {
+                    placeholder.style.display = 'none';
+                    preview.src = signatureData;
+                    preview.style.display = 'block';
+                    
+                    console.log(`✅ Vista previa de firma actualizada para ${type}`);
+                } else {
+                    console.warn(`⚠️ No se encontraron elementos de vista previa para ${type}`);
+                }
+            } catch (error) {
+                console.error('❌ Error actualizando vista previa:', error);
+            }
+        }
+
+        getSignatureForPDF(type) {
+            return this.firmasDigitales[type];
+        }
+
+        clearSignatures() {
+            this.firmasDigitales.arrendador = null;
+            this.firmasDigitales.arrendatario = null;
+            
+            ['arrendador', 'arrendatario'].forEach(type => {
+                const button = document.getElementById(`firma${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                if (button) {
+                    button.classList.remove('signed');
+                    button.querySelector('.signature-text').textContent = 'FIRMA DIGITAL';
+                }
+                
+                const placeholder = document.getElementById(`signaturePlaceholder${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                const preview = document.getElementById(`signaturePreview${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                
+                if (placeholder && preview) {
+                    placeholder.style.display = 'inline';
+                    preview.style.display = 'none';
+                    preview.src = '';
+                }
+            });
+            
+            console.log('🧹 Firmas y vistas previas limpiadas');
+        }
+
+        showAlert(message, type) {
+            const alert = document.getElementById('firmaAlert');
+            if (alert) {
+                alert.textContent = message;
+                alert.className = `firma-alert ${type}`;
+                alert.style.display = 'block';
+                setTimeout(() => this.hideAlert(), 5000);
+            }
+            console.log(`🚨 Alert ${type}: ${message}`);
+        }
+
+        hideAlert() {
+            document.getElementById('firmaAlert').style.display = 'none';
+        }
+
+        showLoading() {
+            document.getElementById('firmaLoading').classList.add('active');
+        }
+
+        hideLoading() {
+            document.getElementById('firmaLoading').classList.remove('active');
+        }
+    }
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            window.firmaProcessor = new FirmaDigitalProcessor();
+            
+            function setupFirmaButtons() {
+                const btnFirmaArrendador = document.getElementById('firmaArrendador');
+                
+                if (btnFirmaArrendador) {
+                    const newBtnArrendador = btnFirmaArrendador.cloneNode(true);
+                    btnFirmaArrendador.parentNode.replaceChild(newBtnArrendador, btnFirmaArrendador);
+                    
+                    newBtnArrendador.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🖋️ Botón arrendador clickeado');
+                        window.firmaProcessor.openModal('arrendador');
+                    });
+                }
+                
+                console.log('✅ Botones de firma configurados correctamente');
+            }
+        
+        let clearFormIntegrated = false;
+        let validateFormIntegrated = false;
+        let addSignatureIntegrated = false;
+        
+        if (!clearFormIntegrated && typeof window.clearForm === 'function') {
+            const originalClearFormFunction = window.clearForm;
+            window.clearForm = function() {
+                showConfirmDialog(
+                    '¿Está seguro de que desea limpiar todos los campos?',
+                    'Esta acción también removerá las firmas digitales y no se puede deshacer.',
+                    () => {
+                        formFields.forEach(field => {
+                            const element = document.getElementById(field);
+                            if (element) {
+                                element.value = '';
+                                element.classList.remove('rut-valid', 'rut-invalid');
+                            }
+                        });
+                        
+                        if (window.firmaProcessor) {
+                            window.firmaProcessor.clearSignatures();
+                        }
+                        
+                        if (typeof resetSignatures === 'function') {
+                            resetSignatures();
+                        }
+                        
+                        if (typeof updatePreview === 'function') {
+                            updatePreview();
+                        }
+                        
+                        showNotification('Formulario y firmas limpiados correctamente', 'info');
+                    }
+                );
+            };
+            clearFormIntegrated = true;
+            console.log('✅ ClearForm integrado sin duplicados');
+        }
+
+        if (!validateFormIntegrated) {
+            const originalValidateFunction = window.validateFormWithSignatures;
+            
+            window.validateFormWithSignatures = function() {
+                let validation = { valid: true, issues: [] };
+                
+                if (originalValidateFunction && typeof originalValidateFunction === 'function') {
+                    validation = originalValidateFunction();
+                } else {
+                    const emptyFields = validateForm();
+                    if (emptyFields.length > 0) {
+                        validation.issues.push(`Complete ${emptyFields.length} campos faltantes`);
+                        validation.valid = false;
+                    }
+                }
+                
+                if (window.firmaProcessor) {
+                    const firmaArrendador = window.firmaProcessor.getSignatureForPDF('arrendador');
+                    
+                    if (!firmaArrendador) {
+                        validation.issues.push('Falta firma digital del Arrendador');
+                        validation.valid = false;
+                    }
+                }
+                
+                return validation;
+            };
+            validateFormIntegrated = true;
+            console.log('✅ ValidateForm integrado sin duplicados');
+        }
+
+        if (!addSignatureIntegrated) {
+            const originalAddSignatureSection = window.addSignatureSection;
+            
+            window.addSignatureSection = function(doc, y) {
+                console.log('📄 Ejecutando addSignatureSection - versión integrada');
+                
+                if (originalAddSignatureSection && typeof originalAddSignatureSection === 'function') {
+                    originalAddSignatureSection(doc, y);
+                } else {
+                    doc.line(30, y, 85, y);
+                    y += 8;
+                    
+                    doc.setFont('times', 'bold');
+                    doc.setFontSize(11);
+                    doc.text(document.getElementById('nombreArrendador').value, 57.5, y, { align: 'center' });
+                    y += 6;
+                    
+                    doc.setFont('times', 'normal');
+                    doc.setFontSize(9);
+                    doc.text('RUT: ' + document.getElementById('rutArrendador').value, 57.5, y, { align: 'center' });
+                }
+                
+                if (window.firmaProcessor) {
+                    try {
+                        const firmaArrendador = window.firmaProcessor.getSignatureForPDF('arrendador');
+                        
+                        console.log('🔍 Estado firmas:', {
+                            arrendador: !!firmaArrendador
+                        });
+                        
+                        if (firmaArrendador) {
+                            doc.addImage(firmaArrendador, 'PNG', 30, y - 35, 55, 25);
+                            console.log('✅ Firma del arrendador agregada al PDF');
+                        }
+                        
+                        if (firmaArrendador) {
+                            doc.setFont('times', 'italic');
+                            doc.setFontSize(8);
+                            doc.setTextColor(100, 100, 100);
+                            doc.text('Documento con firma digital aplicada', 105, y + 15, { align: 'center' });
+                            doc.setTextColor(0, 0, 0);
+                            console.log('✅ Nota de firma digital agregada');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error agregando firma digital al PDF:', error);
+                    }
+                } else {
+                    console.warn('⚠️ firmaProcessor no disponible para PDF');
+                }
+            };
+            
+            addSignatureIntegrated = true;
+            console.log('✅ AddSignatureSection integrado sin duplicados');
+        }
+            
+            setupFirmaButtons();
+            
+        }, 500);
+        
+        console.log('🎉 Sistema de Firma Digital con problemas solucionados');
+    });
+    </script>
+    
+    <script>
+    console.log('🎯 SISTEMA LIMPIO:');
+    console.log('✅ Procesador de firmas: Activo');
+    console.log('✅ Quitar fondo transparente: Activo'); 
+    console.log('✅ Vista previa: Activa');
+    console.log('❌ Integración PDF: Desactivada (usa código original)');
+    </script>
+</body>
+</html>

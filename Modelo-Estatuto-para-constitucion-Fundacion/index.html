@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Constitución de Fundación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Constitución de Fundación</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de Constitución</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad de Constitución</label>
+                                <input type="text" id="ciudadAutorizacion" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Constitución</label>
+                                <input type="date" id="fechaAutorizacion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL FUNDADOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Fundador</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo del Fundador</label>
+                                <input type="text" id="nombreAutorizante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Fundador</label>
+                                <input type="text" id="rutAutorizante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado Civil</label>
+                                <select id="relacionMenor">
+                                    <option value="">Seleccionar estado civil</option>
+                                    <option value="soltero">Soltero(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="viudo">Viudo(a)</option>
+                                    <option value="divorciado">Divorciado(a)</option>
+                                    <option value="separado">Separado(a)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="nacionalidadMenor" placeholder="Ej: Ingeniero Civil, Comerciante">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Fundador</label>
+                                <input type="text" id="domicilioAutorizante" placeholder="Ej: Av. Providencia 1234, Depto. 56">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaAutorizante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoAcompanante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DE LA FUNDACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🏛️</div>
+                            <h2 class="section-title">Datos de la Fundación</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre de la Fundación</label>
+                                <input type="text" id="nombreMenor" placeholder="Ej: Fundación para el Desarrollo Educativo">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio de la Fundación</label>
+                                <input type="text" id="domicilioMenor" placeholder="Ej: Las Condes 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMenor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Provincia</label>
+                                <input type="text" id="paisDestino" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <input type="text" id="ciudadDestino" placeholder="Ej: Metropolitana">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración</label>
+                                <select id="duracionViaje">
+                                    <option value="">Seleccionar duración</option>
+                                    <option value="indefinida">Indefinida</option>
+                                    <option value="5 años">5 años</option>
+                                    <option value="10 años">10 años</option>
+                                    <option value="15 años">15 años</option>
+                                    <option value="20 años">20 años</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OBJETO Y FINALIDADES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🎯</div>
+                            <h2 class="section-title">Objeto y Finalidades</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Objeto Principal</label>
+                                <select id="motivoViaje">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="educativo">Educativo</option>
+                                    <option value="salud">Salud y Bienestar</option>
+                                    <option value="cultural">Cultural</option>
+                                    <option value="ambiental">Ambiental</option>
+                                    <option value="social">Asistencia Social</option>
+                                    <option value="cientifico">Científico</option>
+                                    <option value="religioso">Religioso</option>
+                                    <option value="deportivo">Deportivo</option>
+                                    <option value="artistico">Artístico</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>RUT de la Fundación</label>
+                                <input type="text" id="rutMenor" placeholder="Se asignará tras constitución">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción Detallada del Objeto</label>
+                                <textarea id="observacionesViaje" rows="4" placeholder="Describa detalladamente las finalidades y objetivos específicos de la fundación, las actividades que realizará y los beneficiarios..."></textarea>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Actividades Económicas Relacionadas</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Describa las actividades económicas que podrá realizar la fundación en relación con sus fines..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PATRIMONIO -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💰</div>
+                            <h2 class="section-title">Patrimonio Inicial</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monto en Pesos Chilenos</label>
+                                <input type="number" id="edadMenor" min="0" placeholder="Ej: 5000000">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Aporte</label>
+                                <input type="date" id="fechaNacimientoMenor">
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de Aporte</label>
+                                <select id="viajaConPasaporte">
+                                    <option value="">Seleccionar forma</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia">Transferencia Bancaria</option>
+                                    <option value="bienes">Bienes Inmuebles</option>
+                                    <option value="valores">Valores Mobiliarios</option>
+                                    <option value="mixto">Mixto</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Banco (si aplica)</label>
+                                <input type="text" id="aerolinea" placeholder="Ej: Banco de Chile">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Descripción de Bienes (si no es dinero)</label>
+                                <input type="text" id="direccionDestino" placeholder="Describa los bienes que se aportarán si no consisten en dinero">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DIRECTORIO INICIAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👥</div>
+                            <h2 class="section-title">Directorio Inicial</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre del Presidente</label>
+                                <input type="text" id="nombreAcompanante" placeholder="Ej: Ana María González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Presidente</label>
+                                <input type="text" id="rutAcompanante" placeholder="Ej: 34.567.890-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración del Directorio</label>
+                                <select id="relacionAcompanante">
+                                    <option value="">Seleccionar duración</option>
+                                    <option value="1 año">1 año</option>
+                                    <option value="2 años">2 años</option>
+                                    <option value="3 años">3 años</option>
+                                    <option value="4 años">4 años</option>
+                                    <option value="5 años">5 años</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Periodicidad de Reuniones</label>
+                                <select id="medioTransporte">
+                                    <option value="">Seleccionar periodicidad</option>
+                                    <option value="mensual">Mensual</option>
+                                    <option value="bimestral">Bimestral</option>
+                                    <option value="trimestral">Trimestral</option>
+                                    <option value="semestral">Semestral</option>
+                                    <option value="anual">Anual</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Vicepresidente</label>
+                                <input type="text" id="numeroVuelo" placeholder="Opcional">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Vicepresidente</label>
+                                <input type="text" id="numeroPasaporte" placeholder="Opcional">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Secretario</label>
+                                <input type="text" id="fechaSalida" placeholder="Nombre completo del secretario">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Tesorero</label>
+                                <input type="text" id="fechaRegreso" placeholder="Nombre completo del tesorero">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAcompanante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA PRESIDENTE</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO PRESIDENTE</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN ADICIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📄</div>
+                            <h2 class="section-title">Información Adicional y Representación</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre del Apoderado para Registro</label>
+                                <input type="text" id="vigenciaPasaporte" placeholder="Persona autorizada para trámites">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Apoderado</label>
+                                <input type="text" id="vigenciaPasaporte" placeholder="RUT del apoderado">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Apoderado</label>
+                                <input type="text" id="vigenciaPasaporte" placeholder="Domicilio completo del apoderado">
+                            </div>
+                            <div class="form-group">
+                                <label>Entidad Beneficiaria en Disolución</label>
+                                <input type="text" id="vigenciaPasaporte" placeholder="Entidad que recibiría bienes en caso de disolución">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Permitir Miembros Colaboradores?</label>
+                                <select id="vigenciaPasaporte">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Observaciones Especiales</label>
+                                <textarea id="vigenciaPasaporte" rows="3" placeholder="Incluya cualquier información adicional relevante para la constitución de la fundación..."></textarea>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">CONSTITUCIÓN DE FUNDACIÓN</div>
+                            <div class="document-subtitle">Escritura Pública de Constitución</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En <span class="highlight" id="prev_ciudadAutorizacion">.........................</span>, a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">20..</span>, siendo las <span class="highlight">.....</span> horas, comparece don(ña) <span class="highlight" id="prev_nombreAutorizante">.........................</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutAutorizante">................</span>, <span class="highlight" id="prev_relacionMenor">.........................</span>, de profesión <span class="highlight" id="prev_nacionalidadMenor">.........................</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioAutorizante">.........................</span>, comuna <span class="highlight" id="prev_comunaAutorizante">..........</span>, manifestando su voluntad de constituir una Fundación de Derecho Privado, sin fin de lucro, denominada <span class="highlight" id="prev_nombreMenor">"........................."</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>TÍTULO I - Del Nombre, Objeto, Domicilio y Duración:</strong> Créase una Fundación de Beneficencia, sin fines de lucro, regida por las normas del Título XXXIII del Libro Primero del Código Civil, por las disposiciones contenidas en la Ley Nº 20.500, que tendrá como domicilio la Comuna de <span class="highlight" id="prev_comunaMenor">..........</span>, Provincia de <span class="highlight" id="prev_paisDestino">......................</span> de la Región <span class="highlight" id="prev_ciudadDestino">......................</span>. El objeto de la Fundación será <span class="highlight" id="prev_observacionesViaje">........................................................................................</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>TÍTULO II - Del Patrimonio:</strong> El patrimonio de la Fundación estará formado por la suma de <span class="highlight" id="prev_edadMenor">................</span> pesos, que el fundador destina y se obliga a aportar a la Fundación tan pronto se inscriba en el Registro Nacional de Personas Jurídicas sin Fines de Lucro. La forma de aporte será <span class="highlight" id="prev_viajaConPasaporte">......................</span>.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                <strong>TÍTULO III - De los Órganos de Administración:</strong> La Fundación será administrada por un Directorio compuesto por un Presidente: <span class="highlight" id="prev_nombreAcompanante">.........................</span>, RUT <span class="highlight" id="prev_rutAcompanante">................</span>, y demás miembros que se designen conforme a los estatutos. El Directorio durará <span class="highlight" id="prev_relacionAcompanante">................</span> y celebrará sesiones <span class="highlight" id="prev_medioTransporte">................</span>.
+                            </p>
+                            
+                            <div style="margin: 40px 0; padding: 20px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #3b82f6; text-align: center; font-size: 1rem;">
+                                    Esta constitución se rige por las disposiciones del Código Civil y la Ley Nº 20.500 sobre Asociaciones y Participación Ciudadana en la Gestión Pública.
+                                </p>
+                            </div>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAutorizante">Firma Fundador</span>
+                                        <img class="signature-preview" id="signaturePreviewAutorizante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Fundador">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAutorizante">_______________</div>
+                                    <div class="signature-role">FUNDADOR</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">
+                                        <span class="highlight" id="prev_nombreAutorizante2">.........................</span><br>
+                                        RUT: <span class="highlight" id="prev_rutAutorizante2">................</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAcompanante">Firma Presidente</span>
+                                        <img class="signature-preview" id="signaturePreviewAcompanante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Presidente">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAcompanante">_______________</div>
+                                    <div class="signature-role">PRESIDENTE DIRECTORIO</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">
+                                        <span class="highlight" id="prev_nombreAcompanante2">.........................</span><br>
+                                        RUT: <span class="highlight" id="prev_rutAcompanante2">................</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; text-align: center;">
+                                <div style="border-top: 2px solid #3b82f6; width: 200px; margin: 0 auto;"></div>
+                                <div style="margin-top: 10px; font-weight: bold; color: var(--text-accent);">
+                                    NOTARIO
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta constitución debe ser presentada ante el Servicio de Registro Civil e Identificación para su inscripción en el Registro Nacional de Personas Jurídicas sin Fines de Lucro. Se recomienda verificar el cumplimiento de todos los requisitos legales y presentar la documentación complementaria necesaria.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF de Constitución</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

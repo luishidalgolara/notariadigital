@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Autorización de Viaje de Menor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Autorización de Viaje de Menor</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL LUGAR Y FECHA -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de la Autorización</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" id="ciudadAutorizacion" placeholder="Ej: Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Autorización</label>
+                                <input type="date" id="fechaAutorizacion">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL AUTORIZANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👨‍👩‍👧‍👦</div>
+                            <h2 class="section-title">Datos del Padre/Madre/Tutor Autorizante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" id="nombreAutorizante" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="rutAutorizante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio</label>
+                                <input type="text" id="domicilioAutorizante" placeholder="Ej: Av. Providencia 1234, Depto. 56">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaAutorizante" placeholder="Ej: Providencia">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con el Menor</label>
+                                <select id="relacionMenor">
+                                    <option value="">Seleccionar relación</option>
+                                    <option value="padre">Padre</option>
+                                    <option value="madre">Madre</option>
+                                    <option value="tutor">Tutor Legal</option>
+                                    <option value="guardian">Guardador</option>
+                                    <option value="abuelo">Abuelo/a</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAutorizante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAutorizante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL MENOR -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👶</div>
+                            <h2 class="section-title">Datos del Menor de Edad</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo del Menor</label>
+                                <input type="text" id="nombreMenor" placeholder="Ej: María Elena González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Menor</label>
+                                <input type="text" id="rutMenor" placeholder="Ej: 23.456.789-0">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input type="date" id="fechaNacimientoMenor">
+                            </div>
+                            <div class="form-group">
+                                <label>Edad</label>
+                                <input type="number" id="edadMenor" min="0" max="17" placeholder="Ej: 15" readonly>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio del Menor</label>
+                                <input type="text" id="domicilioMenor" placeholder="Ej: Las Condes 5678">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comunaMenor" placeholder="Ej: Las Condes">
+                            </div>
+                            <div class="form-group">
+                                <label>Nacionalidad</label>
+                                <input type="text" id="nacionalidadMenor" placeholder="Ej: Chilena" value="Chilena">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL VIAJE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✈️</div>
+                            <h2 class="section-title">Datos del Viaje</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>País de Destino</label>
+                                <input type="text" id="paisDestino" placeholder="Ej: Argentina, Brasil, Estados Unidos">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad de Destino</label>
+                                <input type="text" id="ciudadDestino" placeholder="Ej: Buenos Aires, Miami">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Salida</label>
+                                <input type="date" id="fechaSalida">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Regreso</label>
+                                <input type="date" id="fechaRegreso">
+                            </div>
+                            <div class="form-group">
+                                <label>Duración del Viaje</label>
+                                <input type="number" id="duracionViaje" min="1" placeholder="días" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Motivo del Viaje</label>
+                                <select id="motivoViaje">
+                                    <option value="">Seleccionar motivo</option>
+                                    <option value="turismo">Turismo</option>
+                                    <option value="vacaciones">Vacaciones</option>
+                                    <option value="visita_familiar">Visita Familiar</option>
+                                    <option value="estudios">Estudios</option>
+                                    <option value="competencia">Competencia Deportiva</option>
+                                    <option value="medico">Tratamiento Médico</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones del Viaje</label>
+                                <textarea id="observacionesViaje" rows="3" placeholder="Describa cualquier detalle relevante del viaje, itinerario, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DATOS DEL ACOMPAÑANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">🤝</div>
+                            <h2 class="section-title">Datos del Acompañante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nombre Completo del Acompañante</label>
+                                <input type="text" id="nombreAcompanante" placeholder="Ej: Ana María González López">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Acompañante</label>
+                                <input type="text" id="rutAcompanante" placeholder="Ej: 34.567.890-1">
+                            </div>
+                            <div class="form-group">
+                                <label>Relación con el Menor</label>
+                                <select id="relacionAcompanante">
+                                    <option value="">Seleccionar relación</option>
+                                    <option value="madre">Madre</option>
+                                    <option value="padre">Padre</option>
+                                    <option value="tia">Tía</option>
+                                    <option value="tio">Tío</option>
+                                    <option value="abuela">Abuela</option>
+                                    <option value="abuelo">Abuelo</option>
+                                    <option value="hermana">Hermana</option>
+                                    <option value="hermano">Hermano</option>
+                                    <option value="prima">Prima</option>
+                                    <option value="primo">Primo</option>
+                                    <option value="amigo_familia">Amigo de la Familia</option>
+                                    <option value="profesor">Profesor/a</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" id="telefonoAcompanante" placeholder="Ej: +56 9 1234 5678">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Dirección en Destino</label>
+                                <input type="text" id="direccionDestino" placeholder="Dirección donde se hospedarán en el país de destino">
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaAcompanante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoAcompanante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INFORMACIÓN ADICIONAL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📄</div>
+                            <h2 class="section-title">Información Adicional</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Medio de Transporte</label>
+                                <select id="medioTransporte">
+                                    <option value="">Seleccionar medio</option>
+                                    <option value="avion">Avión</option>
+                                    <option value="bus">Bus</option>
+                                    <option value="auto_particular">Auto Particular</option>
+                                    <option value="tren">Tren</option>
+                                    <option value="barco">Barco</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Vuelo/Viaje</label>
+                                <input type="text" id="numeroVuelo" placeholder="Ej: LA801, opcional">
+                            </div>
+                            <div class="form-group">
+                                <label>Aerolínea/Empresa</label>
+                                <input type="text" id="aerolinea" placeholder="Ej: LATAM, Sky, opcional">
+                            </div>
+                            <div class="form-group">
+                                <label>¿Viaja con Pasaporte?</label>
+                                <select id="viajaConPasaporte">
+                                    <option value="">Seleccionar</option>
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Pasaporte</label>
+                                <input type="text" id="numeroPasaporte" placeholder="Ej: CH1234567">
+                            </div>
+                            <div class="form-group">
+                                <label>Vigencia del Pasaporte</label>
+                                <input type="date" id="vigenciaPasaporte">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Observaciones Adicionales</label>
+                                <textarea id="observacionesAdicionales" rows="3" placeholder="Incluya cualquier información adicional relevante para la autorización..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa del Documento</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">AUTORIZACIÓN DE VIAJE DE MENOR</div>
+                            <div class="document-subtitle">Documento Legal</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                En este acto y por el presente instrumento don(a) <span class="highlight" id="prev_nombreAutorizante">.........................</span>, cédula nacional de identidad número <span class="highlight" id="prev_rutAutorizante">................</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioAutorizante">.........................</span>, comuna <span class="highlight" id="prev_comunaAutorizante">..........</span>, en calidad de <span class="highlight" id="prev_relacionMenor">.........................</span>, expresa que autoriza a su <span class="highlight" id="prev_relacionMenorTexto">hijo(a)</span> <span class="highlight" id="prev_nombreMenor">.........................</span>, C.N.I. N° <span class="highlight" id="prev_rutMenor">................</span>, domiciliado(a) en <span class="highlight" id="prev_domicilioMenor">.........................</span>, comuna <span class="highlight" id="prev_comunaMenor">..........</span>, para que, en calidad de <span class="highlight" id="prev_motivoViaje">turista</span>, se ausente del país en viaje a <span class="highlight" id="prev_paisDestino">......................</span> durante <span class="highlight" id="prev_duracionViaje">XX</span> días.
+                            </p>
+                            
+                            <p style="text-align: justify; margin-bottom: 30px; line-height: 1.8;">
+                                Específicamente, del <span class="highlight" id="prev_fechaSalida">....... de ................. de 2.....</span> al <span class="highlight" id="prev_fechaRegreso">....... de ................. de 2.....</span>, en compañía de su <span class="highlight" id="prev_relacionAcompanante">.........................</span> <span class="highlight" id="prev_nombreAcompanante">.........................</span>, C.N.I. N° <span class="highlight" id="prev_rutAcompanante">................</span>.
+                            </p>
+                            
+                            <div style="margin: 40px 0; padding: 20px; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #ef4444; text-align: center; font-size: 1rem;">
+                                    Esta autorización impide la adopción de los menores autorizados en el extranjero, materia sometida a la Ley Nº 18.703, de la República de Chile.
+                                </p>
+                            </div>
+                            
+                            <p style="text-align: right; margin: 40px 0 60px 0;">
+                                Autorización prestada en <span class="highlight" id="prev_ciudadAutorizacion2">...........</span> a <span class="highlight" id="prev_dia">...</span> de <span class="highlight" id="prev_mes">........</span> de <span class="highlight" id="prev_anio">20..</span>.
+                            </p>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAutorizante">Firma Autorizante</span>
+                                        <img class="signature-preview" id="signaturePreviewAutorizante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Autorizante">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAutorizante">_______________</div>
+                                    <div class="signature-role">FIRMA AUTORIZANTE</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">
+                                        <span class="highlight" id="prev_nombreAutorizante2">.........................</span><br>
+                                        RUT: <span class="highlight" id="prev_rutAutorizante2">................</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="signature-box">
+                                    <div class="signature-line">
+                                        <span class="signature-placeholder" id="signaturePlaceholderAcompanante">Firma Acompañante</span>
+                                        <img class="signature-preview" id="signaturePreviewAcompanante" style="display: none; max-width: 100%; max-height: 50px; object-fit: contain;" alt="Firma Acompañante">
+                                    </div>
+                                    <div class="signature-name" id="prev_firmaAcompanante">_______________</div>
+                                    <div class="signature-role">ACOMPAÑANTE</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">
+                                        <span class="highlight" id="prev_nombreAcompanante2">.........................</span><br>
+                                        RUT: <span class="highlight" id="prev_rutAcompanante2">................</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 60px; text-align: center;">
+                                <div style="border-top: 2px solid #3b82f6; width: 200px; margin: 0 auto;"></div>
+                                <div style="margin-top: 10px; font-weight: bold; color: var(--text-accent);">
+                                    NOTARIO
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                                <strong>Nota:</strong> Esta autorización debe ser presentada ante las autoridades migratorias correspondientes. Se recomienda llevar documentación adicional como pasaporte del menor, certificado de nacimiento y documentos del acompañante. Para viajes internacionales, verificar los requisitos específicos del país de destino.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firmas Digitales</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET DOBLE -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

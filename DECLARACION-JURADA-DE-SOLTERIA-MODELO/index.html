@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notaría Digital - Declaración Jurada de Soltería Modelo 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Botón Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon dark-icon">🌙</span>
+        <span class="theme-icon light-icon">☀️</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Notaría Digital</h1>
+                        <p>Sistema Profesional de Documentos Legales</p>
+                    </div>
+                </div>
+                <div class="header-info">
+                    <span class="document-type">Declaración Jurada de Soltería Modelo 2</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">Completado: 0%</span>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <!-- Sección del Formulario -->
+            <div class="form-section">
+                <div class="form-container">
+                    <!-- DATOS DEL DECLARANTE -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">👤</div>
+                            <h2 class="section-title">Datos del Declarante</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombres y Apellidos Completos</label>
+                                <input type="text" id="nombreCompleto" placeholder="Ej: Juan Carlos Pérez González">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Declarante</label>
+                                <input type="text" id="rutDeclarante" placeholder="Ej: 12.345.678-9">
+                            </div>
+                            <div class="form-group">
+                                <label>Profesión u Oficio</label>
+                                <input type="text" id="profesion" placeholder="Ej: Ingeniero Civil, Contador, etc.">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Domicilio Completo</label>
+                                <input type="text" id="domicilioCompleto" placeholder="Ej: Av. Libertador Bernardo O'Higgins 1449, Santiago Centro">
+                            </div>
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input type="text" id="comuna" placeholder="Ej: Santiago Centro">
+                            </div>
+                            <div class="form-group">
+                                <label>Región</label>
+                                <select id="region">
+                                    <option value="">Seleccione una región</option>
+                                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                                    <option value="Región de Tarapacá">Región de Tarapacá</option>
+                                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                                    <option value="Región de Atacama">Región de Atacama</option>
+                                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                                    <option value="Región de Valparaíso">Región de Valparaíso</option>
+                                    <option value="Región Metropolitana">Región Metropolitana</option>
+                                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                                    <option value="Región del Maule">Región del Maule</option>
+                                    <option value="Región de Ñuble">Región de Ñuble</option>
+                                    <option value="Región del Biobío">Región del Biobío</option>
+                                    <option value="Región de la Araucanía">Región de la Araucanía</option>
+                                    <option value="Región de Los Ríos">Región de Los Ríos</option>
+                                    <option value="Región de Los Lagos">Región de Los Lagos</option>
+                                    <option value="Región de Aysén del General Carlos Ibáñez del Campo">Región de Aysén del General Carlos Ibáñez del Campo</option>
+                                    <option value="Región de Magallanes y de la Antártica Chilena">Región de Magallanes y de la Antártica Chilena</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <div class="button-group">
+                                    <button class="btn-digital-signature half-width" id="firmaOtorgante" type="button">
+                                        <span class="signature-icon">✍️</span>
+                                        <span class="signature-text">FIRMA DIGITAL</span>
+                                    </button>
+                                    <button class="btn-photo-carnet half-width" id="photoOtorgante" type="button">
+                                        <span class="photo-icon">📷</span>
+                                        <span class="photo-text">FOTO CARNET</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIÓN DE ESTADO CIVIL -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">💍</div>
+                            <h2 class="section-title">Estado Civil Declarado</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Estado Civil Actual</label>
+                                <select id="estadoCivil">
+                                    <option value="">Seleccione su estado civil</option>
+                                    <option value="soltero">Soltero/a</option>
+                                    <option value="soltera">Soltera (especificar femenino)</option>
+                                </select>
+                            </div>
+                            <div class="form-group span-2">
+                                <label>Declaración Adicional (Opcional)</label>
+                                <textarea id="declaracionAdicional" rows="4" placeholder="Puede agregar cualquier aclaración adicional sobre su estado civil, como por ejemplo: 'Nunca he contraído matrimonio', 'Sin unión civil vigente', etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LUGAR Y FECHA DE LA DECLARACIÓN -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">📅</div>
+                            <h2 class="section-title">Lugar y Fecha de la Declaración</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Ciudad donde se realiza la declaración</label>
+                                <input type="text" id="ciudadDeclaracion" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de la Declaración</label>
+                                <input type="date" id="fechaDeclaracion">
+                            </div>
+                            <div class="form-group span-2">
+                                <label>País (Opcional - por defecto Chile)</label>
+                                <input type="text" id="paisDeclaracion" placeholder="Chile" value="Chile">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MINISTRO DE FE (OPCIONAL) -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">⚖️</div>
+                            <h2 class="section-title">Ministro de Fe (Opcional)</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label>Nombre Completo del Ministro de Fe</label>
+                                <input type="text" id="nombreMinistroFe" placeholder="Ej: Carlos Alberto Morales López (Opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label>RUT del Ministro de Fe</label>
+                                <input type="text" id="rutMinistroFe" placeholder="Ej: 15.678.901-2 (Opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label>Cargo o Institución</label>
+                                <input type="text" id="cargoMinistroFe" placeholder="Ej: Notario Público, Inspector del Trabajo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECLARACIONES LEGALES -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <div class="section-icon">✅</div>
+                            <h2 class="section-title">Declaraciones Legales</h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionVeracidad" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Declaro bajo fe de juramento que la información proporcionada en esta declaración es verdadera, completa y exacta. Estoy consciente de las responsabilidades legales que implica una declaración falsa.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionEstadoCivil" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Confirmo expresamente que mi estado civil actual es el declarado y que no tengo impedimentos legales para realizar esta declaración jurada de soltería.</span>
+                                </label>
+                            </div>
+                            <div class="form-group span-2">
+                                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; line-height: 1.5;">
+                                    <input type="checkbox" id="declaracionResponsabilidad" style="transform: scale(1.2); margin-top: 4px; flex-shrink: 0;">
+                                    <span>Acepto la plena responsabilidad legal por esta declaración y me comprometo a informar cualquier cambio en mi estado civil que pueda afectar la validez de este documento.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Vista Previa -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-icon">👁️</div>
+                        <h2 class="preview-title">Vista Previa de la Declaración Jurada</h2>
+                    </div>
+                    
+                    <div class="document-preview" id="documentPreview">
+                        <div class="document-header">
+                            <div class="document-title">DECLARACIÓN JURADA DE SOLTERÍA</div>
+                            <div class="document-subtitle">Modelo 2</div>
+                        </div>
+                        
+                        <div class="document-content">
+                            <div style="margin-bottom: 40px; text-align: justify; line-height: 1.8;">
+                                <p style="margin-bottom: 20px;">
+                                    En <strong><span id="prev_ciudadDeclaracion" class="highlight">Santiago</span></strong>, 
+                                    <strong><span id="prev_paisDeclaracion" class="highlight">Chile</span></strong>, al 
+                                    <strong><span id="prev_fechaDeclaracion" class="highlight">__ de _______ de ____</span></strong>.
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Yo, <strong><span id="prev_nombreCompleto" class="highlight">_____________________</span></strong>, 
+                                    <strong><span id="prev_profesion" class="highlight">_____________________</span></strong>, 
+                                    cédula de identidad nacional RUT N° <strong><span id="prev_rutDeclarante" class="highlight">______________</span></strong>, 
+                                    domiciliado en <strong><span id="prev_domicilioCompleto" class="highlight">_________________________________</span></strong>, 
+                                    comuna de <strong><span id="prev_comuna" class="highlight">_____________________</span></strong>, 
+                                    <strong><span id="prev_region" class="highlight">_____________________</span></strong>, mayor de edad.
+                                </p>
+                                
+                                <p style="margin-bottom: 30px; font-weight: bold; text-align: center; font-size: 16px;">
+                                    Expongo
+                                </p>
+                                
+                                <p style="margin-bottom: 20px;">
+                                    Por la presente, vengo a declarar bajo la fe de juramento que mi estado civil actual es 
+                                    <strong><span id="prev_estadoCivil" class="highlight">soltero</span></strong>.
+                                </p>
+                                
+                                <div id="declaracionAdicionalSection" style="margin-bottom: 20px; display: none;">
+                                    <p style="margin-bottom: 20px;">
+                                        Adicionalmente declaro: <strong><span id="prev_declaracionAdicional" class="highlight">_____________________</span></strong>
+                                    </p>
+                                </div>
+                                
+                                <p style="margin-bottom: 60px;">
+                                    Esta declaración la realizo con pleno conocimiento de las responsabilidades legales 
+                                    que conlleva, siendo consciente de que una declaración falsa constituye delito 
+                                    sancionado por la ley.
+                                </p>
+                            </div>
+
+                            <!-- Sección de Firma -->
+                            <div style="margin-top: 80px;">
+                                <div style="text-align: center; margin-bottom: 100px;">
+                                    <div class="signature-line" style="display: inline-block; width: 300px; margin: 0 auto;">
+                                        <span class="signature-placeholder" id="signaturePlaceholderOtorgante">Firma del Declarante</span>
+                                        <img class="signature-preview" id="signaturePreviewOtorgante" style="display: none; max-width: 100%; max-height: 80px; object-fit: contain;" alt="Firma del Declarante">
+                                    </div>
+                                    <div style="margin-top: 15px; border-top: 2px solid var(--text-primary); padding-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">
+                                        <div class="signature-name" id="prev_nombreCompletoFirma">_____________________</div>
+                                        <div class="signature-role">DECLARANTE</div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            RUT N° <span id="prev_rutDeclaranteFirma">______________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Ministro de Fe (Opcional) -->
+                                <div id="ministroFeSection" style="text-align: center; display: none;">
+                                    <div class="signature-line" style="display: inline-block; width: 300px; margin: 0 auto;">
+                                        <span class="signature-placeholder">Firma del Ministro de Fe</span>
+                                    </div>
+                                    <div style="margin-top: 15px; border-top: 2px solid var(--text-primary); padding-top: 15px; max-width: 300px; margin-left: auto; margin-right: auto;">
+                                        <div class="signature-name" id="prev_nombreMinistroFeFirma">_____________________</div>
+                                        <div class="signature-role">MINISTRO DE FE</div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 5px;">
+                                            RUT N° <span id="prev_rutMinistroFeFirma">______________</span>
+                                        </div>
+                                        <div class="signature-role" style="font-size: 12px; margin-top: 3px;">
+                                            <span id="prev_cargoMinistroFeFirma">_____________________</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botones de Acción -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="clearForm()">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Limpiar Formulario</span>
+            </button>
+            <button class="btn btn-primary" onclick="generatePDF()">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Generar PDF con Firma Digital</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PROCESADOR DE FIRMAS DIGITALES -->
+    <div class="firma-modal-overlay" id="firmaModalOverlay">
+        <div class="firma-modal-container">
+            <div class="firma-modal-header">
+                <div class="firma-modal-title">
+                    <div class="firma-modal-icon">✍️</div>
+                    <div class="firma-modal-text">
+                        <h2>Procesador de Firmas Digitales</h2>
+                        <p>Convierte tu firma en papel a digital transparente</p>
+                    </div>
+                </div>
+                <button class="firma-modal-close" id="firmaModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="firma-modal-content">
+                <div class="firma-alert" id="firmaAlert" style="display: none;"></div>
+                
+                <div class="firma-upload-area" id="firmaUploadArea">
+                    <div class="firma-upload-icon">📸</div>
+                    <h3>Sube tu firma escaneada</h3>
+                    <p>Arrastra tu firma aquí o haz clic para seleccionar</p>
+                    <button class="firma-btn firma-btn-primary" onclick="document.getElementById('firmaFileInput').click()">
+                        <span>📁</span>
+                        <span>Seleccionar Imagen</span>
+                    </button>
+                    <input type="file" id="firmaFileInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="firma-loading" id="firmaLoading">
+                    <div class="firma-spinner"></div>
+                    <p>Procesando tu firma...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOTO CARNET -->
+    <div class="photo-modal-overlay" id="photoModalOverlay">
+        <div class="photo-modal-container">
+            <div class="photo-modal-header">
+                <div class="photo-modal-title">
+                    <div class="photo-modal-icon">📷</div>
+                    <div class="photo-modal-text">
+                        <h2>Captura de Carnet Completo</h2>
+                        <p>Fotografíe ambos lados de su carnet de identidad</p>
+                    </div>
+                </div>
+                <button class="photo-modal-close" id="photoModalClose">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="photo-modal-content">
+                <!-- Indicador de Progreso -->
+                <div class="photo-progress" id="photoProgress">
+                    <div class="photo-step" id="stepFrente">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Frente</div>
+                    </div>
+                    <div class="photo-arrow">→</div>
+                    <div class="photo-step pending" id="stepReverso">
+                        <div class="photo-step-icon">📄</div>
+                        <div class="photo-step-text">Reverso</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="photo-loading" id="photoLoading">
+                    <div class="spinner"></div>
+                    <h3>Iniciando cámara...</h3>
+                    <p>Solicitando permisos de acceso a la cámara</p>
+                </div>
+
+                <!-- Camera View -->
+                <div class="camera-container" id="cameraContainer" style="display: none;">
+                    <div class="photo-status" id="photoStatus">
+                        <h3>Posicione el frente de su carnet en el recuadro</h3>
+                        <p>Asegúrese de que el carnet esté bien iluminado y sea legible</p>
+                    </div>
+                    
+                    <div class="camera-view">
+                        <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-overlay frente" id="cameraOverlay"></div>
+                        <canvas id="captureCanvas" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-capture" id="captureBtn">
+                            <span>📸</span>
+                            <span>Capturar Foto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photo Preview -->
+                <div class="camera-container" id="previewContainer" style="display: none;">
+                    <div class="photo-status" id="previewStatus">
+                        <h3>Vista previa del frente</h3>
+                        <p>Revise que la imagen sea clara y legible</p>
+                    </div>
+                    
+                    <img class="photo-preview" id="photoPreview" alt="Vista previa de la foto del carnet">
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="retryBtn">
+                            <span>🔄</span>
+                            <span>Tomar Otra</span>
+                        </button>
+                        <button class="photo-btn photo-btn-next" id="nextBtn">
+                            <span>➡️</span>
+                            <span>Siguiente Paso</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Photos Summary -->
+                <div class="photos-summary" id="photosSummary" style="display: none;">
+                    <div class="photo-status">
+                        <h3>Ambas fotos capturadas correctamente</h3>
+                        <p>Revise las imágenes antes de confirmar</p>
+                    </div>
+                    
+                    <div class="photos-grid">
+                        <div class="photo-card">
+                            <h4>📄 Frente del Carnet</h4>
+                            <img id="summaryFrente" alt="Frente del carnet">
+                        </div>
+                        <div class="photo-card">
+                            <h4>📄 Reverso del Carnet</h4>
+                            <img id="summaryReverso" alt="Reverso del carnet">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="photo-btn photo-btn-retry" id="restartBtn">
+                            <span>🔄</span>
+                            <span>Reiniciar Todo</span>
+                        </button>
+                        <button class="photo-btn photo-btn-confirm" id="confirmAllBtn">
+                            <span>✅</span>
+                            <span>Confirmar Ambas Fotos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
