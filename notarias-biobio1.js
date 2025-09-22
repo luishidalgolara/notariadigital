@@ -5,18 +5,18 @@
 const notariasData = {
     concepcion: [
         {
-            name: "Primera Notaría de Concepción",
-            notario: "Ricardo Salgado Sepúlveda",
-            direccion: "Barros Arana N° 989, Concepción",
-            telefono: "+56 41 210 7130",
-            email: "notario@notariasalgado.cl",
-            horario: "Lunes a Viernes 8:30-17:00",
-            lat: -36.8270,
-            lng: -73.0503,
-            descripcion: "Primera Notaría de Concepción y Conservador de Minas, con amplia experiencia en servicios notariales.",
-            banner: "",
-            fotos: [],
-            serviciosOnline: ["Escrituras Públicas Digitales", "Poderes Especiales", "Legalizaciones", "Testamentos Online"]
+           name: "Primera Notaría de Concepción",
+           notario: "Ricardo Salgado Sepúlveda",
+           direccion: "Barros Arana N° 989, Concepción",
+           telefono: "+56 41 210 7130",
+           email: "notario@notariasalgado.cl",
+           horario: "Lunes a Viernes 8:30-17:00",
+           lat: -36.8270,
+           lng: -73.0503,
+           descripcion: "Primera Notaría de Concepción y Conservador de Minas, con amplia experiencia en servicios notariales.",
+           banner: "BANNER1CP.png",
+           fotos: [],
+           serviciosOnline: ["Escrituras Públicas Digitales", "Poderes Especiales", "Legalizaciones", "Testamentos Online"]
         },
         {
             name: "Segunda Notaría de Concepción", 
@@ -28,7 +28,7 @@ const notariasData = {
             lat: -36.8271,
             lng: -73.0502,
             descripcion: "Segunda Notaría de Concepción con servicios especializados en trámites civiles y comerciales.",
-            banner: "",
+            banner: "BANNER2CP.png",
             fotos: [],
             serviciosOnline: ["Documentos Comerciales", "Constitución de Sociedades", "Poderes Digitales", "Certificados Online"]
         },
@@ -42,7 +42,7 @@ const notariasData = {
             lat: -36.8272,
             lng: -73.0504,
             descripcion: "Tercera Notaría de Concepción especializada en escrituras públicas y documentos legales.",
-            banner: "",
+            banner: "BANNER3CP.png",
             fotos: [],
             serviciosOnline: ["Escrituras de Compraventa", "Mandatos Especiales", "Documentos Inmobiliarios", "Autorizaciones Digitales"]
         },
@@ -57,7 +57,7 @@ const notariasData = {
             lng: -73.0505,
             website: "www.rojasnotaria.cl",
             descripcion: "Cuarta Notaría de Concepción con servicios de turno los sábados y atención especializada.",
-            banner: "",
+            banner: "BANNER4CP.png",
             fotos: [],
             serviciosOnline: ["Servicios de Turno Digital", "Urgencias Notariales", "Poderes de Emergencia", "Documentos Express"]
         },
@@ -71,7 +71,7 @@ const notariasData = {
             lat: -36.8274,
             lng: -73.0506,
             descripcion: "Quinta Notaría de Concepción con atención personalizada y servicios integrales.",
-            banner: "",
+            banner: "BANNER5CP.png",
             fotos: [],
             serviciosOnline: ["Atención Personalizada Online", "Consultas Virtuales", "Documentos Integrales", "Asesoría Digital"]
         },
@@ -85,7 +85,7 @@ const notariasData = {
             lat: -36.8275,
             lng: -73.0507,
             descripcion: "Sexta Notaría de Concepción ubicada en el centro de la ciudad.",
-            banner: "",
+            banner: "BANNER6CP.png",
             fotos: [],
             serviciosOnline: ["Documentos Centralizados", "Gestión Digital", "Trámites Remotos", "Firma Electrónica"]
         },
@@ -100,7 +100,7 @@ const notariasData = {
             lng: -73.0508,
             website: "www.notariagarcia.cl",
             descripcion: "Séptima Notaría de Concepción con más de 20 servicios notariales y módulos virtuales de atención.",
-            banner: "",
+            banner: "BANNER7CP.png",
             fotos: [],
             serviciosOnline: ["20+ Servicios Digitales", "Módulos Virtuales", "Plataforma Integral", "Automatización de Trámites", "Centro de Atención Virtual"]
         },
@@ -115,7 +115,7 @@ const notariasData = {
             lng: -73.0509,
             website: "www.11notariaconcepcion.cl",
             descripcion: "Undécima Notaría de Concepción con servicios modernos y eficientes.",
-            banner: "",
+            banner: "BANNER11CP.png",
             fotos: [],
             serviciosOnline: ["Servicios Modernos", "Eficiencia Digital", "Trámites Ágiles", "Tecnología Avanzada"]
         },
@@ -130,7 +130,7 @@ const notariasData = {
             lng: -73.0510,
             website: "www.notariaavello.cl",
             descripcion: "Duodécima Notaría de Concepción Centro con servicios integrales y atención especializada.",
-            banner: "",
+            banner: "BANNER12CP.png",
             fotos: [],
             serviciosOnline: ["Servicios Integrales Online", "Atención Especializada", "Centro de Documentos", "Gestión Completa"]
         }
@@ -147,7 +147,7 @@ const notariasData = {
             lng: -73.1057,
             website: "www.notariasanpedrodelapaz.cl",
             descripcion: "Notaría oficial de San Pedro de la Paz, brindando servicios notariales completos con más de 15 años de experiencia. Ubicada frente a supermercado con fácil acceso.",
-            banner: "",
+            banner: "BANNER9SP.png",
             fotos: [],
             serviciosOnline: ["Notaría Digital Completa", "Experiencia 15+ Años", "Acceso Fácil y Rápido", "Servicios Especializados", "Atención Prioritaria", "Trámites Express"]
         }
@@ -163,7 +163,7 @@ const notariasData = {
             lat: -36.7236,
             lng: -73.1169,
             descripcion: "Primera Notaría de Talcahuano con amplia experiencia en servicios portuarios y navales.",
-            banner: "",
+            banner: "BANNER1TALC.png",
             fotos: [],
             serviciosOnline: ["Servicios Portuarios", "Documentos Navales", "Trámites Marítimos", "Gestión Especializada"]
         },
@@ -209,7 +209,7 @@ const notariasData = {
             lng: -73.1564,
             website: "www.primeranotariacoronel.cl",
             descripcion: "Primera Notaría de Coronel con servicios rápidos, eficaces y seguros. Acepta pagos con tarjeta débito, crédito y transferencia electrónica.",
-            banner: "",
+            banner: "BANNER1CR.png",
             fotos: [],
             serviciosOnline: ["Servicios Rápidos y Seguros", "Pagos Digitales", "Tarjetas y Transferencias", "Gestión Eficaz"]
         },
@@ -224,7 +224,7 @@ const notariasData = {
             lng: -73.1565,
             website: "www.notaria-coronel.cl",
             descripcion: "Segunda Notaría de Coronel ubicada en el centro de la ciudad con atención los sábados.",
-            banner: "",
+            banner: "BANNER2CR.png",
             fotos: [],
             serviciosOnline: ["Atención Sábados", "Centro Ciudad", "Horarios Extendidos", "Flexibilidad Total"]
         }
@@ -272,7 +272,7 @@ const notariasData = {
             lat: -36.6163,
             lng: -72.9569,
             descripcion: "Notaría de Tomé al servicio de la comuna costera con tradición textil.",
-            banner: "",
+            banner: "BANNERTOME.png",
             fotos: [],
             serviciosOnline: ["Servicios Costeros", "Tradición Textil", "Comuna Especializada", "Gestión Local"]
         }
